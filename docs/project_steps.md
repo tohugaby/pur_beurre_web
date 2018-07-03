@@ -19,7 +19,7 @@
 - create results page view and template
 - create detail product page view and template
 - create an "add to favorites" feature (ajax view ?)
-- create "my product" page view and template
+- create "my products" page view and template
 - create "Legal Notice" page view and template
 - put the website online on heroku
 
