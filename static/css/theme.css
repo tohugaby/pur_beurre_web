@@ -1,0 +1,33 @@
+body {
+    font-family: "Scope One", sans-serif
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: "Open Sans", sans-serif;
+}
+
+img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.founder-image {
+    height: 250px;
+    text-align: center;
+    margin: auto;
+}
+
+.brand-logo {
+    display: inline;
+    height: 40px;
+}
+
+.header-logo {
+    width: 40px;
+}
+
+
