@@ -8,8 +8,11 @@ name = "pypi"
 [packages]
 
 django = "*"
-"psycopg2" = "*"
 django-debug-toolbar = "*"
+"psycopg2-binary" = "*"
+libsass = "*"
+django-compressor = "*"
+django-sass-processor = "*"
 
 
 [dev-packages]

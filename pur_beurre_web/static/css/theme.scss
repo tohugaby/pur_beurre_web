@@ -1,0 +1,155 @@
+$chocolate: rgb(196, 85, 37);
+$mussels-chips:rgb(52, 90, 97);
+$funny-sweets:rgb(134, 235, 230);
+$soft-caramel: rgb(222, 148, 64);
+$biscuit:rgb(232, 167, 93);
+$biscuit_transparent: rgba(232, 167, 93, 0.5);
+
+
+body {
+    font-family: "Scope One", sans-serif
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: "Open Sans", sans-serif;
+}
+
+img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.founder-image {
+    height: 250px;
+    text-align: center;
+    margin: auto;
+}
+
+.brand-logo {
+    display: inline;
+    height: 40px;
+}
+
+.header-logo {
+    width: 28px;
+    color: $soft-caramel;
+}
+
+/* rewrite main theme */
+
+hr {
+    border-color: $chocolate;
+}
+
+hr.light {
+    border-color: #fff;
+}
+
+a {
+    color: $chocolate;
+}
+
+a:hover {
+    color: $soft-caramel;
+}
+
+#mainNav {
+    border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+    background-color: #fff;
+}
+
+#mainNav .navbar-brand {
+    color: $chocolate;
+}
+
+#mainNav .navbar-brand:focus,
+#mainNav .navbar-brand:hover {
+    color: $chocolate;
+}
+
+#mainNav .navbar-nav>li.nav-item>a.nav-link,
+#mainNav .navbar-nav>li.nav-item>a.nav-link:focus {
+    color: $mussels-chips;
+}
+
+#mainNav .navbar-nav>li.nav-item>a.nav-link:hover,
+#mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+    color: $funny-sweets;
+}
+
+#mainNav .navbar-nav>li.nav-item>a.nav-link.active,
+#mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active {
+    color: $funny-sweets !important;
+    background-color: transparent;
+}
+
+#mainNav .navbar-nav>li.nav-item>a.nav-link.active:hover,
+#mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active:hover {
+    background-color: transparent;
+}
+
+@media (min-width: 992px) {
+    #mainNav {
+        border-color: transparent;
+        background-color: #fff;
+    }
+    #mainNav .navbar-brand {
+        color: $chocolate;
+    }
+    #mainNav .navbar-brand:focus,
+    #mainNav .navbar-brand:hover {
+        color: $chocolate;
+    }
+    #mainNav .navbar-nav>li.nav-item>a.nav-link,
+    #mainNav .navbar-nav>li.nav-item>a.nav-link:focus {
+        color: $mussels-chips;
+    }
+    #mainNav .navbar-nav>li.nav-item>a.nav-link:hover,
+    #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+        color: $funny-sweets;
+    }
+    #mainNav.navbar-shrink {
+        border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+        background-color: #fff;
+    }
+    #mainNav.navbar-shrink .navbar-brand {
+        color: $chocolate;
+    }
+    #mainNav.navbar-shrink .navbar-brand:focus,
+    #mainNav.navbar-shrink .navbar-brand:hover {
+        color: $chocolate;
+    }
+    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link,
+    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus {
+        color: $mussels-chips;
+    }
+    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:hover,
+    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+        color: $funny-sweets;
+    }
+}
+
+.text-primary {
+    color: $chocolate !important;
+}
+
+.btn-primary {
+    background-color: $chocolate;
+    border-color: $chocolate;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    color: #fff;
+    background-color: $soft-caramel !important;
+}
+
+.btn-primary:active,
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem $biscuit_transparent !important;
+}

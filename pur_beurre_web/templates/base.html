@@ -1,4 +1,5 @@
 {% load static %}
+{% load sass_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,321 +24,44 @@
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
         rel='stylesheet' type='text/css'>
 
+    <!-- fonts -->
+    <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"> -->
+    <link href="http://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
+
     <!-- Plugin CSS -->
     <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/theme.css' %}" rel="stylesheet">
+    <link href="{% static 'css/creative.css' %}" rel="stylesheet">
+    <link href="{% sass_src 'css/theme.scss' %}" rel="stylesheet">
 
 
-    <!-- fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
+    
 
 </head>
 
 <body id="page-top">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <img alt="logo pur beurre" class="brand-logo" src="{% static 'img/logo_pur_beurre.png' %}"> Pur Beurre</a>
+{% block navbar %}
+    {% include 'base_snippets/navbar.html' %}
+{% endblock %}
 
+{% block header %}
+    {% include 'base_snippets/header.html' %}
+{% endblock %}
 
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+{% block content %}
+    {% include "base_snippets/story.html" %}
+{% endblock %}
 
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">Qui sommes nous ?</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact">Nous contacter</a>
-                    </li>
-                </ul>
+{% block contact %}
+    {% include "base_snippets/contact.html" %}
+{% endblock %}
 
-                <form action="/" method="post" class="navbar-form ml-auto" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Votre produit">
-                    </div>
-                </form>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">
-                            <img class="header-logo" src="{% static 'img/noun_Carrot_29691.svg' %}" alt="Mes aliments">
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">
-                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+{% block footer %}
+{% endblock %}
 
-                        </a>
-                    </li>
-
-                    <!-- <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-                    </li> -->
-
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-
-    <header class="masthead text-center text-white d-flex">
-        <div class="container my-auto">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <h1 class="text-uppercase">
-                        <strong>Du gras, oui, mais de qualité !</strong>
-                    </h1>
-                    <hr>
-                </div>
-                <div class="col-lg-8 mx-auto">
-                    <p class="text-faded mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</p>
-                    <!-- <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a> -->
-                </div>
-                <div class="col-lg-5 mx-auto">
-                    <form action="/" method="post" class="form-inline">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input type="text" id="product" name="product" placeholder="Votre produit" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Rechercher</button>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </header>
-
-    <section class="bg-primary" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="section-heading text-white">Colette et Remy, De la ratatouille aux croissants </h2>
-                    <hr class="light my-4">
-                    <p class="text-faded mb-4">
-                        Pur Beurre est l'initiative de deux amoureux de la gastronomie française, Colette Tatou et Rémy, que vous avez déjà certainement
-                        rencontrés dans notre excellent restaurant Ratatouille.
-                    </p>
-                    <div class="row text-faded mb-4">
-                        <div class="col-lg-6">
-                            <h3>Colette Tatou</h3>
-
-                            <img class="founder-image" src="{% static 'img/colette-tatou-full.png' %}" alt="Colette">
-
-
-                            <blockquote>"Nous aimons tous manger, surtout en France ! Personnellement, une baguette fraîche, du bon fromage
-                                de chèvre et un bon vin rouge me suffisent amplement. Comme tout le monde, je fais mes courses
-                                au supermarché. Mais petit à petit je me suis rendue compte, surtout lorsque nous avons ouvert
-                                le restaurant, que je pouvais remplacer les produits aseptisés que j'avais l'habitude d'acheter
-                                par de bons produits du terroir Et souvent pour le même prix !"</blockquote>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <h3>Remy</h3>
-
-                            <img class="founder-image" src="{% static 'img/ratatouille-portrait.jpg' %}" alt="Remy">
-
-                            <blockquote>
-                                "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader, surtout dans les caves et les cuisines.
-                                Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les ingrédients
-                                de tous les aliments vendus. Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella
-                                matinal par un aliment plus sain, je savais tout de suite où le trouver. L'idée de Pur Beurre
-                                était née !"
-                            </blockquote>
-                        </div>
-                    </div>
-
-
-                    <!-- <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a> -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- <section id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">At Your Service</h2>
-                    <hr class="my-4">
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Sturdy Templates</h3>
-                        <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Ready to Ship</h3>
-                        <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Up to Date</h3>
-                        <p class="text-muted mb-0">We update dependencies to keep things fresh.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box mt-5 mx-auto">
-                        <i class="fa fa-4x fa-heart text-primary mb-3 sr-icons"></i>
-                        <h3 class="mb-3">Made with Love</h3>
-                        <p class="text-muted mb-0">You have to make your websites with love these days!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="p-0" id="portfolio">
-        <div class="container-fluid p-0">
-            <div class="row no-gutters popup-gallery">
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{% static 'img/portfolio/fullsize/1.jpg' %}">
-                        <img class="img-fluid" src="{% static 'img/portfolio/thumbnails/1.jpg' %}" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{% static 'img/portfolio/fullsize/2.jpg' %}">
-                        <img class="img-fluid" src="{% static 'img/portfolio/thumbnails/2.jpg' %}" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{% static 'img/portfolio/fullsize/3.jpg' %}">
-                        <img class="img-fluid" src="{% static 'img/portfolio/thumbnails/3.jpg' %}" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{% static 'img/portfolio/fullsize/4.jpg' %}">
-                        <img class="img-fluid" src="{% static 'img/portfolio/thumbnails/4.jpg' %}" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{% static 'img/portfolio/fullsize/5.jpg' %}">
-                        <img class="img-fluid" src="{% static 'img/portfolio/thumbnails/5.jpg' %}" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{% static 'img/portfolio/fullsize/6.jpg' %}">
-                        <img class="img-fluid" src="{% static 'img/portfolio/thumbnails/6.jpg' %}" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- <section class="bg-dark text-white">
-        <div class="container text-center">
-            <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
-            <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
-        </div>
-    </section> -->
-
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="section-heading">Let's Get In Touch!</h2>
-                    <hr class="my-4">
-                    <p class="mb-5">Ready to start your next project with us? That's great! Give us a call or send us an email and we will
-                        get back to you as soon as possible!</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ml-auto text-center">
-                    <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
-                    <p>123-456-6789</p>
-                </div>
-                <div class="col-lg-4 mr-auto text-center">
-                    <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
-                    <p>
-                        <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+{% block js %}
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -349,6 +73,10 @@
 
     <!-- Custom scripts for this template -->
     <script src="{% static 'js/creative.min.js' %}"></script>
+{% endblock %}
+
+{% block custom_js %}
+{% endblock %}
 
 </body>
 

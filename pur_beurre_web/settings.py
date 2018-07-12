@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'sass_processor',
     'substitute_finder.apps.SubstituteFinderConfig',
 ]
 
@@ -135,10 +136,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "pur_beurre_web/static"),
 ]
+
+# sass preprocessor
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'sass_static')
+STATICFILES_FINDERS += [
+    'sass_processor.finders.CssFinder',
+]
+
 
 # Debug tool bar
 INTERNAL_IPS = ['127.0.0.1']
