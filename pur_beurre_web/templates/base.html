@@ -46,9 +46,13 @@
     {% include 'base_snippets/navbar.html' %}
 {% endblock %}
 
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
 {% block header %}
     {% include 'base_snippets/header.html' %}
 {% endblock %}
+</div>
+</header>
 
 {% block content %}
     {% include "base_snippets/story.html" %}
