@@ -4,8 +4,6 @@ $funny-sweets:rgb(134, 235, 230);
 $soft-caramel: rgb(222, 148, 64);
 $biscuit:rgb(232, 167, 93);
 $biscuit_transparent: rgba(232, 167, 93, 0.5);
-
-
 body {
     font-family: "Scope One", sans-serif
 }
@@ -153,3 +151,13 @@ a:hover {
 .btn-primary:focus {
     box-shadow: 0 0 0 0.2rem $biscuit_transparent !important;
 }
+
+
+
+header.shorthead {
+    height: 400px !important;
+    max-height: 400px !important;
+    min-height: 400px !important;
+    
+}
+

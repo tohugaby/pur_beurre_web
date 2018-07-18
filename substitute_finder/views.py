@@ -16,6 +16,13 @@ def index(request):
     return render(request, 'substitute_finder/index.html', context)
 
 
+def account(request):
+    """
+    Account view
+    """
+    return render(request, 'substitute_finder/account.html', {})
+
+
 def login_view(request):
     """
     View that manage login form 
