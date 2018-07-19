@@ -1,25 +1,25 @@
 {% extends 'base.html' %} {% block header %}
-<form action="{% url 'substitute_finder:login' %}" method="post">
-    {% csrf_token %} {% if errors %}
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {% for key, error in errors %}
-        {% autoescape off %}
-        {{error}}
-        {% endautoescape %}
-        {% endfor %}
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+        <form action="{% url 'substitute_finder:login' %}" method="post">
+            {% csrf_token %} {% if errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {% for key, error in errors %} {% autoescape off %} {{error}} {% endautoescape %} {% endfor %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <label for="{{form.email.id_for_label}}">{{form.email.label}}</label>
+                {{form.email}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.password..id_for_label}}">{{form.password.label}}</label>
+                {{form.password}}
+            </div>
+            <button type="submit" class="btn btn-default">S'identifier</button>
+        </form>
     </div>
-    {% endif %}
-    <div class="form-group">
-        <label for="{{form.email.id_for_label}}">{{form.email.label}}</label>
-        {{form.email}}
-    </div>
-    <div class="form-group">
-        <label for="{{form.password..id_for_label}}">{{form.password.label}}</label>
-        {{form.password}}
-    </div>
-    <button type="submit" class="btn btn-default">S'identifier</button>
-</form>
+</header>
 {% endblock %}
