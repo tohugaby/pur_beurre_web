@@ -175,3 +175,9 @@ LOGGING = {
         }
     }
 }
+
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if os.environ.get('ENV') != 'PRODUCTION':
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
