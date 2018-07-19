@@ -1,6 +1,8 @@
 from django import forms
 from django.forms.utils import ErrorList
 
+from .models import CustomUser
+
 
 class ParagrapheErrorList(ErrorList):
     def __str__(self):
@@ -25,3 +27,16 @@ class CustomLoginForm(forms.Form):
             attrs={'class': 'form-control', 'placeholder': 'Mot de passe'}
         ),
         required=True)
+
+
+class AccountCreateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'username','first_name', 'last_name','password']
+        widgets = {
+            'email':forms.EmailInput( attrs={'class': 'form-control', 'placeholder': 'Email'}), 
+            'username': forms.TextInput( attrs={'class': 'form-control', 'placeholder': 'Pseudo'}),
+            'first_name':forms.TextInput( attrs={'class': 'form-control', 'placeholder': 'Prénom'}), 
+            'last_name':forms.TextInput( attrs={'class': 'form-control', 'placeholder': 'Nom'}),
+            'password': forms.PasswordInput( attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
+        }
