@@ -2,6 +2,7 @@ import logging
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomLoginForm, AccountCreateForm, ParagrapheErrorList
 from .models import CustomUser
@@ -17,6 +18,7 @@ def index(request):
     return render(request, 'substitute_finder/index.html', context)
 
 
+@login_required
 def account(request):
     """
     Account view
@@ -33,16 +35,16 @@ def create_account(request):
         form = AccountCreateForm(request.POST, error_class=ParagrapheErrorList)
         if form.is_valid():
             new_user = CustomUser.objects.create(**form.cleaned_data)
-            login(request,new_user)
+            login(request, new_user)
             return redirect('substitute_finder:index')
         else:
             context['errors'] = form.errors.items()
     else:
         form = AccountCreateForm()
-    
-    context['form'] =  form
 
-    return render(request,'registration/create_account.html',context)
+    context['form'] = form
+
+    return render(request, 'registration/create_account.html', context)
 
 
 def login_view(request):

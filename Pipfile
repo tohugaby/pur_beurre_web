@@ -19,3 +19,4 @@ django-sass-processor = "*"
 
 pylint = "*"
 "autopep8" = "*"
+coverage = "*"

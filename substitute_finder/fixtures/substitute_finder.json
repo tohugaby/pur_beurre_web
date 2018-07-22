@@ -1,0 +1,18 @@
+[ {
+    "model": "substitute_finder.customuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$3XBBeevWACdx$GitcqTviZCHpvUbHdQrkBxTgewODaxncre2N+IVvNkA=",
+        "last_login": "2018-07-19T10:11:31.186Z",
+        "is_superuser": false,
+        "username": "titi",
+        "first_name": "titi",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2018-07-19T10:11:31.012Z",
+        "email": "titi@hotmail.com",
+        "groups": [],
+        "user_permissions": []
+    }
+}]
