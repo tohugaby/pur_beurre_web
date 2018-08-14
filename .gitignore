@@ -113,3 +113,7 @@ sass_static/
 
 # coverage
 .coverage
+
+
+# loaded data
+json_files/
