@@ -169,9 +169,13 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
+        # 'django': {
+        #     'handlers': ['console'],
+        #     'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG')
+        # },
+        'substitute_finder': {
             'handlers': ['console'],
-            'lever': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG')
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG')
         }
     }
 }
@@ -183,43 +187,9 @@ if os.environ.get('ENV') != 'PRODUCTION':
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-# JSON_DIR_NAME = 'json_files'
-# JSON_DIR_PATH = os.path.join(BASE_DIR, JSON_DIR_NAME)
-
-
 # =============================================================================================
 # DATAGETTERS PARAMETERS
 # =============================================================================================
-# DATA_GETTER_PARAMETERS = {
-#     'products': {
-#         'root_url': 'https://fr.openfoodfacts.org/lieu-de-vente/france/lieu-de-fabrication/france.json',
-#         'first_page': 1,
-#         'paginated_data': True,
-#         'page_getter_limit': 0,
-#         'json_data_key': 'products',
-#         'filename': 'Product.json',
-#     },
-#     'product': {
-#         'root_url': 'https://fr.openfoodfacts.org/api/v0/produit/',
-#         'first_page': 1,
-#         'paginated_data': False,
-#         'page_getter_limit': 0,
-#         'json_data_key': 'product',
-#         'filename': 'Product.json',
-#     },
-#     'category': {
-#         'root_url': 'https://fr.openfoodfacts.org/categories.json',
-#         'first_page': 1,
-#         'paginated_data': False,
-#         'page_getter_limit': 0,
-#         'json_data_key': 'tags',
-#         'filename': 'Category.json'
-#     }
-# }
 
-# JSON_FILES_PATH = {
-#     'category': os.path.join(JSON_DIR_PATH, 'Category.json'),
-#     'products': os.path.join(JSON_DIR_PATH, 'Products.json'),
-#     'product': os.path.join(JSON_DIR_PATH, 'Product.json')
-
-# }
+JSON_DIR_NAME = 'json_files'
+JSON_DIR_PATH = os.path.join(BASE_DIR, JSON_DIR_NAME)

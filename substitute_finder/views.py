@@ -1,11 +1,13 @@
 import logging
 
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import CustomLoginForm, AccountCreateForm, ParagrapheErrorList
+from django.shortcuts import redirect, render
+
+from .forms import AccountCreateForm, CustomLoginForm, ParagrapheErrorList
 from .models import CustomUser
+
 # Create your views here.
 LOGGER = logging.getLogger(__name__)
 

@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import CustomUser, Category , Product
+
+from .models import Category, CustomUser, Product
+
 # Register your models here.
 
 
@@ -15,23 +17,22 @@ class CustomUserInline(admin.TabularInline):
 
 
 class CategoryInline(admin.TabularInline):
-    model = Product.categories.through
+    model = Product.categories_tags.through
     verbose_name = 'Catégorie'
     verbose_name_plural = 'Catégories'
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    search_fields = ['product_name','generic_name']
-    list_filter = ['nutrition_grade_fr','stores','categories']
+    search_fields = ['code', 'product_name', 'generic_name']
+    list_filter = ['nutrition_grade_fr', 'categories_tags']
     inlines = [CustomUserInline, CategoryInline]
-    exclude = ('users', 'categories')
-
+    exclude = ('users', 'categories_tags')
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    search_fields = ['name',]
+    search_fields = ['name', ]
 
 
 @admin.register(Product.users.through)

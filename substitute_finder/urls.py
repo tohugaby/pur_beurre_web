@@ -1,7 +1,7 @@
-from django.urls import path, include, resolve
 from django.contrib.auth import views as auth_views
-from .views import index, account, create_account, login_view, logout_view
+from django.urls import include, path, resolve
 
+from .views import account, create_account, index, login_view, logout_view
 
 app_name = 'substitute_finder'
 

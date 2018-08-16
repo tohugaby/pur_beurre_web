@@ -32,11 +32,11 @@ class CustomLoginForm(forms.Form):
 class AccountCreateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['email', 'username','first_name', 'last_name','password']
+        fields = ['email', 'username', 'first_name', 'last_name', 'password']
         widgets = {
-            'email':forms.EmailInput( attrs={'class': 'form-control', 'placeholder': 'Email'}), 
-            'username': forms.TextInput( attrs={'class': 'form-control', 'placeholder': 'Pseudo'}),
-            'first_name':forms.TextInput( attrs={'class': 'form-control', 'placeholder': 'Prénom'}), 
-            'last_name':forms.TextInput( attrs={'class': 'form-control', 'placeholder': 'Nom'}),
-            'password': forms.PasswordInput( attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pseudo'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Prénom'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
         }
