@@ -1,5 +1,6 @@
 import json
 import os
+import copy
 from pprint import pprint
 
 import requests
@@ -51,7 +52,7 @@ class DataGetterTestCase(TestCase):
             os.path.dirname(__file__), 'fake_data')
 
     def test_get_data_for_category_list(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories.json'), 'r') as file:
+        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:
             m.get(Category.get_list_api_url(), text=fake_data_categories)
@@ -110,7 +111,7 @@ class DataWritterTestCase(TestCase):
         file_path = os.path.join(
             settings.JSON_DIR_PATH, "%s_list.json" % Category._meta.model_name)
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories.json'), 'r') as file:
+        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:
             m.get(Category.get_list_api_url(), text=fake_data_categories)
@@ -165,7 +166,7 @@ class DataInsertTestCase(TestCase):
     def test_insert_category_list(self):
         nb_elements_before = Category.objects.count()
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories.json'), 'r') as file:
+        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:
             m.get(Category.get_list_api_url(), text=fake_data_categories)
@@ -177,7 +178,7 @@ class DataInsertTestCase(TestCase):
 
     def test_insert_product_list(self):
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories.json'), 'r') as file:
+        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:
             m.get(Category.get_list_api_url(), text=fake_data_categories)
@@ -200,6 +201,79 @@ class DataInsertTestCase(TestCase):
             m.get(Product.get_list_api_url(3), text=fake_data_products_3)
             data = Product.get_api_data_list()
 
+        # test create
         Product.insert_data(data)
         nb_elements_after = Product.objects.count()
         self.assertGreater(nb_elements_after, nb_elements_before)
+
+        # test update
+        Product.insert_data(data)
+        new_nb_elements_after = Product.objects.count()
+        self.assertEqual(new_nb_elements_after, nb_elements_after)
+
+    def test_insert_product_element(self):
+
+        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+            fake_data_categories = file.read()
+        with requests_mock.Mocker() as m:
+            m.get(Category.get_list_api_url(), text=fake_data_categories)
+            data = Category.get_api_data_list()
+
+        Category.insert_data(data)
+
+        nb_elements_before = Product.objects.count()
+
+        with open(os.path.join(self.FAKE_DATA_PATH, '3222472887966.json'), 'r') as file:
+            fake_data_product = file.read()
+        with requests_mock.Mocker() as m:
+            m.get(Product.get_element_api_url(
+                self.product_id), text=fake_data_product)
+            data = Product.get_api_data_element(self.product_id)
+
+        # test create
+        Product.insert_data(data)
+        nb_elements_after = Product.objects.count()
+        self.assertGreater(nb_elements_after, nb_elements_before)
+        
+        # test update
+        Product.insert_data(data)
+        new_nb_elements_after = Product.objects.count()
+        self.assertEqual(new_nb_elements_after, nb_elements_after)
+
+    # def test_short_cat(self):
+    #     cat_ids = []
+        
+    #     with open(os.path.join(self.FAKE_DATA_PATH, 'products1.json'), 'r') as file:
+    #         fake_data_products_1 = json.loads(file.read())
+    #     with open(os.path.join(self.FAKE_DATA_PATH, 'products2.json'), 'r') as file:
+    #         fake_data_products_2 = json.loads(file.read())
+    #     with open(os.path.join(self.FAKE_DATA_PATH, 'products3.json'), 'r') as file:
+    #         fake_data_products_3 = json.loads(file.read())
+        
+    #     for fd in [fake_data_products_1,fake_data_products_2, fake_data_products_3]: 
+    #         for prod in fd['products']:
+    #             for cat in prod['categories_tags']:
+    #                 cat_ids.append(cat)
+        
+    #     with open(os.path.join(self.FAKE_DATA_PATH, '3222472887966.json'), 'r') as file:
+    #         fake_data_product = json.loads(file.read())
+
+    #     for cat in fake_data_product['product']['categories_tags']:
+    #         cat_ids.append(cat)
+
+    #     cat_ids = set(cat_ids)
+
+    #     with open(os.path.join(self.FAKE_DATA_PATH, 'categories.json'), 'r') as file:
+    #         fake_data_categories = json.loads(file.read())
+
+    #     new_cat_data = copy.deepcopy(fake_data_categories)
+
+    #     for cat in fake_data_categories['tags']:           
+    #         if cat['id'] not in cat_ids:
+    #             new_cat_data['tags'].remove(cat)
+        
+    #     with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'w') as file:
+    #         file.write(json.dumps(new_cat_data))
+
+        
+        

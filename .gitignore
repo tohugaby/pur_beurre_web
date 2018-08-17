@@ -116,5 +116,10 @@ sass_static/
 
 
 # loaded data
-json_files/
+cached_json_files/
+test_cached_json_files/
 last_page.txt
+
+
+# settings
+pur_beurre_web/settings/prod.py
