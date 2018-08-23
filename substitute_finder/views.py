@@ -1,4 +1,6 @@
 import logging
+from itertools import chain, zip_longest
+from pprint import pprint
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -6,7 +8,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 
 from .forms import AccountCreateForm, CustomLoginForm, ParagrapheErrorList
-from .models import CustomUser
+from .helpers import search_product
+from .models import CustomUser, Product
 
 # Create your views here.
 LOGGER = logging.getLogger(__name__)
@@ -16,6 +19,13 @@ def index(request):
     """
     Home view
     """
+    if request.method == 'POST':
+
+        result = search_product(request.POST['product'])
+        
+        pprint(result)
+        print(len(result))
+
     context = {}
     return render(request, 'substitute_finder/index.html', context)
 
@@ -51,7 +61,7 @@ def create_account(request):
 
 def login_view(request):
     """
-    View that manage login form 
+    View that manage login form
     """
     context = {}
     if request.method == 'POST':
