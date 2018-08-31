@@ -25,6 +25,8 @@ $biscuit_transparent: rgba(232, 167, 93, 0.5);
     color: $funny-sweets;
 }
 
+
+
 body {
     font-family: "Scope One", sans-serif
 }
@@ -177,4 +179,17 @@ header.shorthead {
     height: 400px !important;
     max-height: 400px !important;
     min-height: 400px !important;
+}
+
+.nutrition-grade {
+
+    font-size: 1.2em;
+
+
+}
+
+.product-card {
+    width: 200px;;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8em;
 }

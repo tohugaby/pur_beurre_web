@@ -8,6 +8,8 @@ import logging
 import os
 
 import requests
+from django.db.utils import IntegrityError
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -160,7 +162,7 @@ class FromApiUpdateMixin:
         if cls.get_element_api_url(id):
             LOGGER.info("GETTING data for %s from %s" % (cls._meta.model_name, cls.get_element_api_url(id)))
             data = requests.get(cls.get_element_api_url(id))
-            temp_data = data.json() 
+            temp_data = data.json()
             cleaned_data = temp_data
             return cleaned_data[cls.element_data_key]
 
@@ -208,19 +210,19 @@ class FromApiUpdateMixin:
         """
 
         LOGGER.info("CREATE/UPDATE data for %s " % cls._meta.model_name)
-        
+
         # Define model field names
         field_names = [f.name for f in cls._meta.get_fields()]
-        
+
         # Define primary key name
         primary_key_field_name = cls._meta.pk.name
-        
+
         # Define many to many field names
         many_to_many_field_names = [f.name for f in cls._meta.many_to_many]
-        
+
         cleaned_data = []
         data_list = []
-        
+
         # Insert data dict into a list
         if isinstance(data, dict):
             data_list.append(data)
@@ -229,35 +231,41 @@ class FromApiUpdateMixin:
 
         # Deal with data list
         for d in data_list:
-            
+
             # List keys from element in list which are not used by model
             unused_keys = [
                 key for key in d.keys() if key not in field_names]
-            
+
             # Find value of primary key
             pk_value = d[primary_key_field_name]
 
             many_to_many_data = []
-            
+
             # Remove unused keys from element
             for key in unused_keys:
                 del d[key]
-            
+
             # Store keys and values from many to many fields
             for key in many_to_many_field_names:
                 if key in d.keys():
                     many_to_many_data.append({key: d.pop(key)})
-            
+
             # Create or update element in database
             new_element, created = cls.objects.update_or_create(pk=pk_value, defaults=d)
-            
+
             # Add many to many fields values
             for many_to_many_element in many_to_many_data:
                 for key, values in many_to_many_element.items():
                     field = getattr(new_element, key)
                     for value in values:
-                        field.add(value)
-            
+                        try:
+                            field.add(value)
+                        except IntegrityError as integrity_error:
+                            LOGGER.error(
+                                "Error during add of %s in field %s of %s. %s will be ignored." % (
+                                    value, field, new_element, value)
+                            )
+
             LOGGER.info("JUST %s %s in %s " % ("CREATE" if created else "UPDATE", new_element, cls._meta.model_name))
 
 
@@ -282,6 +290,7 @@ class Product(FromApiUpdateMixin, models.Model):
     stores = models.CharField(verbose_name='vendeur', max_length=300)
     nutrition_grade_fr = models.CharField(
         verbose_name='score nutritionnel', max_length=1)
+    image_front_small_url = models.URLField(verbose_name='url de la miniature', max_length=2000)
     last_updated = models.DateTimeField(
         verbose_name='dernière mise à jour', auto_now=True)
     categories_tags = models.ManyToManyField(

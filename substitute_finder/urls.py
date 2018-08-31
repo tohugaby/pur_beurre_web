@@ -1,13 +1,14 @@
 from django.contrib.auth import views as auth_views
 from django.urls import include, path, resolve
 
-from .views import account, create_account, index, login_view, logout_view
+from .views import account,search, create_account, index, login_view, logout_view
 
 app_name = 'substitute_finder'
 
 
 urlpatterns = [
     path('', index, name='index'),
+    path('search',search,name='search'),
     path('account/', account, name='account'),
     path('create-account/', create_account, name='create_account'),
     path('login', login_view, name='login'),

@@ -40,3 +40,8 @@ class AccountCreateForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
         }
+
+
+class ProductsSearchForm(forms.Form):
+    product = forms.CharField(label="Recherche", widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Votre recherche'}), required=True)

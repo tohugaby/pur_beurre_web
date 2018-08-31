@@ -47,6 +47,10 @@ def search_product(terms: str):
 
     # transform terms to list
     base_terms_list = terms.split(' ')
+    print("YOUPI", base_terms_list)
+
+    if base_terms_list == ['']:
+        return []
 
     # create combination of terms
     temp_terms_groups = zip_longest(*[base_terms_list[i:] for i in range(len(base_terms_list))])
