@@ -1,0 +1,104 @@
+{% load static %}
+
+<header class="masthead producthead text-center text-white d-flex" style="background-image:url({{product.image_url}})">
+    <div class="container mt-5 my-auto p-1 white-bg">
+        <div class="row ">
+            <div class="col mx-auto">
+                <h5 class="text-uppercase mussels-chips">
+                    {{product.product_name}}
+                </h5>
+                <hr />
+                <div class="container product-description soft-caramel">
+                    <div class="row mb-3">
+                        <div class="mussels-chips text-left col-md-2 col-sm-12"">Description</div>
+                        <div class="
+                            col-md-10 col-sm-12">{{product.generic_name}}</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="mussels-chips text-left col-md-2 col-sm-12">Catégories</div>
+                        <div class="col-md-10 col-sm-12">{% for cat in product.categories_tags.all %}{{cat}} 
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="mussels-chips text-left col-md-2 col-sm-3">Note nutritionnelle</div>
+                        <div class=" col-md-2 col-sm-6">
+                            {% for grade in grades %}
+                            {% if grade == product.nutrition_grade_fr %}
+                            <span class="nutrition-grade__big">{{grade | upper }}</span>
+                            {% else %}
+                            {{grade | upper }}
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="mussels-chips text-left col-md-2 col-sm-12">Repères nutritionnels pour 100g</div>
+                        <div class="col-md-3 col-sm-6 text-left">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <th>Énergie</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Matières grasses/Lipides</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th><small>dont Acides gras saturés</small></th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Glucides</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th><small>dont Sucres</small></th>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="col-md-3 col-sm-6 text-left">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <th>Fibres alimentaires</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Protéines</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sel</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sodium</th>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="mussels-chips text-left col-2">Lieux d'achat</div>
+                        <div class="col-10 text-left">{{product.stores}}</div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-12 text-center"> Retrouvez ce produit sur <a href="{{product.url}}">OpenFoodFacts</a></div>
+                    </div>
+                </div>
+                <hr>
+                <a href="{%url 'substitute_finder:index' %}">Nouvelle recherche</a>
+            </div>
+        </div>
+    </div>
+</header>

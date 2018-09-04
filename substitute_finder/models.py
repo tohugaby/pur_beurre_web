@@ -202,7 +202,7 @@ class FromApiUpdateMixin:
         return file_path
 
     @classmethod
-    def insert_data(cls, data: list or dict):
+    def insert_data(cls, data: list or dict):  # TODO: add correspondance parameter
         """
         Create as many model instances as needed according to data provided
             :param data: data collection to insert in database
@@ -291,6 +291,7 @@ class Product(FromApiUpdateMixin, models.Model):
     nutrition_grade_fr = models.CharField(
         verbose_name='score nutritionnel', max_length=1)
     image_front_small_url = models.URLField(verbose_name='url de la miniature', max_length=2000)
+    image_url = models.URLField(verbose_name='url de l\'image', max_length=2000)
     last_updated = models.DateTimeField(
         verbose_name='dernière mise à jour', auto_now=True)
     categories_tags = models.ManyToManyField(

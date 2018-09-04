@@ -3,7 +3,7 @@
         <span class="badge badge-light badge-pill chocolate nutrition-grade">{{product.nutrition_grade_fr | upper}}</span>
     </div>
 
-    <a href="#" class="card-body text-center">
+    <a href="{% url 'substitute_finder:product' product.pk %}" class="card-body text-center">
         <span style="display:block;height:120px;">
             <img class="border rounded" src="{{product.image_front_small_url}}" alt="Card image cap" style="max-height:100%;max-width:100%;margin:auto;">
         </span>

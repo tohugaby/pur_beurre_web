@@ -47,7 +47,6 @@ def search_product(terms: str):
 
     # transform terms to list
     base_terms_list = terms.split(' ')
-    print("YOUPI", base_terms_list)
 
     if base_terms_list == ['']:
         return []
@@ -69,13 +68,13 @@ def search_product(terms: str):
 
         # search exact terms combination
         if terms_str not in STOP_WORDS:
-            result += [(product, weigth * 2) for product in Product.objects.filter(product_name__icontains=terms)]
+            result += [(product, weigth * 2) for product in Product.objects.filter(product_name__icontains=terms).exclude(nutrition_grade_fr='')]
 
             # search unordered terms combination
             for word in terms_list:
                 query_filter_list.append(Q(product_name__icontains=word))
 
-            result += [(product, (weigth * 2) - 1) for product in Product.objects.filter(*query_filter_list)]
+            result += [(product, (weigth * 2) - 1) for product in Product.objects.filter(*query_filter_list).exclude(nutrition_grade_fr='')]
 
     # remove duplicate values
     cleaned_result = list(clean_search_result(result))

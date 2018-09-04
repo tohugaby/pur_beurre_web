@@ -86,6 +86,7 @@ class Command(BaseCommand):
             lp_file.write(str(1))
 
         # Remove useless Category and Product instances
+        Product.objects.filter(nutrition_grade_fr='').delete()
         Category.objects.annotate(product_count=Count('product')).filter(product_count__lte=1).delete()
         Category.objects.filter(product__isnull=True).delete()
         Product.objects.filter(categories_tags=None).delete()

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block header %}
+{% include 'substitute_finder/snippets/product_header.html' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="jumbotron">
+        <h1 class="display-4">{{message}}</h1>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% include "substitute_finder/snippets/search_results.html" %}
+{% endblock %}
+
+{% block contact %}
+
+{% endblock %}

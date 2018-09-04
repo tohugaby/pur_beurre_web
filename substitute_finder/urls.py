@@ -1,16 +1,17 @@
 from django.contrib.auth import views as auth_views
 from django.urls import include, path, resolve
 
-from .views import account,search, create_account, index, login_view, logout_view
+from .views import account_view, search_view, product_view, create_account_view, index_view, login_view, logout_view
 
 app_name = 'substitute_finder'
 
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('search',search,name='search'),
-    path('account/', account, name='account'),
-    path('create-account/', create_account, name='create_account'),
+    path('', index_view, name='index'),
+    path('search', search_view, name='search'),
+    path('product/<pk>', product_view, name='product'),
+    path('account/', account_view, name='account'),
+    path('create-account/', create_account_view, name='create_account'),
     path('login', login_view, name='login'),
     path('logout', logout_view, name='logout'),
     path('accounts/password_reset/', auth_views.PasswordResetView.as_view(

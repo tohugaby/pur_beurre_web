@@ -21,11 +21,15 @@
                 </li>
             </ul>
 
-            <form action="/" method="post" class="navbar-form ml-auto" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Votre produit">
-                </div>
-            </form>
+            <form action="{% url 'substitute_finder:search' %}" method="post" class="navbar-form ml-auto">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{form.product}}
+                    </div>
+                    
+                </form>
+
+
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
