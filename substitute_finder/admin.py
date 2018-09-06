@@ -37,4 +37,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product.users.through)
 class FavoriteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['product','customuser']

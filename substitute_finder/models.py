@@ -410,3 +410,4 @@ class Category(FromApiUpdateMixin, models.Model):
 
     def __str__(self):
         return self.name
+

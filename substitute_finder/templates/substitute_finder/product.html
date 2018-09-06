@@ -20,3 +20,19 @@
 {% block contact %}
 
 {% endblock %}
+
+{% block custom_js %}
+
+<script type="application/javascript">
+    $('.add-favorite').on("click", function (ev) {
+        ev.preventDefault()
+        $.get(this.href, function(data){
+            link = ev.target
+            console.log(link)
+            $(link).hide()
+        })
+    })
+</script>
+
+
+{% endblock %}

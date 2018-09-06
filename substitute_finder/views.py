@@ -2,6 +2,7 @@ import logging
 from itertools import chain, zip_longest
 from pprint import pprint
 
+from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -153,3 +154,13 @@ def product_view(request, *args, **kwargs):
         'grades': grades
     }
     return render(request, 'substitute_finder/product.html', content)
+
+
+def add_favorite_view(request, *args, **kwargs):
+    """
+    View that associate product to current user
+    """
+    product = Product.objects.get(pk=kwargs['pk'])
+    product.users.add(request.user)
+
+    return JsonResponse({request.user.pk: kwargs['pk']})

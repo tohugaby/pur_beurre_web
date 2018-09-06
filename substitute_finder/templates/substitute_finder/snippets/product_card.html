@@ -11,8 +11,12 @@
         <span class="card-text mussels-chips">{{product.product_name}}</span>
     </a>
     <div class="card-footer bg-white">
-        <a href="#" class="chocolate">
-            <i class="fa fa-floppy-o"></i>
-        </a>
+
+        {% if user not in product.users.all %}
+        <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
+                <i class="fa fa-floppy-o"></i>
+            </a>
+        {% endif %}
+        
     </div>
 </div>
