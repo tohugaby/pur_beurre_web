@@ -164,3 +164,15 @@ def add_favorite_view(request, *args, **kwargs):
     product.users.add(request.user)
 
     return JsonResponse({request.user.pk: kwargs['pk']})
+
+
+def favorites_view(request):
+    """
+    View that displays user favorites
+    """
+
+    context = {
+        "products": request.user.favorite.all()
+    }
+
+    return render(request, 'substitute_finder/favorites.html', context)
