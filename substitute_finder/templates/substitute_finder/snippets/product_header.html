@@ -17,13 +17,13 @@
 
                     <div class="row mb-3">
                         <div class="mussels-chips text-left col-md-2 col-sm-12">Catégories</div>
-                        <div class="col-md-10 col-sm-12">{% for cat in product.categories_tags.all %}{{cat}} 
+                        <div class="col-md-10 col-sm-12">{% for cat in product.categories_tags.all %}{{cat}}
                             {% endfor %}
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="mussels-chips text-left col-md-2 col-sm-3">Note nutritionnelle</div>
-                        <div class=" col-md-2 col-sm-6">
+                        <div class="mussels-chips text-left col-md-2 col-sm-12">Note nutritionnelle</div>
+                        <div class="col-md-10 col-sm-12">
                             {% for grade in grades %}
                             {% if grade == product.nutrition_grade_fr %}
                             <span class="nutrition-grade__big">{{grade | upper }}</span>
@@ -32,53 +32,56 @@
                             {% endif %}
                             {% endfor %}
                         </div>
+
+                    </div>
+                    <div class="row mb-3">
                         <div class="mussels-chips text-left col-md-2 col-sm-12">Repères nutritionnels pour 100g</div>
-                        <div class="col-md-3 col-sm-6 text-left">
+                        <div class="col-md-5 col-sm-12 text-left">
                             <table class="table table-sm">
                                 <tbody>
                                     <tr>
                                         <th>Énergie</th>
-                                        <td></td>
+                                        <td>{{product.energy_100g|default_if_none:"?" }}{{product.energy_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th>Matières grasses/Lipides</th>
-                                        <td></td>
+                                        <td>{{product.fat_100g|default_if_none:"?" }}{{product.fat_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th><small>dont Acides gras saturés</small></th>
-                                        <td></td>
+                                        <td>{{product.saturated_fat_100g|default_if_none:"?" }}{{product.saturated_fat_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th>Glucides</th>
-                                        <td></td>
+                                        <td>{{product.carbohydrates_100g|default_if_none:"?" }}{{product.carbohydrates_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th><small>dont Sucres</small></th>
-                                        <td></td>
+                                        <td>{{product.sugars_100g|default_if_none:"?" }}{{product.sugars_unit|default_if_none:"" }}</td>
                                     </tr>
                                 </tbody>
                             </table>
 
 
                         </div>
-                        <div class="col-md-3 col-sm-6 text-left">
+                        <div class="col-md-5 col-sm-12 text-left">
                             <table class="table table-sm">
                                 <tbody>
                                     <tr>
                                         <th>Fibres alimentaires</th>
-                                        <td></td>
+                                        <td>{{product.fiber_100g|default_if_none:"?" }}{{product.fiber_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th>Protéines</th>
-                                        <td></td>
+                                        <td>{{product.proteins_100g|default_if_none:"?" }}{{product.proteins_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th>Sel</th>
-                                        <td></td>
+                                        <td>{{product.salt_100g|default_if_none:"?" }}{{product.salt_unit|default_if_none:"" }}</td>
                                     </tr>
                                     <tr>
                                         <th>Sodium</th>
-                                        <td></td>
+                                        <td>{{product.sodium_100g|default_if_none:"?" }}</td>
                                     </tr>
 
                                 </tbody>

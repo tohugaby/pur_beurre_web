@@ -8,15 +8,35 @@ import logging
 import os
 
 import requests
-from django.db.utils import IntegrityError
-
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.utils import IntegrityError
 
 __author__ = 'Tom Gabrièle'
 
 LOGGER = logging.getLogger(__name__)
+
+
+def find_dict_value_for_nested_key(searched_key, container):
+    """
+    Find a tuple key,value for provided searched_key even if it is in nested dictionnaries.
+    :param container: object that contains searched searched_key
+    :type container: dict or list
+    :param searched_key: the key used to find value
+    :type searched_key: str
+    """
+    if hasattr(container, 'items'):
+        for k, v in container.items():
+            if k == searched_key:
+                yield k, v
+            elif isinstance(v, dict):
+                for result in find_dict_value_for_nested_key(searched_key, v):
+                    yield result
+            elif isinstance(v, list):
+                for d in v:
+                    for result in find_dict_value_for_nested_key(searched_key, d):
+                        yield result
 
 
 class CustomUser(AbstractUser):
@@ -41,6 +61,10 @@ class FromApiUpdateMixin:
     paginated_data = True
     list_data_key = ''
     element_data_key = ''
+    field_correspondances = {
+        # json dict field : model field name
+    }
+    strict_required_field = []
 
     @classmethod
     def get_list_api_url(cls, page: int=1):
@@ -70,7 +94,7 @@ class FromApiUpdateMixin:
     @classmethod
     def get_api_data_list(cls, nb_pages: int=None, start_page: int=1, from_cache: bool=False):
         """
-        Get data list from web api for model according to number of pages and start page constraints. 
+        Get data list from web api for model according to number of pages and start page constraints.
         Allow to get data from cache when it's possible.
             :param nb_pages : for paginated data list, indicate the max number of page to recover
             :type nb_pages: int
@@ -155,7 +179,7 @@ class FromApiUpdateMixin:
         """
         Get data from api for an element according to its id.
             :param id: element id
-            :type id: str 
+            :type id: str
         """
 
         # Check if api url exists for element
@@ -171,7 +195,7 @@ class FromApiUpdateMixin:
         """
         Write provided data into a file named according to type of provided data and custom suffix.
             :param data: data collection to write in file
-            :type data: list or dict 
+            :type data: list or dict
             :param custom_suffix: a suffix to custom file name
             :type custom_suffix: str
         """
@@ -202,7 +226,7 @@ class FromApiUpdateMixin:
         return file_path
 
     @classmethod
-    def insert_data(cls, data: list or dict):  # TODO: add correspondance parameter
+    def insert_data(cls, data: list or dict, strict_required_field_mode=False):
         """
         Create as many model instances as needed according to data provided
             :param data: data collection to insert in database
@@ -213,6 +237,9 @@ class FromApiUpdateMixin:
 
         # Define model field names
         field_names = [f.name for f in cls._meta.get_fields()]
+        for key in cls.field_correspondances.keys():
+            field_names.append(key)
+            field_names.remove(cls.field_correspondances[key])
 
         # Define primary key name
         primary_key_field_name = cls._meta.pk.name
@@ -231,10 +258,32 @@ class FromApiUpdateMixin:
 
         # Deal with data list
         for d in data_list:
+            value_dict = {}
+            for field in field_names:
+                result = [result for result in find_dict_value_for_nested_key(field, d)]
+                if result:
+                    if field in cls.field_correspondances.keys():
+                        new_key = cls.field_correspondances[field]
+                        value_dict[new_key] = result[0][1]
+                    else:
+                        value_dict[field] = result[0][1]
 
+            # ignore element if strict mode is activated and value of strict_required_field are not provided
+            ignore_element = False
+            if strict_required_field_mode:
+
+                empty_value_dict = {key: value for key, value in value_dict.items() if value is None or value == ''}
+                for key in empty_value_dict.keys():
+                    if key in cls.strict_required_field:
+                        ignore_element = True
+
+            if ignore_element:
+                LOGGER.warning("STRICT MODE is activated data for %s : %s will be ignored" %
+                               (cls._meta.model_name, value_dict))
+                continue
             # List keys from element in list which are not used by model
-            unused_keys = [
-                key for key in d.keys() if key not in field_names]
+            # unused_keys = [
+            #     key for key in d.keys() if key not in field_names]
 
             # Find value of primary key
             pk_value = d[primary_key_field_name]
@@ -242,16 +291,16 @@ class FromApiUpdateMixin:
             many_to_many_data = []
 
             # Remove unused keys from element
-            for key in unused_keys:
-                del d[key]
+            # for key in unused_keys:
+            #     del d[key]
 
             # Store keys and values from many to many fields
             for key in many_to_many_field_names:
-                if key in d.keys():
-                    many_to_many_data.append({key: d.pop(key)})
+                if key in value_dict.keys():
+                    many_to_many_data.append({key: value_dict.pop(key)})
 
             # Create or update element in database
-            new_element, created = cls.objects.update_or_create(pk=pk_value, defaults=d)
+            new_element, created = cls.objects.update_or_create(pk=pk_value, defaults=value_dict)
 
             # Add many to many fields values
             for many_to_many_element in many_to_many_data:
@@ -278,6 +327,16 @@ class Product(FromApiUpdateMixin, models.Model):
     element_url_template = 'https://fr.openfoodfacts.org/api/v0/produit/{id}.json'
     list_data_key = 'products'
     element_data_key = 'product'
+    field_correspondances = {
+        'saturated-fat_100g': 'saturated_fat_100g',
+        'saturated-fat_unit': 'saturated_fat_unit'
+    }
+    strict_required_field = [
+        'generic_name', 'energy_100g', 'sugars_100g', 'sodium_100g', 'carbohydrates_100g', 'salt_100g', 'proteins_100g',
+        'fat_100g', 'fiber_100g', 'saturated_fat_100g', 'nutrition_grade_fr', 'energy_100g', 'sugars_100g',
+        'sodium_100g', 'carbohydrates_100g', 'salt_100g', 'proteins_100g', 'fat_100g', 'fiber_100g',
+        'saturated_fat_100g', 'nutrition_grade_fr'
+    ]
 
     code = models.CharField(
         primary_key=True, verbose_name='identifiant', max_length=300)
@@ -292,6 +351,29 @@ class Product(FromApiUpdateMixin, models.Model):
         verbose_name='score nutritionnel', max_length=1)
     image_front_small_url = models.URLField(verbose_name='url de la miniature', max_length=2000)
     image_url = models.URLField(verbose_name='url de l\'image', max_length=2000)
+    energy_100g = models.CharField(verbose_name="Valeur énergétique pour 100g", blank=True, null=True, max_length=300)
+    sugars_100g = models.CharField(verbose_name="Sucre pour 100g", blank=True, null=True, max_length=300)
+    sodium_100g = models.CharField(verbose_name="Sodium pour 100g", blank=True, null=True, max_length=300)
+    carbohydrates_100g = models.CharField(verbose_name="Glucides pour 100g",
+                                          blank=True, null=True, max_length=300)
+    salt_100g = models.CharField(verbose_name="Sel pour 100g", blank=True, null=True, max_length=300)
+    proteins_100g = models.CharField(verbose_name="Protéines pour 100g", blank=True, null=True, max_length=300)
+    fat_100g = models.CharField(verbose_name="Matières grasses pour 100g", blank=True, null=True, max_length=300)
+    fiber_100g = models.CharField(verbose_name="Fibres pour 100g", blank=True, null=True, max_length=300)
+    saturated_fat_100g = models.CharField(verbose_name="Acides gras saturés pour 100g",
+                                          blank=True, null=True, max_length=300)
+
+    energy_unit = models.CharField(verbose_name="Unité valeur énergétique", blank=True, null=True, max_length=300)
+    sugars_unit = models.CharField(verbose_name="Unité sucre", blank=True, null=True, max_length=300)
+    carbohydrates_unit = models.CharField(verbose_name="Unité glucides",
+                                          blank=True, null=True, max_length=300)
+    salt_unit = models.CharField(verbose_name="Unité sel", blank=True, null=True, max_length=300)
+    proteins_unit = models.CharField(verbose_name="Unité protéines", blank=True, null=True, max_length=300)
+    fat_unit = models.CharField(verbose_name="Unité matières grasses", blank=True, null=True, max_length=300)
+    fiber_unit = models.CharField(verbose_name="Unité fibres alimentaires", blank=True, null=True, max_length=300)
+    saturated_fat_unit = models.CharField(verbose_name="Unité acides gras saturés",
+                                          blank=True, null=True, max_length=300)
+
     last_updated = models.DateTimeField(
         verbose_name='dernière mise à jour', auto_now=True)
     categories_tags = models.ManyToManyField(

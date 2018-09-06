@@ -205,23 +205,37 @@ header.shorthead {
 }
 
 header.producthead {
-    height: 800px !important;
+    height: 850px !important;
     min-height: 400px !important;
 
-    @media screen and (max-width: 960px) {
-        margin-bottom: 100px;
+    @media screen and (max-width: 1200px) {
+        // margin-bottom: 100px;
     }
 
-    @media screen and (max-width:720px) {
-        margin-bottom: 200px;
+    @media screen and (max-width: 992px) {
+        height: 900px !important;
+        // margin-bottom: 200px;
     }
 
-    @media screen and (max-width:480px) {
-        margin-bottom: 300px;
+    @media screen and (max-width: 768px) {
+        height: 1200px !important;
+        // margin-bottom: 350px;
     }
 
-    @media screen and (max-width:320px) {
-        margin-bottom: 400px;
+    @media screen and (max-width: 576px) {
+        height: 1300px !important;
+        // margin-bottom: 500px;
+    }
+
+    @media screen and (max-width: 300px) {
+        height: 1500px !important;
+        // margin-bottom: 500px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .producthead .container {
+        margin-top: 90px !important;
     }
 }
 
