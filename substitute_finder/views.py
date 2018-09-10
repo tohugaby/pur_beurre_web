@@ -176,3 +176,10 @@ def favorites_view(request):
     }
 
     return render(request, 'substitute_finder/favorites.html', context)
+
+
+def legal_view(request):
+    """
+    View that displays legal stuff.
+    """
+    return render(request, 'legal_stuff.html')

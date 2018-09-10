@@ -36,30 +36,31 @@
     <link href="{% sass_src 'css/theme.scss' %}" rel="stylesheet">
 
 
-    
+
 
 </head>
 
 <body id="page-top">
 
-{% block navbar %}
+    {% block navbar %}
     {% include 'base_snippets/navbar.html' %}
-{% endblock %}
+    {% endblock %}
 
-{% block header %}
-{% endblock %}
+    {% block header %}
+    {% endblock %}
 
 
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 
-{% block contact %}
-{% endblock %}
+    {% block contact %}
+    {% endblock %}
 
-{% block footer %}
-{% endblock %}
+    {% block footer %}
+    {% include 'base_snippets/footer.html' %}
+    {% endblock %}
 
-{% block js %}
+    {% block js %}
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -71,10 +72,10 @@
 
     <!-- Custom scripts for this template -->
     <script src="{% static 'js/creative.min.js' %}"></script>
-{% endblock %}
+    {% endblock %}
 
-{% block custom_js %}
-{% endblock %}
+    {% block custom_js %}
+    {% endblock %}
 
 </body>
 

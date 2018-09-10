@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import include, path, resolve
 
-from .views import account_view, search_view, product_view, create_account_view, index_view, login_view, logout_view, add_favorite_view, favorites_view
+from .views import account_view, search_view, product_view, create_account_view, index_view, login_view, logout_view, add_favorite_view, favorites_view, legal_view
 
 app_name = 'substitute_finder'
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('product/<pk>', product_view, name='product'),
     path('add-favorite/<pk>', add_favorite_view, name='add_favorite'),
     path('favorites', favorites_view, name='favorites'),
+    path('legal', legal_view, name='legal'),
 
     path('account/', account_view, name='account'),
     path('create-account/', create_account_view, name='create_account'),
