@@ -2,12 +2,14 @@ import logging
 from itertools import chain, zip_longest
 from pprint import pprint
 
-from django.http import HttpResponse, JsonResponse
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
 from django.db.models import Q, QuerySet
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 
 from .forms import (AccountCreateForm, CustomLoginForm, ParagrapheErrorList,
@@ -94,18 +96,23 @@ def search_view(request, *args, **kwargs):
     """
     Search result view.
     """
+
     context = {}
     if request.method == 'POST':
         form = ProductsSearchForm(request.POST, error_class=ParagrapheErrorList)
 
         if form.is_valid():
-
-            context['search'] = form.cleaned_data['product']
-
+            search = form.cleaned_data['product']
+            context['search'] = search
+            request.session['last_search'] = search
             result = search_product(request.POST['product'])
 
-            context['products'] = [product[0] for product in result]
-            request.session['products'] = [product[0].pk for product in result]
+            products = [product[0] for product in result]
+            paginator = Paginator(products, settings.MAX_RESULT_PER_PAGE)
+
+            context['products'] = paginator.get_page(1)
+
+            request.session['last_products'] = [product[0].pk for product in result]
             if len(result) == 1:
                 return render(request, 'substitute_finder/product.html', context)
             if len(result) == 0:
@@ -120,7 +127,12 @@ def search_view(request, *args, **kwargs):
         return redirect("/")
 
     else:
-        return redirect("/")
+        products = Product.objects.filter(pk__in=request.session['last_products'])
+        paginator = Paginator(products, settings.MAX_RESULT_PER_PAGE)
+        page = request.GET.get('page')
+        context['products'] = paginator.get_page(page)
+        context['search'] = request.session['last_search']
+        return render(request, 'substitute_finder/product_list.html', context)
 
 
 def product_view(request, *args, **kwargs):
@@ -133,23 +145,26 @@ def product_view(request, *args, **kwargs):
     products_query_list = []
     for category in categories:
         products_query_list.append(category.product_set.filter(
-            nutrition_grade_fr__lt=product.nutrition_grade_fr, pk__in=request.session['products']).exclude(nutrition_grade_fr=''))
+            nutrition_grade_fr__lt=product.nutrition_grade_fr, pk__in=request.session['last_products']).exclude(nutrition_grade_fr=''))
     # products = Product.objects.filter(
-    #     nutrition_grade_fr__lt=product.nutrition_grade_fr, pk__in=request.session['products']).exclude(nutrition_grade_fr='').order_by('nutrition_grade_fr')
+    #     nutrition_grade_fr__lt=product.nutrition_grade_fr, pk__in=request.session['last_products']).exclude(nutrition_grade_fr='').order_by('nutrition_grade_fr')
     products = sorted(list(set(chain(*products_query_list))), key=lambda x: x.nutrition_grade_fr)
 
     queryset_list = []
     for category in categories:
         queryset_list.append(category.product_set.filter(
-            nutrition_grade_fr__lt=product.nutrition_grade_fr).exclude(pk__in=request.session['products']).exclude(nutrition_grade_fr=''))
+            nutrition_grade_fr__lt=product.nutrition_grade_fr).exclude(pk__in=request.session['last_products']).exclude(nutrition_grade_fr=''))
     others = sorted(list(set(chain(*queryset_list))), key=lambda x: x.nutrition_grade_fr)
+
+    paginator = Paginator(others, settings.MAX_RESULT_PER_PAGE)
+    page = request.GET.get('page')
 
     grades = sorted([value['nutrition_grade_fr'] for value in Product.objects.values('nutrition_grade_fr').distinct()])
 
     content = {
         'product': product,
         'products': products,
-        'others': others,
+        'others': paginator.get_page(page),
         'categories': categories,
         'grades': grades
     }

@@ -193,3 +193,8 @@ if os.environ.get('ENV') != 'PRODUCTION':
 
 JSON_DIR_NAME = 'cached_json_files'
 JSON_DIR_PATH = os.path.join(BASE_DIR, JSON_DIR_NAME)
+
+
+
+# SEARCH SETTINGS
+MAX_RESULT_PER_PAGE = 15
