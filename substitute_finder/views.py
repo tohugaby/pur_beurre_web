@@ -127,12 +127,15 @@ def search_view(request, *args, **kwargs):
         return redirect("/")
 
     else:
-        products = Product.objects.filter(pk__in=request.session['last_products'])
-        paginator = Paginator(products, settings.MAX_RESULT_PER_PAGE)
-        page = request.GET.get('page')
-        context['products'] = paginator.get_page(page)
-        context['search'] = request.session['last_search']
-        return render(request, 'substitute_finder/product_list.html', context)
+        if 'last_products' and 'last_search' in request.session:
+            products = Product.objects.filter(pk__in=request.session['last_products'])
+            paginator = Paginator(products, settings.MAX_RESULT_PER_PAGE)
+            page = request.GET.get('page')
+            context['products'] = paginator.get_page(page)
+            context['search'] = request.session['last_search']
+            return render(request, 'substitute_finder/product_list.html', context)
+        else:
+            return redirect("/")
 
 
 def product_view(request, *args, **kwargs):
@@ -170,7 +173,7 @@ def product_view(request, *args, **kwargs):
     }
     return render(request, 'substitute_finder/product.html', content)
 
-
+@login_required
 def add_favorite_view(request, *args, **kwargs):
     """
     View that associate product to current user
@@ -180,7 +183,7 @@ def add_favorite_view(request, *args, **kwargs):
 
     return JsonResponse({request.user.pk: kwargs['pk']})
 
-
+@login_required
 def favorites_view(request):
     """
     View that displays user favorites
