@@ -12,6 +12,9 @@ django-compressor = "*"
 django-sass-processor = "*"
 requests = "*"
 requests-mock = "*"
+whitenoise = "*"
+dj-database-url = "*"
+gunicorn = "*"
 
 [dev-packages]
 pylint = "*"

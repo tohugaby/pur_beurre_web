@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'pur_beurre_web.urls'
@@ -78,12 +78,6 @@ WSGI_APPLICATION = 'pur_beurre_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -119,9 +113,6 @@ AUTH_USER_MODEL = 'substitute_finder.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-# LANGUAGE_CODE = 'en-us'
-
-# TIME_ZONE = 'UTC'
 
 LANGUAGE_CODE = 'fr'
 
@@ -184,8 +175,6 @@ LOGGING = {
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-if os.environ.get('ENV') != 'PRODUCTION':
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # =============================================================================================

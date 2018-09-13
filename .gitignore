@@ -122,4 +122,8 @@ last_page.txt
 
 
 # settings
-pur_beurre_web/settings/prod.py
+# pur_beurre_web/settings/prod.py
+
+
+# secret_key
+secret_key.txt
