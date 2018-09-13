@@ -14,8 +14,11 @@ else:
     with open(SECRET_KEY_FILE_PATH, 'w') as secret:
         secret.write(SECRET_KEY)
 
+if os.environ.get('DEBUG'):
+    DEBUG = os.environ.get('DEBUG')
+else:
+    DEBUG = False
 
-DEBUG = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
