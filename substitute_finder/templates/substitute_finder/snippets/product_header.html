@@ -6,11 +6,13 @@
             <div class="col mx-auto">
                 <h5 class="text-uppercase mussels-chips">
                     {{product.product_name}}
+                    {% if  user.is_authenticated %} 
                     {% if user not in product.users.all %}
-        <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
-                <i class="fa fa-floppy-o"></i>
-            </a>
-        {% endif %}
+                    <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
+                        <i class="fa fa-floppy-o"></i>
+                    </a>
+                    {% endif %}
+                    {% endif %}
                 </h5>
                 <hr />
                 <div class="container product-description soft-caramel">

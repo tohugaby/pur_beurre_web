@@ -12,11 +12,14 @@
     </a>
     <div class="card-footer bg-white">
 
+        {% if user.is_authenticated %}
         {% if user not in product.users.all %}
         <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
-                <i class="fa fa-floppy-o"></i>
-            </a>
+            <i class="fa fa-floppy-o"></i>
+        </a>
         {% endif %}
-        
+        {% endif %}
+
+
     </div>
 </div>
