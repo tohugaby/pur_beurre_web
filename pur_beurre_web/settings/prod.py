@@ -15,7 +15,7 @@ else:
         secret.write(SECRET_KEY)
 
 if os.environ.get('DEBUG'):
-    DEBUG = os.environ.get('DEBUG')
+    DEBUG = True if os.environ.get('DEBUG') == 'True' else False
 else:
     DEBUG = False
 
