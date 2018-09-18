@@ -173,6 +173,7 @@ def product_view(request, *args, **kwargs):
     }
     return render(request, 'substitute_finder/product.html', content)
 
+
 @login_required
 def add_favorite_view(request, *args, **kwargs):
     """
@@ -182,6 +183,7 @@ def add_favorite_view(request, *args, **kwargs):
     product.users.add(request.user)
 
     return JsonResponse({request.user.pk: kwargs['pk']})
+
 
 @login_required
 def favorites_view(request):
@@ -200,4 +202,4 @@ def legal_view(request):
     """
     View that displays legal stuff.
     """
-    return render(request, 'legal_stuff.html')
+    return render(request, 'substitute_finder/legal_stuff.html')

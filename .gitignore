@@ -104,9 +104,8 @@ venv.bak/
 .mypy_cache/
 
 # django generated static files
-static/
-!static/.gitignore
 sass_static/
+staticfiles/
 
 # vscode
 .vscode
