@@ -128,3 +128,7 @@ last_page.txt
 
 # secret_key
 secret_key.txt
+
+
+# dumps
+substitute_finder/dumps
