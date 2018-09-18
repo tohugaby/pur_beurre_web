@@ -20,7 +20,10 @@ else:
     DEBUG = False
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+
+
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 ALLOWED_HOSTS = ['purbeurretg.herokuapp.com']
 

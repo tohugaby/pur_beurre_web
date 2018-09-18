@@ -15,6 +15,7 @@ requests-mock = "*"
 whitenoise = "*"
 dj-database-url = "*"
 gunicorn = "*"
+"django-sendgrid-v5" = "*"
 
 [dev-packages]
 pylint = "*"
