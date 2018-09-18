@@ -22,7 +22,7 @@ else:
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-ALLOWED_HOSTS = ['purbeurretg.herokuapp.com']
+ALLOWED_HOSTS = ['purbeurretg.herokuapp.com','*']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
