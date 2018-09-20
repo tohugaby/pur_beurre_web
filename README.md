@@ -123,6 +123,20 @@ DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.prod' python manage.py runserver
 ```
 
 
+## Launching the test
+
+To launch unit tests and functionnal tests (using selenium):
+
+```shell
+DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.test' python manage.py test
+```
+
+
+### Note
+Gecko driver is required for functionnal tests.
+Install it from https://github.com/mozilla/geckodriver
+
+
 ## Heroku deployment
 
 Dont forget to change ALLOWED_HOSTS settings in your prod settings.

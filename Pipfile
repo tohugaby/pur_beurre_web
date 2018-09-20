@@ -16,6 +16,7 @@ whitenoise = "*"
 dj-database-url = "*"
 gunicorn = "*"
 "django-sendgrid-v5" = "*"
+selenium = "*"
 
 [dev-packages]
 pylint = "*"
