@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.utils import ErrorList
-
+from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 
 
@@ -40,6 +40,13 @@ class AccountCreateForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
         }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
 
 
 class ProductsSearchForm(forms.Form):

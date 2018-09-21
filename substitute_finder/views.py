@@ -37,7 +37,7 @@ def create_account_view(request):
     if request.method == 'POST':
         form = AccountCreateForm(request.POST, error_class=ParagrapheErrorList)
         if form.is_valid():
-            new_user = CustomUser.objects.create(**form.cleaned_data)
+            new_user = form.save()
             login(request, new_user)
             return redirect('substitute_finder:index')
         else:
