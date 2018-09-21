@@ -11,7 +11,7 @@
             "is_staff": true,
             "is_active": true,
             "date_joined": "2018-08-14T09:25:33.630Z",
-            "email": "tom.gabriele@free.fr",
+            "email": "test@test.fr",
             "groups": [],
             "user_permissions": []
         }
