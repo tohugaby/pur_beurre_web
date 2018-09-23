@@ -1,21 +1,4 @@
-[{
-        "model": "substitute_finder.customuser",
-        "pk": 1,
-        "fields": {
-            "password": "pbkdf2_sha256$120000$MhemV5RSGfmg$CbOxzkCd0A27KvC4Vebx2AzM1uXXCBfif56kMflDOdY=",
-            "last_login": "2018-09-12T20:39:35.051Z",
-            "is_superuser": true,
-            "username": "Tom",
-            "first_name": "",
-            "last_name": "",
-            "is_staff": true,
-            "is_active": true,
-            "date_joined": "2018-08-14T09:25:33.630Z",
-            "email": "test@test.fr",
-            "groups": [],
-            "user_permissions": []
-        }
-    }, {
+[ {
         "model": "substitute_finder.product",
         "pk": "3174780000288",
         "fields": {
@@ -111,7 +94,7 @@
             "saturated_fat_unit": "",
             "last_updated": "2018-09-06T10:01:27.016Z",
             "categories_tags": ["en:artificially-sweetened-beverages", "en:beverages", "en:carbonated-drinks", "en:colas", "en:diet-beverages", "en:diet-cola-soft-drink", "en:diet-sodas", "en:sodas"],
-            "users": [1]
+            "users": []
         }
     },
     {
@@ -144,7 +127,7 @@
             "saturated_fat_unit": "",
             "last_updated": "2018-09-06T10:04:18.042Z",
             "categories_tags": ["en:artificially-sweetened-beverages", "en:beverages", "en:carbonated-drinks", "en:colas", "en:diet-beverages", "en:diet-cola-soft-drink", "en:diet-sodas", "en:sodas"],
-            "users": [1]
+            "users": []
         }
     },
     {
@@ -177,7 +160,7 @@
             "saturated_fat_unit": "",
             "last_updated": "2018-09-06T10:04:34.705Z",
             "categories_tags": ["en:artificially-sweetened-beverages", "en:beverages", "en:carbonated-drinks", "en:colas", "en:sodas", "en:sugared-beverages"],
-            "users": [1]
+            "users": []
         }
     },
     {
@@ -243,7 +226,7 @@
             "saturated_fat_unit": "",
             "last_updated": "2018-09-06T10:01:24.880Z",
             "categories_tags": ["en:artificially-sweetened-beverages", "en:beverages", "en:carbonated-drinks", "en:colas", "en:diet-beverages", "en:diet-cola-soft-drink", "en:diet-sodas", "en:sodas"],
-            "users": [1]
+            "users": []
         }
     },
     {

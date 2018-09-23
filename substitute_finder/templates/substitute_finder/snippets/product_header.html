@@ -3,7 +3,7 @@
 <header class="masthead producthead text-center text-white d-flex" style="background-image:url({{product.image_url}})">
     <div class="container mt-5 my-auto p-1 white-bg">
         <div class="row ">
-            <div class="col mx-auto">
+            <div class="col mx-auto" id="{{ product.pk }}">
                 <h5 class="text-uppercase mussels-chips">
                     {{product.product_name}}
                     {% if  user.is_authenticated %} 

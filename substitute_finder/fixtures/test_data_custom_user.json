@@ -1,6 +1,6 @@
 [{
     "model": "substitute_finder.customuser",
-    "pk": 3,
+    "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$120000$j5uaB731ZJtC$NkUK5VNHMbGjfJfKcYrAB7pdpE/Pc8N7F0XUX8DsnZs=",
         "last_login": "2018-09-20T21:24:59.791Z",
