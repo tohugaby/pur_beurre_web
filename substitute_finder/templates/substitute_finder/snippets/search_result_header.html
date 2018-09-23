@@ -11,7 +11,18 @@
                     <p class="mb-0 soft-caramel">{{ search }}</p>
                 </blockquote>
                 <hr>
-                <a href="{%url 'substitute_finder:index' %}">Nouvelle recherche</a>
+                <h6 class="chocolate">Nouvelle recherche</h6>
+                <div class="d-flex justify-content-center">
+                    <form action="{% url 'substitute_finder:search' %}" method="post" class=" form-inline">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{form.product}}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </form>
+                </div>
+                
+                {% comment %} <a href="{%url 'substitute_finder:index' %}">Nouvelle recherche</a> {% endcomment %}
             </div>
         </div>
     </div>

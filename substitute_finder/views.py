@@ -97,7 +97,9 @@ def search_view(request, *args, **kwargs):
     Search result view.
     """
 
-    context = {}
+    context = {
+        "form": ProductsSearchForm()
+    }
     if request.method == 'POST':
         form = ProductsSearchForm(request.POST, error_class=ParagrapheErrorList)
 
@@ -169,7 +171,8 @@ def product_view(request, *args, **kwargs):
         'products': products,
         'others': paginator.get_page(page),
         'categories': categories,
-        'grades': grades
+        'grades': grades,
+        "form": ProductsSearchForm()
     }
     return render(request, 'substitute_finder/product.html', content)
 
@@ -192,7 +195,8 @@ def favorites_view(request):
     """
 
     context = {
-        "products": request.user.favorite.all()
+        "products": request.user.favorite.all(),
+        "form": ProductsSearchForm()
     }
 
     return render(request, 'substitute_finder/favorites.html', context)
