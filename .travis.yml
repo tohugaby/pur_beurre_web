@@ -1,10 +1,11 @@
 language: python
 python:
   - "3.7-dev"
+env:
+  - DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.travis' MOZ_HEADLESS=1
 addons:
   postgresql: "9.4"
   firefox: "60.0.0"
-
 before_install:
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
   - mkdir geckodriver
@@ -14,9 +15,7 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-env:
-  - DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.travis'
-  - MOZ_HEADLESS=1
+
 install:
   - pip install pipenv
   - pipenv install
