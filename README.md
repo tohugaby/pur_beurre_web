@@ -1,5 +1,11 @@
 # PUR BEURRE WEB (pur_beurre_web)
 
+master :  
+[![Build Status](https://travis-ci.org/tomlemeuch/pur_beurre_web.svg?branch=master)](https://travis-ci.org/tomlemeuch/pur_beurre_web)
+
+development :  
+[![Build Status](https://travis-ci.org/tomlemeuch/pur_beurre_web.svg?branch=development)](https://travis-ci.org/tomlemeuch/pur_beurre_web)
+
 
 Supported versions of python: **3.4, 3.5, 3.6, 3.7**
 
