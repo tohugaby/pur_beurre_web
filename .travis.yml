@@ -1,11 +1,11 @@
 language: python
 python:
-  - "3.7-dev"
+  - "3.6"
 env:
   - DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.travis' MOZ_HEADLESS=1
 addons:
   postgresql: "9.4"
-  firefox: "60.0.0"
+  firefox: latest
 services:
   - postgresql
 before_install:
@@ -13,9 +13,8 @@ before_install:
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.22.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3
+  - geckodriver --version
+  - export MOZ_HEADLESS=1
 install:
   - pip install pipenv
   - pipenv install
