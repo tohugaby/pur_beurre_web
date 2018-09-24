@@ -16,9 +16,10 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 env:
   - DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.travis'
+  - MOZ_HEADLESS=1
 install:
   - pip install pipenv
   - pipenv install
 script:
   - python manage.py migrate
-  - xvfb-run python manage.py test
+  - python manage.py test
