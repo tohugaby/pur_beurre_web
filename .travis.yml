@@ -2,7 +2,7 @@ language: python
 python:
   - "3.7-dev"
 addons:
-  postgresql: "10"
+  postgresql: "9.4"
   firefox: "60.0.0"
 
 before_install:
