@@ -2,8 +2,14 @@ language: python
 python:
   - "3.7-dev"
 addons:
-  postgresql: "9.4"
+  - postgresql: "9.4"
+  - firefox
 
+before_install:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.22.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
 services:
   - postgresql
 before_script:
