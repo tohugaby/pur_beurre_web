@@ -21,4 +21,4 @@ install:
   - pipenv install
 script:
   - python manage.py migrate
-  - python manage.py test
+  - xvfb-run python manage.py test
