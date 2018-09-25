@@ -47,6 +47,32 @@ class Command(BaseCommand):
             help='enable a strict mode that delete elements with missing data'
         )
 
+        parser.add_argument(
+            '--categories_tags',
+            action='store',
+            nargs='*',
+            dest='categories_tags',
+            help='allow to filter categories'
+        )
+
+        parser.add_argument(
+            '--hard_reset',
+            action='store_true',
+            dest='hard_reset',
+            help='delete categories and product except those registered as favorites'
+        )
+
+    def hard_reset(self):
+        """
+        delete categories and product except those registered as favorites
+        """
+        Product.objects.filter(users=None).delete()
+        Category.objects.filter(product__isnull=True).delete()
+
+        # Count initial data
+        LOGGER.info("Nb products after hard reset: %s" % Product.objects.all().count())
+        LOGGER.info("Nb categories after hard reset: %s" % Category.objects.all().count())
+
     def get_categories(self, from_cache: bool=False):
         """
         method in charge of getting categories.
@@ -57,11 +83,11 @@ class Command(BaseCommand):
         data = Category.get_api_data_list(from_cache=from_cache)
         Category.insert_data(data)
 
-    def get_product(self, actual_page: int=1, from_cache: bool=False, grumpy_mode: bool=False):
+    def get_product(self, actual_page: int=1, from_cache: bool=False, grumpy_mode: bool=False, filters: dict={}):
         """
         """
         data = Product.get_api_data_list(nb_pages=1, start_page=actual_page, from_cache=from_cache)
-        Product.insert_data(data, strict_required_field_mode=grumpy_mode)
+        Product.insert_data(data, strict_required_field_mode=grumpy_mode, filters=filters)
         return bool(data)
 
     def database_cleanup(self, grumpy_mode: bool=False):
@@ -113,11 +139,16 @@ class Command(BaseCommand):
         LOGGER.info("Nb products before update: %s" % Product.objects.all().count())
         LOGGER.info("Nb categories before update: %s" % Category.objects.all().count())
 
+        # Case with hard reset
+        if options['hard_reset']:
+            self.hard_reset()
+
         # Deal with Category
         self.get_categories(from_cache=options['from_cache'])
 
         # Deal with Product
         # Define initial variables
+        product_filter = {key: options[key] for key in options.keys()}
         data_exists = True
         start_page = self.get_recovery_state()
 
@@ -128,7 +159,9 @@ class Command(BaseCommand):
         # Loop on data recovery and integration for Product
         while data_exists:
             data_exists = self.get_product(actual_page=actual_page,
-                                           from_cache=options['from_cache'], grumpy_mode=options['grumpy_mode'])
+                                           from_cache=options['from_cache'],
+                                           grumpy_mode=options['grumpy_mode'],
+                                           filters=product_filter)
 
             # Check if loop should continue according to page constraints
             if data_exists and options['nb_pages'] and actual_page >= start_page + options['nb_pages']:

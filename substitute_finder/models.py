@@ -226,20 +226,29 @@ class FromApiUpdateMixin:
         return file_path
 
     @classmethod
-    def insert_data(cls, data: list or dict, strict_required_field_mode=False):
+    def insert_data(cls, data: list or dict, strict_required_field_mode: bool=False, filters: dict={}):
         """
         Create as many model instances as needed according to data provided
             :param data: data collection to insert in database
             :type data: list or dict
+            :param strict_required_field_mode: if True, a missing required field leads to cancel element insert
+            :type strict_required_field_mode: bool
+            :param filters: a dict of filters to define which elements should be inserted 
+            :type filters: dict
         """
 
         LOGGER.info("CREATE/UPDATE data for %s " % cls._meta.model_name)
 
         # Define model field names
         field_names = [f.name for f in cls._meta.get_fields()]
+
+        # clean filters
+
         for key in cls.field_correspondances.keys():
             field_names.append(key)
             field_names.remove(cls.field_correspondances[key])
+
+        filters = {key: value for key, value in filters.items() if key in field_names}
 
         # Define primary key name
         primary_key_field_name = cls._meta.pk.name
@@ -298,6 +307,32 @@ class FromApiUpdateMixin:
             for key in many_to_many_field_names:
                 if key in value_dict.keys():
                     many_to_many_data.append({key: value_dict.pop(key)})
+
+            # check data with filters
+            for key in value_dict.keys():
+                if key in filters.keys():
+                    if value_dict[key] not in filters[key]:
+                        LOGGER.warning("FILTER %s on %s is not satisfied for %s : %s will be ignored" %
+                                       (filters[key], key, cls._meta.model_name, value_dict))
+                        continue
+
+            # check many to many data with filters
+            for many_to_many_element in many_to_many_data:
+                for key, values in many_to_many_element.items():
+                    if key in filters.keys():
+                        ignore_element = True
+                        for value in many_to_many_element[key]:
+                            if value in filters[key]:
+                                ignore_element = False
+                                break
+
+            if ignore_element:
+                LOGGER.warning("FILTERS %s on many to many fields are not satisfied for %s : %s will be ignored" %
+                                       (filters, cls._meta.model_name, value_dict))
+                continue
+
+                # if value_dict[key] not in filters[key]:
+                #     continue
 
             # Create or update element in database
             new_element, created = cls.objects.update_or_create(pk=pk_value, defaults=value_dict)
@@ -410,4 +445,3 @@ class Category(FromApiUpdateMixin, models.Model):
 
     def __str__(self):
         return self.name
-
