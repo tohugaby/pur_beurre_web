@@ -319,7 +319,7 @@ class FromApiUpdateMixin:
             # check many to many data with filters
             for many_to_many_element in many_to_many_data:
                 for key, values in many_to_many_element.items():
-                    if key in filters.keys():
+                    if key in filters.keys() and filters[key] is not None:
                         ignore_element = True
                         for value in many_to_many_element[key]:
                             if value in filters[key]:
