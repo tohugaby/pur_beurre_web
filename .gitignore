@@ -116,8 +116,8 @@ staticfiles/
 
 
 # loaded data
-cached_json_files/
-test_cached_json_files/
+/cached_json_files/
+/test_cached_json_files/
 last_page.txt
 
 
