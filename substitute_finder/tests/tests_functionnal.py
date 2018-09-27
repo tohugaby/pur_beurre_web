@@ -18,13 +18,12 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         super(UserInterfaceTestCase, cls).setUpClass()
         cls.browser = webdriver.Firefox()
         cls.wait = ui.WebDriverWait(cls.browser, 1000)
+        cls.check_live_server()
 
     @classmethod
     def tearDownClass(cls):
         cls.browser.quit()
         super(UserInterfaceTestCase, cls).tearDownClass()
-
-    # TODO: add a check server is live method
 
     @classmethod
     def get_element(cls, css_selector: str):
@@ -34,6 +33,14 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         :type css_selector: str
         """
         return cls.browser.find_element_by_css_selector(css_selector)
+
+    @classmethod
+    def check_live_server(cls):
+        """
+        Check if server is ok.
+        """
+        cls.browser.get(cls.live_server_url)
+        assert "Pur Beurre" in cls.browser.title
 
     def test_header_form(self):
         """
@@ -98,12 +105,77 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         email_field.send_keys("test@test.fr")
         password_field.send_keys("wrong")
         submit_button.click()
-        
+
         self.assertEqual(self.browser.current_url, "%s/login" % self.live_server_url)
         self.assertTrue(self.get_element(".alert"))
 
+    def test_create_account_form(self):
+        """
+        Test account creation.
+        """
 
-    # TODO:  test create account,
+        old_nb_users = CustomUser.objects.count()
+
+        self.browser.get("%s/create-account" % self.live_server_url)
+        self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
+        email_field = self.get_element("#id_email")
+        username_field = self.get_element("#id_username")
+        firstname_field = self.get_element("#id_first_name")
+        lastname_field = self.get_element("#id_last_name")
+        password_field = self.get_element("#id_password")
+        submit_button = self.get_element("form button")
+
+        email_field.send_keys("new_user@test.fr")
+        username_field.send_keys("new_user")
+        password_field.send_keys("test")
+        submit_button.click()
+
+        new_nb_users = CustomUser.objects.count()
+
+        self.wait.until(lambda driver: self.get_element("#id_product").is_displayed())
+        self.assertEqual(self.browser.current_url, "%s/" % self.live_server_url)
+        self.assertEqual(new_nb_users, old_nb_users + 1)
+
+    def test_create_account_form_no_password(self):
+        """
+        Test account creation.
+        """
+        self.browser.get("%s/create-account" % self.live_server_url)
+        self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
+        email_field = self.get_element("#id_email")
+        username_field = self.get_element("#id_username")
+        firstname_field = self.get_element("#id_first_name")
+        lastname_field = self.get_element("#id_last_name")
+        password_field = self.get_element("#id_password")
+        submit_button = self.get_element("form button")
+
+        email_field.send_keys("new_user@test.fr")
+        username_field.send_keys("test")
+        password_field.send_keys("")
+        submit_button.click()
+
+        self.assertEqual(self.browser.current_url, "%s/create-account/" % self.live_server_url)
+        self.assertTrue(password_field == self.browser.switch_to.active_element)
+
+    def test_create_account_form_user_exists(self):
+        """
+        Test account creation.
+        """
+        self.browser.get("%s/create-account" % self.live_server_url)
+        self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
+        email_field = self.get_element("#id_email")
+        username_field = self.get_element("#id_username")
+        firstname_field = self.get_element("#id_first_name")
+        lastname_field = self.get_element("#id_last_name")
+        password_field = self.get_element("#id_password")
+        submit_button = self.get_element("form button")
+        email_field.send_keys("test@test.fr")
+        username_field.send_keys("test")
+        password_field.send_keys("test")
+        submit_button.click()
+
+        self.assertEqual(self.browser.current_url, "%s/create-account/" % self.live_server_url)
+        self.assertTrue(self.get_element(".alert"))
 
     def test_logout_form(self):
         """
