@@ -65,7 +65,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('substitute_finder:index')
         else:
-            LOGGER.error("bouuuuh")
+            LOGGER.error("Error during login")
             context['errors'] = form.errors.items()
     else:
         form = CustomLoginForm()

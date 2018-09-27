@@ -1,6 +1,8 @@
 from django import forms
-from django.forms.utils import ErrorList
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.forms.utils import ErrorList
+
 from .models import CustomUser
 
 
@@ -27,6 +29,14 @@ class CustomLoginForm(forms.Form):
             attrs={'class': 'form-control', 'placeholder': 'Mot de passe'}
         ),
         required=True)
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=email, password=password)
+        if not user or not user.is_active:
+            raise forms.ValidationError("Identifiant ou mot de passe invalide.")
+        return self.cleaned_data
 
 
 class AccountCreateForm(forms.ModelForm):

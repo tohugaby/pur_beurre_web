@@ -24,6 +24,8 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         cls.browser.quit()
         super(UserInterfaceTestCase, cls).tearDownClass()
 
+    # TODO: add a check server is live method
+
     @classmethod
     def get_element(cls, css_selector: str):
         """
@@ -38,7 +40,7 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         Test a search using header form.
         """
         self.browser.get(self.live_server_url)
-        self.assertIn("Pur Beurre", self.browser.title)
+
         self.wait.until(lambda driver: self.get_element("header form").is_displayed())
         search_field = self.get_element("header form #id_product")
         submit_button = self.get_element("header form button")
@@ -53,7 +55,6 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         Test a search using navbar form.
         """
         self.browser.get(self.live_server_url)
-        self.assertIn("Pur Beurre", self.browser.title)
         self.wait.until(lambda driver: self.get_element(".navbar-form").is_displayed())
         search_field = self.get_element(".navbar-form #id_product")
         search_field.send_keys("coca")
@@ -67,7 +68,6 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         Test user login.
         """
         self.browser.get("%s/login" % self.live_server_url)
-        self.assertIn("Pur Beurre", self.browser.title)
         self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
         email_field = self.get_element("#id_email")
         password_field = self.get_element("#id_password")
@@ -85,6 +85,25 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         self.assertEqual(session.get_decoded()['_auth_user_id'], str(user.pk))
         self.assertEqual(self.browser.current_url, "%s/" % self.live_server_url)
         self.assertTrue(self.get_element("header form #id_product"))
+
+    def test_login_form_wrong_password(self):
+        """
+        Test user login.
+        """
+        self.browser.get("%s/login" % self.live_server_url)
+        self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
+        email_field = self.get_element("#id_email")
+        password_field = self.get_element("#id_password")
+        submit_button = self.get_element("form button")
+        email_field.send_keys("test@test.fr")
+        password_field.send_keys("wrong")
+        submit_button.click()
+        
+        self.assertEqual(self.browser.current_url, "%s/login" % self.live_server_url)
+        self.assertTrue(self.get_element(".alert"))
+
+
+    # TODO:  test create account,
 
     def test_logout_form(self):
         """
@@ -120,7 +139,7 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         Test product page.
         """
         self.browser.get(self.live_server_url)
-        self.assertIn("Pur Beurre", self.browser.title)
+
         self.wait.until(lambda driver: self.get_element("header form").is_displayed())
         search_field = self.get_element("header form #id_product")
         submit_button = self.get_element("header form button")
@@ -146,7 +165,7 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         Test addition of product to favorites and visit favorites page.
         """
         self.browser.get("%s/login" % self.live_server_url)
-        self.assertIn("Pur Beurre", self.browser.title)
+
         self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
         email_field = self.get_element("#id_email")
         password_field = self.get_element("#id_password")
