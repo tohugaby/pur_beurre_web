@@ -104,9 +104,32 @@ L'ajout aux favoris est uniquement accessible aux utilisateurs authentifiés. Ce
 ## Difficultés et solutions
 ### Organisation des templates
 
+La mauvaise répartition des templates entre le dossier de l'application substitute_finder et celui du projet pur_beurre_web a été causée par un mauvais découpage du template de base. Exemple: 
+Le snippet de base navbar contient un formulaire de l'application substitute_finder. Il ne s'agit donc pas d'un template de base mais bien d'un template propre à l'application substitute_finder.
+
 ### Envoi de mail avec Sendgrid
 
+Pour envoyer les mails de réinitialisation de mot de passe, sendgrid est utilisé (un addon est également proposé par heroku). Lors des tests en situation réelle, il est apparu que certains webmail  (free, hotmail, gmail...) bloquent les mails en provenance de sendgrid. Finalement la situation est rentrée dans l'ordre avec le temps (en laissant passer une période entre 2 envoie de mails vers une même adresse). Les derniers tests montrent que les mails parviennent bien à l'utilisateur concerné. 
+
 ### Une base de données trop grosse pour Heroku
+Pour déployer le projet le plan gratuit d' Heroku suffit.
+
+Le déploiement du projet nécessite également l' addon PostgreSQL.
+
+Par contre pour mettre en place la base de données la version gratuite de l'addon n'autorise que 10000 lignes. Heroku donne 7 jours à l'utilisateur pour régulariser si ce plafond est dépassé. Au delà, les accès en écriture sur la base sont révoqués. Il devient donc impossible de se connecter sur le site du projet puisque django ne peut plus écrire dans la table session. Il est également impossible de rajouter un article aux favoris pour les mêmes raisons.
+
+Pour solutionner le problème plusieurs pistes:
+
+- Tout d'abord, seuls les produits fabriqués en France sont récuprérées.
+- Ajout des fonctionnalités au script de récupération pour limiter la récupération aux produits et catégories qui présentent des données nutritionnelles complètes.
+- Ajout d'une option de filtre par catégorie sur ma commande de récupération.
+
+Le risque de cette dernière fonctionnalité est de faire perdre tout son intérêt à l'application à cause d'un nombre d'articles trop limités dans la base de données.
+
 Pour info: [https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier](https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier) 
 
+
 ##Pistes d'amélioration
+- Certaines fonctions demandent une bonne cure d'amaigrissement. Un peu de refactoring ne serait pas de trop!
+- Prévoir une autocomplétion sur les champs de formulaire.
+- Mettre à jour les produits à partir de l'API OpenFoodFacts à chaque requête de type get ou filter.
