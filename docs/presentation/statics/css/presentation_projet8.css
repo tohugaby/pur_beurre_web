@@ -1,0 +1,66 @@
+body {
+    background-image: url(../img/bg.jpg);
+    background-size: 100%;
+
+}
+
+section {
+    margin: 30px;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, .8);
+    color: white;
+    min-height: 500px;
+}
+
+
+
+.header_picture img {
+    width: 100%;
+}
+
+
+h1 {
+    font-size: 1.5em;
+    /* text-align: center; */
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+
+
+section ul {
+
+    list-style-type: none;
+
+
+}
+
+section li {
+    line-height: 3;
+}
+
+section li:before {
+
+    content: '';
+
+    display: inline-block;
+
+    height: 15px;
+
+    width: 15px;
+
+    background-size: 15px;
+
+    background-image: url('../img/logo_pur_beurre.png');
+
+    background-repeat: no-repeat;
+
+    margin-right: 10px;
+
+}
