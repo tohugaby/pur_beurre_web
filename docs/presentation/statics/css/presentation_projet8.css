@@ -12,10 +12,8 @@ section {
     min-height: 500px;
 }
 
-
-
-.header_picture img {
-    width: 100%;
+.header_picture img, .body_picture img {
+    width: 50%;
 }
 
 
@@ -32,13 +30,9 @@ h3 {
     font-size: 1.2em;
 }
 
-
-
 section ul {
-
     list-style-type: none;
-
-
+    padding: 0;
 }
 
 section li {

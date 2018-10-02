@@ -82,7 +82,11 @@
 
                 </h1>
             </div>
-            <p>Créez une plateforme pour amateurs de Nutella </p>
+            <p>Créez une plateforme pour amateurs de Nutella
+                La startup Pur Beurre, a souhaité développer une plateforme web à
+                destination de ses clients. Ce site permet à quiconque de trouver un substitut sain à un aliment
+                considéré comme "Trop gras, trop sucré, trop salé" (même si nous savons tous que le gras c’est la vie).
+            </p>
         </section>
 
 
@@ -91,9 +95,12 @@
                 <div class="header_picture col-3">
                     <img src="statics/img/remy-2.jpg" alt="la démo">
                 </div>
-                <h1 class="col-9">
-                    <a href="https://purbeurretg.herokuapp.com" target="_blank">Rémy fait le show !</a>
-                </h1>
+                <h1 class="col-9">Rémy fait le show !</h1>
+            </div>
+            <div class="row">
+                <div class="col mt-3 text-center">
+                    <h1 class="display-5"><a href="https://purbeurretg.herokuapp.com" target="_blank">Démonstration</a></h1>
+                </div>
             </div>
         </section>
 
@@ -107,59 +114,55 @@
                 </h1>
             </div>
 
-            <h2>Backend</h2>
-            <p>Pour le backend, le language utilisé est python dans sa version 3.7 avec le framework django.</p>
-
-            <h2>Frontend</h2>
-            <p>
-                Le frontend est basé tout naturellement sur du html5/css3 accompagné du framework bootstrap 4 et d'un
-                thème
-                demandé par le client et de javascript et sa librairie jquery.
-            </p>
-
-            <h2>UML</h2>
-            <p>Pour créer le diagramme de classe et le MCD, l'outil Visual Paradigm a été utilisé.</p>
 
 
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Backend</h2>
+                    <ul>
+                        <li>python 3.7</li>
+                        <li>django</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Frontend</h2>
+                    <ul>
+                        <li>html5/css3</li>
+                        <li>bootstrap 4 + thème </li>
+                        <li>javascript/jquery</li>
+                    </ul>
+                </div>
 
-            <h2>Tableau Agile</h2>
-            <p>
-                Trello a été utilisé pour le suivi de la réalisation des user stories.
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>UML</h2>
+                    <ul>
+                        <li>Diagramme de de classe et MCS: Visual Paradigm</li>
+                    </ul>
+                </div>
 
-            </p>
-            <h2>Versionning</h2>
-            <p>
-                L'outil de versionning utilisé est git et le dépôt a été créé sur Github.
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Tableau Agile</h2>
+                    <ul>
+                        <li>Trello</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Versionning</h2>
+                    <ul>
+                        <li>Git + Github</li>
+                        <li>2 branches principales: master et development</li>
+                        <li>1 branche par fonctionnalité</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Pratiques</h2>
+                    <ul>
+                        <li>Test Driven Development</li>
+                        <li>Travis</li>
+                    </ul>
+                </div>
 
-                Le projet comprend 2 branches principale: **master** et **development**.
-
-                Pour chaque nouvelle fonctionnalité, une nouvelle branche a été créé à partir de la branche
-                **development**.
-                Une fois la fonctionnalité écrite, sa branche correspondante est fusionnée (merge) dans
-                **development**.
-
-                La fusion dans la branche **master** n'a été faite qu'à partir de la première version fonctionnelle de
-                l'application.
-            </p>
-
-            <h2>Test Driven Development</h2>
-            <p>
-                Les principes du TDD ont été respecté dans 90% des cas.
-                Ce qui veut dire que le cycle de développement de chaque fonctionnalité a été le suivant:
-                1. Création d'une nouvelle branche à partir de la branche **development**.
-                2. Écriture d'un test.
-                3. Lancement et échec du test.
-                4. Écriture du code pour faire fonctionner le test.
-                5. Amélioration du test.
-                6. Retour à l'étape 3 tant que c'est nécessaire.
-                7. Lancement de tous les tests du projet.
-                8. Correction si nécessaire.
-                9. Commit de la fonctionnalité.
-                10. Fusion avec la branche **development**
-
-                Utilisation de Travis à chaque push.
-            </p>
-
+            </div>
         </section>
 
         <section class="collapse multi-collapse" id="project">
@@ -172,99 +175,54 @@
                     Rémy se met au fourneaux
                 </h1>
             </div>
-
-
-            Le projet a été mené dans l'ordre suivant:
-            <h2>Page d'accueil et customisation du thème</h2>
-            <p>
-                La réalisation de la page d'accueil a été l'occasion de "surcharger" le thème bootstrap demandé par le
-                client.
-                Pour cela la syntaxe sass a été utilisée. Pour convertir à la volée le fichier scss en fichier css , la
-                librairie python django-sass-processor a été utilisée.
-            </p>
-            <h2>Page de login et page de création de compte</h2>
-            <p>
-                Le modèle AbstractUser de django est hérité par le modèle CustomUser pour définir l'email comme
-                identifiant
-                de
-                l'utilisateur.
-            </p>
-            <h2>Script de récupération des données depuis l'API OpenFoodFacts et travail sur la FromApiUpdateMixin</h2>
-            <p>
-                Il s'agit d'une des plus grosses parties du projet. La commande django script api_to_db fait appel aux
-                méthodes
-                de classe des modèles Product et Category qui héritent de FromApiUpdateMixin. Ces méthodes s'appuient
-                sur
-                des
-                attributs de classe et permettent de :
-                - définir les urls de récupération d'un élément ou d'une liste d'éléments,
-                - requêter l'API d'OpenFoodFacts pour récupérer un élément ou d'une liste d'éléments,
-                - écrire les données récupérées dans un fichier,
-                - insérer les données en base de données.
-
-                Tous ceci est évidement le plus générique possible pour pouvoir être utilisé sur différents modèles.
-
-                Les informations qui varient d'un modèle à l'autre sont stockées dans des attributs de classe. Dans la
-                majeure
-                partie des cas les noms des champs du modèle correspondent aux clés présentes dans les données
-                récupérées
-                sur
-                l'API d'OpenFoodFacts. Mais il est tout de même possible de définir des correspondances via un
-                attribut.
-
-                Un autre attribut permet de définir les données strictement requises.
-
-
-                La commande api_to_db propose les options suivantes:
-                - start_page: page de démarage de récupération des produits.
-                - nb_pages: nombre de pages de produits à récupérer.
-                - from_cache: récupère les données depuis un cache constitué lors de la dernière récupération.
-                - grumpy_mode: mode strict qui permet d'ignorer les produits qui ne contiennent pas toutes les données
-                strictement requises.
-                - categories_tags: permet de filtre les produits en fonction des identifiants de une ou plusieurs
-                catégories.
-                - hard_reset: permet d'effacer tous les produits (non enregistrés dans les favoris utilisateur) et
-                leurs
-                catégories de la base de donnée avant de faire la récupération des données depuis l'API
-                d'OpenFoodFacts.
-
-            </p>
-
-            <h2>Pages de recherche et Algorithme de recherche</h2>
-            <p>
-                La recherche s'appuie sur un helper search_product qui permet de créer par ordre de priorité (d'abord
-                la
-                combinaison de mots exact puis dans le désordre ou partielle) toutes les combinaisons de mots possibles
-                à
-                partir de la recherche saisie. Les résultats sont renvoyés par ordre de pertinence.
-                Ces mêmes résultats sont stockés dans une variable de session afin d'être réutilisé sur la fiche du
-                produit
-                qui
-                sera visitée.
-            </p>
-
-            <h2>Page produit</h2>
-
-            <p>
-                Cette page présente évidemment la fiche du produit avec toutes ses caractéristiques nutritionnelles.
-                Mais
-                elle
-                liste également les produits de substitutions ordonnés par note nutritionnelle.
-                La liste est présentée en 2 parties:
-                Tous d'abord les produits qui correspondent à la recherche précédente (donc qui ont des termes en
-                commun
-                avec
-                le produit visualisé) puis ceux qui appartiennent aux mêmes catégories.
-
-            </p>
-            <h2>Ajout aux favoris et page des favoris</h2>
-
-            <p>
-                L'ajout aux favoris est uniquement accessible aux utilisateurs authentifiés. Cette ajout se fait par le
-                biais
-                d'une requête AJAX.
-
-            </p>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Page d'accueil et customisation du thème</h2>
+                    <ul>
+                        <li>"Surcharge" le thème bootstrap</li>
+                        <li>django-sass-processor <br /> scss => css</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Login et Création de compte</h2>
+                    <ul>
+                        <li>CustomUser(AbstractUser)</li>
+                        <li>identifiant = email </li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Récupération des données</h2>
+                    <ul>
+                        <li>mixin FromApiUpdateMixin</li>
+                        <li>script api_to_db</li>
+                        <li>options de récupération</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Recherche</h2>
+                    <ul>
+                        <li>helper search_product</li>
+                        <li>combinaisons de mots (ordonnées ou pas, partielles...)</li>
+                        <li>résultats par ordre de pertinence</li>
+                        <li>stockage: variable de session</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Produit</h2>
+                    <ul>
+                        <li>Caractéristiques nutritionnelles</li>
+                        <li>Produits de substitution selon recherche</li>
+                        <li>Produits de substitution dans catégories similaires</li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Favoris</h2>
+                    <ul>
+                        <li>Utilisateurs authentifiés</li>
+                        <li>Ajout par requête AJAX</li>
+                    </ul>
+                </div>
+            </div>
 
         </section>
 
@@ -279,68 +237,37 @@
                 </h1>
             </div>
 
+            <div class="row">
 
-            <h2>Organisation des templates</h2>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Organisation des templates</h2>
+                    <ul>
+                        <li>Répartition des templates</li>
+                        <li>Découpage du template de base</li>
+                        <li>Navbar de base contient un formulaire de l'application substitute_finder</li>
+                    </ul>
+                    <p><strong>Solution : </strong>regroupement des templates dans substitute_finder</p>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Envoi de mail avec Sendgrid</h2>
+                    <ul>
+                        <li>Blocage des mails par certains webmails</li>
+                    </ul>
+                    <p><strong>Solution : </strong> Attendre le déblocage</p>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mt-3">
+                    <h2>Une base de données trop grosse pour Heroku</h2>
+                    <ul>
+                        <li>addon PostgreSQL : 10000 lignes max. <br /> <a href="https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier">plus
+                                d'infos</a></li>
+                        <li>7 jours avant blocage en écriture</li>
+                        <li>Pose problème pour l'enregistrement des sessions et des favoris</li>
 
-            <p>
-                La mauvaise répartition des templates entre le dossier de l'application substitute_finder et celui du
-                projet
-                pur_beurre_web a été causée par un mauvais découpage du template de base. Exemple:
-                Le snippet de base navbar contient un formulaire de l'application substitute_finder. Il ne s'agit donc
-                pas
-                d'un
-                template de base mais bien d'un template propre à l'application substitute_finder.
-
-            </p>
-            <h2>Envoi de mail avec Sendgrid</h2>
-
-            <p>
-                Pour envoyer les mails de réinitialisation de mot de passe, sendgrid est utilisé (un addon est
-                également
-                proposé par heroku). Lors des tests en situation réelle, il est apparu que certains webmail (free,
-                hotmail,
-                gmail...) bloquent les mails en provenance de sendgrid. Finalement la situation est rentrée dans
-                l'ordre
-                avec
-                le temps (en laissant passer une période entre 2 envoie de mails vers une même adresse). Les derniers
-                tests
-                montrent que les mails parviennent bien à l'utilisateur concerné.
-
-            </p>
-            <h2>Une base de données trop grosse pour Heroku</h2>
-            <p>
-                Pour déployer le projet le plan gratuit d' Heroku suffit.
-
-                Le déploiement du projet nécessite également l' addon PostgreSQL.
-
-                Par contre pour mettre en place la base de données la version gratuite de l'addon n'autorise que 10000
-                lignes.
-                Heroku donne 7 jours à l'utilisateur pour régulariser si ce plafond est dépassé. Au delà, les accès en
-                écriture
-                sur la base sont révoqués. Il devient donc impossible de se connecter sur le site du projet puisque
-                django
-                ne
-                peut plus écrire dans la table session. Il est également impossible de rajouter un article aux favoris
-                pour
-                les
-                mêmes raisons.
-
-                Pour solutionner le problème plusieurs pistes:
-
-                - Tout d'abord, seuls les produits fabriqués en France sont récuprérées.
-                - Ajout des fonctionnalités au script de récupération pour limiter la récupération aux produits et
-                catégories
-                qui présentent des données nutritionnelles complètes.
-                - Ajout d'une option de filtre par catégorie sur ma commande de récupération.
-
-                Le risque de cette dernière fonctionnalité est de faire perdre tout son intérêt à l'application à cause
-                d'un
-                nombre d'articles trop limités dans la base de données.
-
-                Pour info: <a href="https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier">https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier</a>
-
-            </p>
-
+                    </ul>
+                    <p><strong>Solution : </strong> Options du script api_to_db pour limiter les données récupérées
+                        (filtres, mode strict...)</p>
+                </div>
+            </div>
         </section>
 
         <section class="collapse multi-collapse" id="improvements">
@@ -356,8 +283,10 @@
 
             <ul>
                 <li><strong>Des fonctions au régime:</strong> Un peu de refactoring pour certaines fonctions. </li>
-                <li><strong>Je crois savoir ce que tu veux manger:</strong>  Des champs de formulaire avec autocomplétion.</li>
-                <li><strong>Un frigo bien rangé au fur et à mesure:</strong> Mettre à jour les produits à partir de l'API OpenFoodFacts
+                <li><strong>Je crois savoir ce que tu veux manger:</strong> Des champs de formulaire avec
+                    autocomplétion.</li>
+                <li><strong>Un frigo bien rangé au fur et à mesure:</strong> Mettre à jour les produits à partir de
+                    l'API OpenFoodFacts
                     à chaque requête de type get ou filter</li>
             </ul>
 
