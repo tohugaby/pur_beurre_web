@@ -15,7 +15,7 @@
 # Retour sur le projet n°8 : Créez une plateforme pour amateurs de Nutella
 ## Démarche
 
-### Mise en place des outils et choix des tecknologies
+### Mise en place des outils et choix des technologies
 
 #### Backend
 Pour le backend, le language utilisé est python dans sa version 3.7 avec le framework django.
