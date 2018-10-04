@@ -1,5 +1,9 @@
+"""
+Helpers module for product search.
+"""
+
 import collections
-from itertools import chain, zip_longest
+from itertools import zip_longest
 from pprint import pprint
 
 from django.db.models import Q
@@ -68,13 +72,15 @@ def search_product(terms: str):
 
         # search exact terms combination
         if terms_str not in STOP_WORDS:
-            result += [(product, weigth * 2) for product in Product.objects.filter(product_name__icontains=terms).exclude(nutrition_grade_fr='')]
+            result += [(product, weigth * 2)
+                       for product in Product.objects.filter(product_name__icontains=terms).exclude(nutrition_grade_fr='')]
 
             # search unordered terms combination
             for word in terms_list:
                 query_filter_list.append(Q(product_name__icontains=word))
 
-            result += [(product, (weigth * 2) - 1) for product in Product.objects.filter(*query_filter_list).exclude(nutrition_grade_fr='')]
+            result += [(product, (weigth * 2) - 1)
+                       for product in Product.objects.filter(*query_filter_list).exclude(nutrition_grade_fr='')]
 
     # remove duplicate values
     cleaned_result = list(clean_search_result(result))
@@ -87,17 +93,26 @@ def search_product(terms: str):
 
 # Autocompletion helpers
 
-def clearText(text):
+def clear_text(text):
+    """
+    Clean provided text.
+    """
 
     return text.lower()
 
 
 def create_corpus():
-    corpus = [clearText(element[0]) for element in Product.objects.all().values_list('product_name')]
+    """
+    Create corpus from products names.
+    """
+    corpus = [clear_text(element[0]) for element in Product.objects.all().values_list('product_name')]
     return corpus
 
 
 def get_unigrams(corpus):
+    """
+    Get all unigrams from corpus.
+    """
     unigrams = {}
     for element in corpus:
         print(element)
@@ -111,6 +126,9 @@ def get_unigrams(corpus):
 
 
 def get_ngrams(corpus, n):
+    """
+    Get ngrams from provided corpus according to provided value of n.
+    """
     words = []
     ngrams = {}
     for word_list in [elt.split(' ') for elt in corpus]:

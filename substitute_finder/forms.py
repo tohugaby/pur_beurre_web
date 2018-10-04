@@ -1,22 +1,34 @@
+"""
+substitute_finder app forms.
+"""
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.forms.utils import ErrorList
 
 from .models import CustomUser
 
 
 class ParagrapheErrorList(ErrorList):
+    """
+    Custom error to return paragraphes instead of list.
+    """
+
     def __str__(self):
         return self.as_divs()
 
     def as_divs(self):
+        """
+        return html formated error.
+        """
         if not self:
             return ''
         return '<p>%s</p>' % ''.join(['<p>%s</p>' % e for e in self])
 
 
 class CustomLoginForm(forms.Form):
+    """
+    Custom login form that waits for email as username.
+    """
     email = forms.EmailField(
         label="email",
         widget=forms.EmailInput(
@@ -40,6 +52,9 @@ class CustomLoginForm(forms.Form):
 
 
 class AccountCreateForm(forms.ModelForm):
+    """
+    Account Create form.
+    """
     class Meta:
         model = CustomUser
         fields = ['email', 'username', 'first_name', 'last_name', 'password']
@@ -60,5 +75,8 @@ class AccountCreateForm(forms.ModelForm):
 
 
 class ProductsSearchForm(forms.Form):
+    """
+    Form used for product search.
+    """
     product = forms.CharField(label="Recherche", widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Votre recherche'}), required=True)

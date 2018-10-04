@@ -1,3 +1,7 @@
+"""
+substitute_finder admin
+"""
+
 from django.contrib import admin
 
 from .models import Category, CustomUser, Product
@@ -7,16 +11,25 @@ from .models import Category, CustomUser, Product
 
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
+    """
+    CustomUser admin config.
+    """
     pass
 
 
 class CustomUserInline(admin.TabularInline):
+    """
+    CustomUser for products inline admin config.
+    """
     model = Product.users.through
     verbose_name = 'Utilistateur'
     verbose_name_plural = 'Utilisateurs'
 
 
 class CategoryInline(admin.TabularInline):
+    """
+    Category for products inline admin config.
+    """
     model = Product.categories_tags.through
     verbose_name = 'Catégorie'
     verbose_name_plural = 'Catégories'
@@ -24,6 +37,9 @@ class CategoryInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    """
+    Product admin config.
+    """
     search_fields = ['code', 'product_name', 'generic_name']
     list_filter = ['nutrition_grade_fr', 'categories_tags']
     inlines = [CustomUserInline, CategoryInline]
@@ -32,9 +48,15 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """
+    Category admin config.
+    """
     search_fields = ['name', ]
 
 
 @admin.register(Product.users.through)
 class FavoriteAdmin(admin.ModelAdmin):
+    """
+    Favorite admin config.
+    """
     list_display = ['product', 'customuser']

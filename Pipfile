@@ -17,6 +17,7 @@ dj-database-url = "*"
 gunicorn = "*"
 "django-sendgrid-v5" = "*"
 selenium = "*"
+pylint-django = "*"
 
 [dev-packages]
 pylint = "*"

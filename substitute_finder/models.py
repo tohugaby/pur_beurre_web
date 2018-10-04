@@ -2,7 +2,6 @@
 Define substitute_finder models
 """
 
-import copy
 import json
 import logging
 import os
@@ -27,15 +26,15 @@ def find_dict_value_for_nested_key(searched_key, container):
     :type searched_key: str
     """
     if hasattr(container, 'items'):
-        for k, v in container.items():
-            if k == searched_key:
-                yield k, v
-            elif isinstance(v, dict):
-                for result in find_dict_value_for_nested_key(searched_key, v):
+        for key, value in container.items():
+            if key == searched_key:
+                yield key, value
+            elif isinstance(value, dict):
+                for result in find_dict_value_for_nested_key(searched_key, value):
                     yield result
-            elif isinstance(v, list):
-                for d in v:
-                    for result in find_dict_value_for_nested_key(searched_key, d):
+            elif isinstance(value, list):
+                for data in value:
+                    for result in find_dict_value_for_nested_key(searched_key, data):
                         yield result
 
 
@@ -328,7 +327,7 @@ class FromApiUpdateMixin:
 
             if ignore_element:
                 LOGGER.warning("FILTERS %s on many to many fields are not satisfied for %s : %s will be ignored" %
-                                       (filters, cls._meta.model_name, value_dict))
+                               (filters, cls._meta.model_name, value_dict))
                 continue
 
                 # if value_dict[key] not in filters[key]:
