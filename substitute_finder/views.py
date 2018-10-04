@@ -116,6 +116,8 @@ def search_view(request, *args, **kwargs):
 
             request.session['last_products'] = [product[0].pk for product in result]
             if len(result) == 1:
+                context['product'] = [product[0] for product in result][0]
+                context['products'] = []
                 return render(request, 'substitute_finder/product.html', context)
             if len(result) == 0:
                 messages.info(request, "Aucun produit de notre base de données ne correspond à votre recherche.")
@@ -166,7 +168,7 @@ def product_view(request, *args, **kwargs):
 
     grades = sorted([value['nutrition_grade_fr'] for value in Product.objects.values('nutrition_grade_fr').distinct()])
 
-    content = {
+    context = {
         'product': product,
         'products': products,
         'others': paginator.get_page(page),
@@ -174,7 +176,7 @@ def product_view(request, *args, **kwargs):
         'grades': grades,
         "form": ProductsSearchForm()
     }
-    return render(request, 'substitute_finder/product.html', content)
+    return render(request, 'substitute_finder/product.html', context)
 
 
 @login_required
