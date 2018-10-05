@@ -105,7 +105,7 @@ class Command(BaseCommand):
         :return:
         """
         data = Product.get_api_data_list(nb_pages=1, start_page=actual_page, from_cache=from_cache)
-        Product.insert_data(data, strict_required_field_mode=grumpy_mode, filters=filters)
+        Product.insert_data(data, strict_required_field_mode=grumpy_mode, data_filters=filters)
         return bool(data)
 
     @staticmethod

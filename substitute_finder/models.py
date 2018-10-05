@@ -115,7 +115,7 @@ class FromApiUpdateMixin:
             while go_next_page:
                 cleaned_data = []
                 suffix = '_list_%s.json' % page
-                file_path = os.path.join(settings.JSON_DIR_PATH, "%s%s", cls._meta.model_name, suffix)
+                file_path = os.path.join(settings.JSON_DIR_PATH, "%s%s"% (cls._meta.model_name, suffix))
 
                 # Work with cached data when available
                 if from_cache and os.path.exists(file_path):
@@ -228,15 +228,15 @@ class FromApiUpdateMixin:
         return file_path
 
     @classmethod
-    def insert_data(cls, data: list or dict, strict_required_field_mode: bool = False, filters: dict = None):
+    def insert_data(cls, data: list or dict, strict_required_field_mode: bool = False, data_filters: dict = None):
         """
         Create as many model instances as needed according to data provided
             :param data: data collection to insert in database
             :type data: list or dict
             :param strict_required_field_mode: if True, a missing required field leads to cancel element insert
             :type strict_required_field_mode: bool
-            :param filters: a dict of filters to define which elements should be inserted
-            :type filters: dict
+            :param data_filters: a dict of filters to define which elements should be inserted
+            :type data_filters: dict
         """
 
         LOGGER.info("CREATE/UPDATE data for %s ", cls._meta.model_name)
@@ -244,13 +244,15 @@ class FromApiUpdateMixin:
         # Define model field names
         field_names = [f.name for f in cls._meta.get_fields()]
 
-        # clean filters
+        # clean data_filters
 
         for key in cls.field_correspondances:
             field_names.append(key)
             field_names.remove(cls.field_correspondances[key])
 
-        filters = {key: value for key, value in filters.items() if key in field_names}
+        filters = dict()
+        if isinstance(data_filters, dict):
+            filters = {key: value for key, value in data_filters.items() if key in field_names}
 
         # Define primary key name
         primary_key_field_name = cls._meta.pk.name
@@ -309,7 +311,7 @@ class FromApiUpdateMixin:
                 if key in value_dict.keys():
                     many_to_many_data.append({key: value_dict.pop(key)})
 
-            # check data with filters
+            # check data with data_filters
             for key in value_dict:
                 if key in filters.keys():
                     if value_dict[key] not in filters[key]:
@@ -317,7 +319,7 @@ class FromApiUpdateMixin:
                                        key, cls._meta.model_name, value_dict)
                         continue
 
-            # check many to many data with filters
+            # check many to many data with data_filters
             for many_to_many_element in many_to_many_data:
                 for key, values in many_to_many_element.items():
                     if key in filters.keys() and filters[key] is not None:
@@ -332,7 +334,7 @@ class FromApiUpdateMixin:
                                filters, cls._meta.model_name, value_dict)
                 continue
 
-                # if value_dict[key] not in filters[key]:
+                # if value_dict[key] not in data_filters[key]:
                 #     continue
 
             # Create or update element in database
