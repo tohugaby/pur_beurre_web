@@ -2,11 +2,12 @@
 Test substitute_finder app views.
 """
 from django.contrib.messages import get_messages
+from django.contrib.sessions.models import Session
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.sessions.models import Session
 
 from substitute_finder.models import Product, CustomUser
+
 
 # Create your tests here.
 
@@ -25,6 +26,7 @@ class IndexViewTestCase(TestCase):
         """
         response = self.client.get(reverse('substitute_finder:index'))
         self.assertEqual(response.status_code, 200)
+
 
 # Account Page
 # returns 200
@@ -53,6 +55,7 @@ class AccountViewTestCase(TestCase):
         """
         response = self.client.get(reverse('substitute_finder:account'))
         self.assertEqual(response.status_code, 302)
+
 
 # Account create page
 # returns 200
@@ -181,6 +184,7 @@ class LogoutViewTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
         self.assertLess(nb_sessions_after, nb_sessions_before)
+
 
 # Search page
 # POST valid return results or not

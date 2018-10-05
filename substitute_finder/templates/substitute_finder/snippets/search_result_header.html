@@ -16,13 +16,13 @@
                     <form action="{% url 'substitute_finder:search' %}" method="post" class=" form-inline">
                         {% csrf_token %}
                         <div class="form-group">
-                            {{form.product}}
+                            {{ form.product }}
                         </div>
                         <button type="submit" class="btn btn-primary">Rechercher</button>
                     </form>
                 </div>
-                
-                {% comment %} <a href="{%url 'substitute_finder:index' %}">Nouvelle recherche</a> {% endcomment %}
+
+                {% comment %} <a href="{% url 'substitute_finder:index' %}">Nouvelle recherche</a> {% endcomment %}
             </div>
         </div>
     </div>

@@ -16,7 +16,6 @@ from django.urls import reverse_lazy
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = 'q1g^)xvzo1q)udg1b4yon_t@wd4x47em8%2in+^l*h6vo9i-_x'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -73,7 +71,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'pur_beurre_web.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -124,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -146,10 +142,8 @@ STATICFILES_FINDERS += [
     'sass_processor.finders.CssFinder',
 ]
 
-
 # Debug tool bar
 INTERNAL_IPS = ['127.0.0.1']
-
 
 # Logs
 LOGGING = {
@@ -172,10 +166,8 @@ LOGGING = {
     }
 }
 
-
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 # =============================================================================================
 # DATAGETTERS PARAMETERS
@@ -184,10 +176,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 JSON_DIR_NAME = 'cached_json_files'
 JSON_DIR_PATH = os.path.join(BASE_DIR, JSON_DIR_NAME)
 
-
 # SEARCH SETTINGS
 MAX_RESULT_PER_PAGE = 15
-
 
 # LOGIN
 LOGIN_URL = reverse_lazy('substitute_finder:login')

@@ -1,114 +1,131 @@
 {% load static %}
 
-<header class="masthead producthead text-center text-white d-flex" style="background-image:url({{product.image_url}})">
+<header class="masthead producthead text-center text-white d-flex"
+        style="background-image:url({{ product.image_url }})">
     <div class="container mt-5 my-auto p-1 white-bg">
         <div class="row ">
             <div class="col mx-auto" id="{{ product.pk }}">
                 <h5 class="text-uppercase mussels-chips">
-                    {{product.product_name}}
-                    {% if  user.is_authenticated %} 
-                    {% if user not in product.users.all %}
-                    <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
-                        <i class="fa fa-floppy-o"></i>
-                    </a>
-                    {% endif %}
+                    {{ product.product_name }}
+                    {% if  user.is_authenticated %}
+                        {% if user not in product.users.all %}
+                            <a href="{% url 'substitute_finder:add_favorite' product.pk %}"
+                               class="chocolate add-favorite">
+                                <i class="fa fa-floppy-o"></i>
+                            </a>
+                        {% endif %}
                     {% endif %}
                 </h5>
-                <hr />
+                <hr/>
                 <div class="container product-description soft-caramel">
                     <div class="row mb-3">
-                        <div class="mussels-chips text-left col-md-2 col-sm-12"">Description</div>
-                        <div class="
-                            col-md-10 col-sm-12">{{product.generic_name}}</div>
+                        <div class="mussels-chips text-left col-md-2 col-sm-12"
+                        ">Description
                     </div>
+                    <div class="
+                            col-md-10 col-sm-12">{{ product.generic_name }}</div>
+                </div>
 
-                    <div class="row mb-3">
-                        <div class="mussels-chips text-left col-md-2 col-sm-12">Catégories</div>
-                        <div class="col-md-10 col-sm-12">{% for cat in product.categories_tags.all %}{{cat}}
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="mussels-chips text-left col-md-2 col-sm-12">Note nutritionnelle</div>
-                        <div class="col-md-10 col-sm-12">
-                            {% for grade in grades %}
-                            {% if grade == product.nutrition_grade_fr %}
-                            <span class="nutrition-grade__big">{{grade | upper }}</span>
-                            {% else %}
-                            {{grade | upper }}
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-
-                    </div>
-                    <div class="row mb-3">
-                        <div class="mussels-chips text-left col-md-2 col-sm-12">Repères nutritionnels pour 100g</div>
-                        <div class="col-md-5 col-sm-12 text-left">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr>
-                                        <th>Énergie</th>
-                                        <td>{{product.energy_100g|default_if_none:"?" }}{{product.energy_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Matières grasses/Lipides</th>
-                                        <td>{{product.fat_100g|default_if_none:"?" }}{{product.fat_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th><small>dont Acides gras saturés</small></th>
-                                        <td>{{product.saturated_fat_100g|default_if_none:"?" }}{{product.saturated_fat_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Glucides</th>
-                                        <td>{{product.carbohydrates_100g|default_if_none:"?" }}{{product.carbohydrates_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th><small>dont Sucres</small></th>
-                                        <td>{{product.sugars_100g|default_if_none:"?" }}{{product.sugars_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-
-                        </div>
-                        <div class="col-md-5 col-sm-12 text-left">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr>
-                                        <th>Fibres alimentaires</th>
-                                        <td>{{product.fiber_100g|default_if_none:"?" }}{{product.fiber_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Protéines</th>
-                                        <td>{{product.proteins_100g|default_if_none:"?" }}{{product.proteins_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sel</th>
-                                        <td>{{product.salt_100g|default_if_none:"?" }}{{product.salt_unit|default_if_none:"" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sodium</th>
-                                        <td>{{product.sodium_100g|default_if_none:"?" }}</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="mussels-chips text-left col-2">Lieux d'achat</div>
-                        <div class="col-10 text-left">{{product.stores}}</div>
-                    </div>
-                    <hr>
-                    <div class="row mb-3">
-                        <div class="col-12 text-center"> Retrouvez ce produit sur <a href="{{product.url}}">OpenFoodFacts</a></div>
+                <div class="row mb-3">
+                    <div class="mussels-chips text-left col-md-2 col-sm-12">Catégories</div>
+                    <div class="col-md-10 col-sm-12">{% for cat in product.categories_tags.all %}{{ cat }}
+                    {% endfor %}
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <div class="mussels-chips text-left col-md-2 col-sm-12">Note nutritionnelle</div>
+                    <div class="col-md-10 col-sm-12">
+                        {% for grade in grades %}
+                            {% if grade == product.nutrition_grade_fr %}
+                                <span class="nutrition-grade__big">{{ grade | upper }}</span>
+                            {% else %}
+                                {{ grade | upper }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <div class="mussels-chips text-left col-md-2 col-sm-12">Repères nutritionnels pour 100g</div>
+                    <div class="col-md-5 col-sm-12 text-left">
+                        <table class="table table-sm">
+                            <tbody>
+                            <tr>
+                                <th>Énergie</th>
+                                <td>
+                                    {{ product.energy_100g|default_if_none:"?" }}{{ product.energy_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Matières grasses/Lipides</th>
+                                <td>
+                                    {{ product.fat_100g|default_if_none:"?" }}{{ product.fat_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <small>dont Acides gras saturés</small>
+                                </th>
+                                <td>
+                                    {{ product.saturated_fat_100g|default_if_none:"?" }}{{ product.saturated_fat_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Glucides</th>
+                                <td>
+                                    {{ product.carbohydrates_100g|default_if_none:"?" }}{{ product.carbohydrates_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <small>dont Sucres</small>
+                                </th>
+                                <td>
+                                    {{ product.sugars_100g|default_if_none:"?" }}{{ product.sugars_unit|default_if_none:"" }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="col-md-5 col-sm-12 text-left">
+                        <table class="table table-sm">
+                            <tbody>
+                            <tr>
+                                <th>Fibres alimentaires</th>
+                                <td>
+                                    {{ product.fiber_100g|default_if_none:"?" }}{{ product.fiber_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Protéines</th>
+                                <td>
+                                    {{ product.proteins_100g|default_if_none:"?" }}{{ product.proteins_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sel</th>
+                                <td>
+                                    {{ product.salt_100g|default_if_none:"?" }}{{ product.salt_unit|default_if_none:"" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sodium</th>
+                                <td>{{ product.sodium_100g|default_if_none:"?" }}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="mussels-chips text-left col-2">Lieux d'achat</div>
+                    <div class="col-10 text-left">{{ product.stores }}</div>
+                </div>
                 <hr>
-                <a href="{%url 'substitute_finder:index' %}">Nouvelle recherche</a>
+                <div class="row mb-3">
+                    <div class="col-12 text-center"> Retrouvez ce produit sur <a
+                            href="{{ product.url }}">OpenFoodFacts</a></div>
+                </div>
             </div>
+            <hr>
+            <a href="{% url 'substitute_finder:index' %}">Nouvelle recherche</a>
         </div>
+    </div>
     </div>
 </header>

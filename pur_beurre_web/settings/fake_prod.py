@@ -1,9 +1,7 @@
-import os
 import random
 import string
-import dj_database_url
-from . import *
 
+from . import *
 
 SECRET_KEY_FILE_PATH = os.path.join(BASE_DIR, 'secret_key.txt')
 if os.path.exists(SECRET_KEY_FILE_PATH):
@@ -19,12 +17,9 @@ if os.environ.get('DEBUG'):
 else:
     DEBUG = False
 
-
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 
-
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
-
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,7 +34,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
-
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 

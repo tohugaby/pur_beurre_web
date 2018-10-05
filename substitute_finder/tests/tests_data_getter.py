@@ -1,15 +1,13 @@
-import copy
+import json
 import json
 import os
-from pprint import pprint
-
-import requests
 import requests_mock
 from django.conf import settings
 from django.test import TestCase
 
 from substitute_finder.models import (Category, Product,
                                       find_dict_value_for_nested_key)
+
 
 # get a data source urls for a model
 #   - for a list
@@ -27,7 +25,7 @@ class UrlGetterTestCase(TestCase):
         self.assertIsNotNone(url)
 
     def test_get_url_for_category_element(self):
-        url = Category.get_element_api_url(id=self.category_id)
+        url = Category.get_element_api_url(element_id=self.category_id)
         self.assertIsNone(url)
 
     def test_get_url_for_product_list(self):
@@ -36,7 +34,7 @@ class UrlGetterTestCase(TestCase):
         self.assertIn('9', url)
 
     def test_get_url_for_product_element(self):
-        url = Product.get_element_api_url(id=self.product_id)
+        url = Product.get_element_api_url(element_id=self.product_id)
         self.assertIsNotNone(url)
 
 
@@ -191,7 +189,6 @@ class DataInsertTestCase(TestCase):
         self.assertGreater(nb_elements_after, nb_elements_before)
 
     def test_insert_product_list(self):
-
         with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:
@@ -226,7 +223,6 @@ class DataInsertTestCase(TestCase):
         self.assertEqual(new_nb_elements_after, nb_elements_after)
 
     def test_insert_product_list_with_strict_mode(self):
-
         with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:
@@ -261,7 +257,6 @@ class DataInsertTestCase(TestCase):
         self.assertGreater(new_nb_elements_after, nb_elements_after)
 
     def test_insert_product_element(self):
-
         with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
         with requests_mock.Mocker() as m:

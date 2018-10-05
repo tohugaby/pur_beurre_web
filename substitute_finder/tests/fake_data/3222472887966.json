@@ -1,542 +1,831 @@
 {
-    "status": 1,
-    "status_verbose": "product found",
+  "status": 1,
+  "status_verbose": "product found",
+  "code": "3222472887966",
+  "product": {
+    "last_edit_dates_tags": [
+      "2018-08-07",
+      "2018-08",
+      "2018"
+    ],
+    "image_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.200.jpg",
+    "ingredients_debug": [
+      "Jus de _soja_* ",
+      "(",
+      "(",
+      null,
+      null,
+      "eau",
+      ",",
+      null,
+      null,
+      null,
+      " graines de _soja_* 6.7 %)",
+      ".\r",
+      null,
+      null,
+      null,
+      "\n*Ingrédient issu de l'agriculture biologique",
+      ".\r",
+      null,
+      null,
+      null,
+      "\n"
+    ],
+    "image_nutrition_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.200.jpg",
+    "vitamins_prev_tags": [],
+    "interface_version_created": "20120622",
+    "serving_size": "200 ml (Cette brique contient 5 portions environ)",
+    "nucleotides_prev_tags": [],
+    "pnns_groups_2_tags": [
+      "legumes"
+    ],
+    "languages_hierarchy": [
+      "en:french"
+    ],
+    "amino_acids_tags": [],
+    "additives_old_tags": [],
+    "additives_old_n": 0,
+    "creator": "jiehong",
+    "purchase_places": "Antibes,France",
+    "product_name": "Boisson au Soja Nature",
+    "ingredients": [
+      {
+        "text": "Jus de _soja_",
+        "rank": 1,
+        "id": "fr:jus-de-soja"
+      },
+      {
+        "id": "fr:Ingrédient issu de l'agriculture biologique",
+        "rank": 2,
+        "text": "Ingrédient issu de l'agriculture biologique"
+      },
+      {
+        "id": "en:water",
+        "text": "eau"
+      },
+      {
+        "text": "graines de _soja_",
+        "percent": "6.7",
+        "id": "fr:graine-de-soja"
+      }
+    ],
+    "labels_hierarchy": [
+      "en:low-or-no-sugar",
+      "en:organic",
+      "en:eu-organic",
+      "en:fr-bio-01",
+      "en:no-sugar",
+      "fr:ab-agriculture-biologique",
+      "fr:Agriculture France",
+      "fr:Elaboré en France",
+      "fr:Soja origine France"
+    ],
+    "last_modified_by": "kiliweb",
+    "codes_tags": [
+      "code-13",
+      "3222472887966",
+      "322247288796x",
+      "32224728879xx",
+      "3222472887xxx",
+      "322247288xxxx",
+      "32224728xxxxx",
+      "3222472xxxxxx",
+      "322247xxxxxxx",
+      "32224xxxxxxxx",
+      "3222xxxxxxxxx",
+      "322xxxxxxxxxx",
+      "32xxxxxxxxxxx",
+      "3xxxxxxxxxxxx"
+    ],
+    "ingredients_text": "Jus de _soja_* (eau, graines de _soja_* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
+    "correctors_tags": [
+      "jiehong",
+      "jacob80",
+      "tacite",
+      "kiliweb"
+    ],
+    "nutrient_levels": {
+      "fat": "moderate",
+      "saturated-fat": "low",
+      "sugars": "low",
+      "salt": "low"
+    },
+    "nutrition_data_prepared_per": "100g",
+    "nutriments": {
+      "sugars_100g": 0.4,
+      "salt_serving": 0.2,
+      "nova-group_serving": 1,
+      "nutrition-score-fr": "-1",
+      "sugars": 0.4,
+      "sodium_100g": 0.0393700787401575,
+      "fiber_value": "0.5",
+      "fat_serving": 3.6,
+      "sugars_serving": 0.8,
+      "carbohydrates_100g": 0.8,
+      "proteins_value": "3.2",
+      "carbohydrates_value": "0.8",
+      "nova-group": 1,
+      "salt": 0.1,
+      "salt_100g": 0.1,
+      "sugars_value": "0.4",
+      "carbohydrates": 0.8,
+      "proteins_unit": "",
+      "sodium": 0.0393700787401575,
+      "proteins_100g": 3.2,
+      "saturated-fat_serving": 0.6,
+      "proteins_serving": 6.4,
+      "fat_unit": "",
+      "salt_value": "0.1",
+      "saturated-fat_value": "0.3",
+      "fiber_unit": "g",
+      "fat_value": "1.8",
+      "energy_serving": "276",
+      "fat_100g": 1.8,
+      "energy_value": "33",
+      "nutrition-score-fr_100g": "-1",
+      "sodium_serving": 0.0787,
+      "nova-group_100g": 1,
+      "fiber": 0.5,
+      "fiber_serving": "1",
+      "fiber_100g": 0.5,
+      "proteins": 3.2,
+      "nutrition-score-uk": "-1",
+      "carbohydrates_serving": 1.6,
+      "energy": "138",
+      "saturated-fat": 0.3,
+      "salt_unit": "",
+      "sugars_unit": "",
+      "energy_unit": "kcal",
+      "carbohydrates_unit": "",
+      "nutrition-score-uk_100g": "-1",
+      "energy_100g": "138",
+      "saturated-fat_unit": "",
+      "saturated-fat_100g": 0.3,
+      "fat": 1.8
+    },
+    "languages_codes": {
+      "fr": 6
+    },
+    "vitamins_tags": [],
+    "stores": "Casino",
+    "ingredients_n_tags": [
+      "4",
+      "1-10"
+    ],
+    "additives_prev_n": 0,
+    "image_front_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.100.jpg",
+    "emb_codes_20141016": "EMB 45273",
+    "editors_tags": [
+      "jacob80",
+      "tacite",
+      "jiehong",
+      "kiliweb"
+    ],
+    "no_nutrition_data": "",
+    "traces_from_ingredients": "",
+    "manufacturing_places_tags": [
+      "laiterie-de-saint-denis-de-l-hotel-lsdh-10-route-de-l-aerodrome-les-grandes-beaugines-45550-saint-denis-de-l-hotel",
+      "loiret",
+      "centre-val-de-loire",
+      "france"
+    ],
+    "expiration_date": "19/12/2015",
+    "minerals_tags": [],
+    "nutrient_levels_tags": [
+      "en:fat-in-moderate-quantity",
+      "en:saturated-fat-in-low-quantity",
+      "en:sugars-in-low-quantity",
+      "en:salt-in-low-quantity"
+    ],
+    "brands_debug_tags": [],
+    "max_imgid": "5",
+    "id": "3222472887966",
+    "states": "en:to-be-checked, en:complete, en:nutrition-facts-completed, en:ingredients-completed, en:expiration-date-completed, en:packaging-code-completed, en:characteristics-completed, en:categories-completed, en:brands-completed, en:packaging-completed, en:quantity-completed, en:product-name-completed, en:photos-validated, en:photos-uploaded",
+    "ingredients_hierarchy": [
+      "fr:jus-de-soja",
+      "fr:Ingrédient issu de l'agriculture biologique",
+      "en:water",
+      "fr:graine-de-soja"
+    ],
+    "completed_t": 1426522362,
+    "labels_tags": [
+      "en:low-or-no-sugar",
+      "en:organic",
+      "en:eu-organic",
+      "en:fr-bio-01",
+      "en:no-sugar",
+      "fr:ab-agriculture-biologique",
+      "fr:agriculture-france",
+      "fr:elabore-en-france",
+      "fr:soja-origine-france"
+    ],
+    "additives_original_tags": [],
+    "last_modified_t": 1533651617,
+    "categories_debug_tags": [],
+    "cities_tags": [
+      "saint-denis-de-l-hotel-loiret-france"
+    ],
+    "scans_n": 2,
+    "update_key": "key_1533677490",
+    "allergens_tags": [
+      "en:soybeans"
+    ],
+    "ingredients_text_with_allergens": "Jus de <span class=\"allergen\">soja</span>* (eau, graines de <span class=\"allergen\">soja</span>* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
+    "languages_tags": [
+      "en:french",
+      "en:1"
+    ],
+    "lang_debug_tags": [],
+    "image_front_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.400.jpg",
+    "ingredients_text_with_allergens_fr": "Jus de <span class=\"allergen\">soja</span>* (eau, graines de <span class=\"allergen\">soja</span>* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
+    "brands_tags": [
+      "casino"
+    ],
+    "unique_scans_n": 2,
+    "ingredients_n": "4",
+    "emb_codes": "EMB 45273",
+    "stores_tags": [
+      "casino"
+    ],
+    "nutrition_grades_tags": [
+      "a"
+    ],
+    "link_debug_tags": [],
+    "additives_n": 0,
+    "allergens_hierarchy": [
+      "en:soybeans"
+    ],
+    "ingredients_from_palm_oil_tags": [],
+    "pnns_groups_1_tags": [
+      "cereals-and-potatoes"
+    ],
+    "images": {
+      "nutrition": {
+        "normalize": null,
+        "rev": "11",
+        "sizes": {
+          "full": {
+            "w": 1290,
+            "h": 1026
+          },
+          "200": {
+            "h": 159,
+            "w": 200
+          },
+          "400": {
+            "w": 400,
+            "h": 318
+          },
+          "100": {
+            "h": 80,
+            "w": 100
+          }
+        },
+        "geometry": "1290x1026-205-310",
+        "white_magic": null,
+        "imgid": "4"
+      },
+      "5": {
+        "uploader": "jiehong",
+        "uploaded_t": 1426521444,
+        "sizes": {
+          "full": {
+            "h": 1482,
+            "w": 2000
+          },
+          "400": {
+            "w": 400,
+            "h": 296
+          },
+          "100": {
+            "h": 74,
+            "w": 100
+          }
+        }
+      },
+      "front_fr": {
+        "imgid": "1",
+        "geometry": "641x1795-400-90",
+        "white_magic": null,
+        "sizes": {
+          "100": {
+            "h": 100,
+            "w": 36
+          },
+          "full": {
+            "w": 641,
+            "h": 1795
+          },
+          "200": {
+            "h": 200,
+            "w": 71
+          },
+          "400": {
+            "h": 400,
+            "w": 143
+          }
+        },
+        "rev": "9",
+        "normalize": null
+      },
+      "nutrition_fr": {
+        "normalize": null,
+        "rev": "11",
+        "sizes": {
+          "full": {
+            "w": 1290,
+            "h": 1026
+          },
+          "200": {
+            "h": 159,
+            "w": 200
+          },
+          "400": {
+            "w": 400,
+            "h": 318
+          },
+          "100": {
+            "h": 80,
+            "w": 100
+          }
+        },
+        "geometry": "1290x1026-205-310",
+        "white_magic": null,
+        "imgid": "4"
+      },
+      "ingredients_fr": {
+        "rev": "10",
+        "normalize": null,
+        "white_magic": null,
+        "geometry": "1340x311-90-505",
+        "imgid": "2",
+        "sizes": {
+          "200": {
+            "h": 46,
+            "w": 200
+          },
+          "400": {
+            "w": 400,
+            "h": 93
+          },
+          "full": {
+            "h": 311,
+            "w": 1340
+          },
+          "100": {
+            "h": 23,
+            "w": 100
+          }
+        }
+      },
+      "front": {
+        "imgid": "1",
+        "geometry": "641x1795-400-90",
+        "white_magic": null,
+        "sizes": {
+          "100": {
+            "h": 100,
+            "w": 36
+          },
+          "full": {
+            "w": 641,
+            "h": 1795
+          },
+          "200": {
+            "h": 200,
+            "w": 71
+          },
+          "400": {
+            "h": 400,
+            "w": 143
+          }
+        },
+        "rev": "9",
+        "normalize": null
+      },
+      "4": {
+        "sizes": {
+          "100": {
+            "w": 100,
+            "h": 74
+          },
+          "400": {
+            "w": 400,
+            "h": 296
+          },
+          "full": {
+            "h": 1482,
+            "w": 2000
+          }
+        },
+        "uploaded_t": 1426521421,
+        "uploader": "jiehong"
+      },
+      "1": {
+        "sizes": {
+          "100": {
+            "w": 100,
+            "h": 74
+          },
+          "full": {
+            "w": 2000,
+            "h": 1482
+          },
+          "400": {
+            "w": 400,
+            "h": 296
+          }
+        },
+        "uploader": "jiehong",
+        "uploaded_t": 1426521381
+      },
+      "2": {
+        "uploader": "jiehong",
+        "uploaded_t": 1426521399,
+        "sizes": {
+          "100": {
+            "w": 100,
+            "h": 74
+          },
+          "400": {
+            "w": 400,
+            "h": 296
+          },
+          "full": {
+            "w": 2000,
+            "h": 1482
+          }
+        }
+      },
+      "3": {
+        "uploaded_t": 1426521407,
+        "uploader": "jiehong",
+        "sizes": {
+          "100": {
+            "h": 74,
+            "w": 100
+          },
+          "full": {
+            "h": 1482,
+            "w": 2000
+          },
+          "400": {
+            "h": 296,
+            "w": 400
+          }
+        }
+      },
+      "ingredients": {
+        "rev": "10",
+        "normalize": null,
+        "white_magic": null,
+        "geometry": "1340x311-90-505",
+        "imgid": "2",
+        "sizes": {
+          "200": {
+            "h": 46,
+            "w": 200
+          },
+          "400": {
+            "w": 400,
+            "h": 93
+          },
+          "full": {
+            "h": 311,
+            "w": 1340
+          },
+          "100": {
+            "h": 23,
+            "w": 100
+          }
+        }
+      }
+    },
+    "nutrition_score_debug": " -- energy 0 + sat-fat 0 + fr-sat-fat-for-fats 2 + sugars 0 + sodium 0 - fruits 0% 0 - fiber 0 - proteins 1 -- fsa -1 -- fr -1",
+    "ingredients_from_or_that_may_be_from_palm_oil_n": 0,
+    "lang": "fr",
+    "product_name_fr": "Boisson au Soja Nature",
+    "nutrition_score_warning_no_fruits_vegetables_nuts": 1,
+    "_id": "3222472887966",
+    "ingredients_text_fr_debug_tags": [],
+    "labels_prev_tags": [
+      "en:low-or-no-sugar",
+      "en:organic",
+      "en:eu-organic",
+      "en:fr-bio-01",
+      "en:no-sugar",
+      "fr:ab-agriculture-biologique",
+      "fr:agriculture-france",
+      "fr:elabore-en-france",
+      "fr:soja-origine-france"
+    ],
+    "nutrition_data_per": "100g",
+    "traces_debug_tags": [],
+    "interface_version_modified": "20150316.jqm2",
+    "stores_debug_tags": [],
+    "image_ingredients_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.200.jpg",
+    "origins_debug_tags": [],
+    "countries_hierarchy": [
+      "en:france"
+    ],
+    "serving_size_debug_tags": [],
+    "labels": "Peu ou pas de sucre,Bio,Bio européen,FR-BIO-01,Sans sucre,AB Agriculture Biologique,Agriculture France,Elaboré en France,Soja origine France",
+    "additives_debug_tags": [],
+    "labels_prev_hierarchy": [
+      "en:low-or-no-sugar",
+      "en:organic",
+      "en:eu-organic",
+      "en:fr-bio-01",
+      "en:no-sugar",
+      "fr:ab-agriculture-biologique",
+      "fr:Agriculture France",
+      "fr:Elaboré en France",
+      "fr:Soja origine France"
+    ],
+    "quantity": "1 L",
+    "manufacturing_places_debug_tags": [],
+    "traces_tags": [],
+    "nova_groups": 1,
+    "informers_tags": [
+      "jiehong",
+      "jacob80"
+    ],
+    "photographers_tags": [
+      "jiehong"
+    ],
+    "amino_acids_prev_tags": [],
+    "categories_prev_tags": [
+      "en:plant-based-foods-and-beverages",
+      "en:beverages",
+      "en:plant-based-foods",
+      "en:legumes-and-their-products",
+      "en:plant-based-beverages",
+      "en:milk-substitute",
+      "en:plant-milks",
+      "en:legume-milks",
+      "en:soy-milks"
+    ],
+    "last_editor": "kiliweb",
+    "countries": "France",
+    "brands": "Casino",
+    "unknown_ingredients_n": 1,
+    "categories_hierarchy": [
+      "en:plant-based-foods-and-beverages",
+      "en:beverages",
+      "en:plant-based-foods",
+      "en:legumes-and-their-products",
+      "en:plant-based-beverages",
+      "en:milk-substitute",
+      "en:plant-milks",
+      "en:legume-milks",
+      "en:soy-milks"
+    ],
+    "product_name_fr_debug_tags": [],
+    "categories": "Laits de soja",
+    "generic_name": "Boisson végétale au soja issue de l'agriculture biologique stérilisée UHT",
+    "quality_tags": [],
+    "debug_param_sorted_langs": [
+      "fr"
+    ],
+    "minerals_prev_tags": [],
+    "complete": 1,
+    "editors": [
+      "jiehong"
+    ],
     "code": "3222472887966",
-    "product": {
-        "last_edit_dates_tags": ["2018-08-07", "2018-08", "2018"],
-        "image_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.200.jpg",
-        "ingredients_debug": ["Jus de _soja_* ", "(", "(", null, null, "eau", ",", null, null, null, " graines de _soja_* 6.7 %)", ".\r", null, null, null, "\n*Ingrédient issu de l'agriculture biologique", ".\r", null, null, null, "\n"],
-        "image_nutrition_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.200.jpg",
-        "vitamins_prev_tags": [],
-        "interface_version_created": "20120622",
-        "serving_size": "200 ml (Cette brique contient 5 portions environ)",
-        "nucleotides_prev_tags": [],
-        "pnns_groups_2_tags": ["legumes"],
-        "languages_hierarchy": ["en:french"],
-        "amino_acids_tags": [],
-        "additives_old_tags": [],
-        "additives_old_n": 0,
-        "creator": "jiehong",
-        "purchase_places": "Antibes,France",
-        "product_name": "Boisson au Soja Nature",
-        "ingredients": [{
-            "text": "Jus de _soja_",
-            "rank": 1,
-            "id": "fr:jus-de-soja"
-        }, {
-            "id": "fr:Ingrédient issu de l'agriculture biologique",
-            "rank": 2,
-            "text": "Ingrédient issu de l'agriculture biologique"
-        }, {
-            "id": "en:water",
-            "text": "eau"
-        }, {
-            "text": "graines de _soja_",
-            "percent": "6.7",
-            "id": "fr:graine-de-soja"
-        }],
-        "labels_hierarchy": ["en:low-or-no-sugar", "en:organic", "en:eu-organic", "en:fr-bio-01", "en:no-sugar", "fr:ab-agriculture-biologique", "fr:Agriculture France", "fr:Elaboré en France", "fr:Soja origine France"],
-        "last_modified_by": "kiliweb",
-        "codes_tags": ["code-13", "3222472887966", "322247288796x", "32224728879xx", "3222472887xxx", "322247288xxxx", "32224728xxxxx", "3222472xxxxxx", "322247xxxxxxx", "32224xxxxxxxx", "3222xxxxxxxxx", "322xxxxxxxxxx", "32xxxxxxxxxxx", "3xxxxxxxxxxxx"],
-        "ingredients_text": "Jus de _soja_* (eau, graines de _soja_* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
-        "correctors_tags": ["jiehong", "jacob80", "tacite", "kiliweb"],
-        "nutrient_levels": {
-            "fat": "moderate",
-            "saturated-fat": "low",
-            "sugars": "low",
-            "salt": "low"
+    "image_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.100.jpg",
+    "additives_prev_tags": [],
+    "product_quantity": 1000,
+    "last_image_t": 1426521444,
+    "allergens_from_ingredients": "soja, soja",
+    "allergens": "soja, soja",
+    "pnns_groups_1": "Cereals and potatoes",
+    "states_tags": [
+      "en:to-be-checked",
+      "en:complete",
+      "en:nutrition-facts-completed",
+      "en:ingredients-completed",
+      "en:expiration-date-completed",
+      "en:packaging-code-completed",
+      "en:characteristics-completed",
+      "en:categories-completed",
+      "en:brands-completed",
+      "en:packaging-completed",
+      "en:quantity-completed",
+      "en:product-name-completed",
+      "en:photos-validated",
+      "en:photos-uploaded"
+    ],
+    "emb_codes_orig": "EMB 45273",
+    "link": "http://www.casinodrive.fr/ecommerce/affichageDetailProduit/WE80205/F-47220-yaourts/P-52343--",
+    "_keywords": [
+      "issue",
+      "biologique",
+      "bio",
+      "pa",
+      "ou",
+      "san",
+      "lait",
+      "boisson",
+      "elabore",
+      "origine",
+      "vegetale",
+      "peu",
+      "en",
+      "agriculture",
+      "uht",
+      "casino",
+      "soja",
+      "au",
+      "fr-bio-01",
+      "europeen",
+      "ab",
+      "nature",
+      "de",
+      "france",
+      "sucre",
+      "sterilisee"
+    ],
+    "ingredients_that_may_be_from_palm_oil_n": 0,
+    "origins_tags": [
+      "soja",
+      "france",
+      "agriculture-france"
+    ],
+    "nova_group": 1,
+    "image_nutrition_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.400.jpg",
+    "rev": 17,
+    "countries_tags": [
+      "en:france"
+    ],
+    "packaging_debug_tags": [],
+    "expiration_date_debug_tags": [],
+    "lc": "fr",
+    "ingredients_text_debug": "Jus de _soja_* (eau, graines de _soja_* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
+    "emb_codes_debug_tags": [],
+    "image_ingredients_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.400.jpg",
+    "new_additives_n": 0,
+    "additives_tags": [],
+    "additives_prev_original_tags": [],
+    "image_ingredients_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.100.jpg",
+    "image_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.400.jpg",
+    "checkers_tags": [],
+    "ingredients_that_may_be_from_palm_oil_tags": [],
+    "nutrition_data_per_debug_tags": [],
+    "ingredients_ids_debug": [
+      "jus-de-soja",
+      "eau",
+      "graines-de-soja-6-7",
+      "ingredient-issu-de-l-agriculture-biologique"
+    ],
+    "nutrition_grade_fr": "a",
+    "serving_quantity": 200,
+    "created_t": 1426521381,
+    "additives": " [ jus-de-soja -> fr:jus-de-soja  ]  [ jus-de -> fr:jus-de  ]  [ jus -> fr:jus  ]  [ eau -> fr:eau  ]  [ graines-de-soja-6-7 -> fr:graines-de-soja-6-7  ]  [ graines-de-soja-6 -> fr:graines-de-soja-6  ]  [ graines-de-soja -> fr:graines-de-soja  ]  [ graines-de -> fr:graines-de  ]  [ graines -> fr:graines  ]  [ ingredient-issu-de-l-agriculture-biologique -> fr:ingredient-issu-de-l-agriculture-biologique  ]  [ ingredient-issu-de-l-agriculture -> fr:ingredient-issu-de-l-agriculture  ]  [ ingredient-issu-de-l -> fr:ingredient-issu-de-l  ]  [ ingredient-issu-de -> fr:ingredient-issu-de  ]  [ ingredient-issu -> fr:ingredient-issu  ]  [ ingredient -> fr:ingredient  ] ",
+    "pnns_groups_2": "Legumes",
+    "packaging_tags": [
+      "brique",
+      "carton",
+      "bouchon",
+      "plastique"
+    ],
+    "image_nutrition_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.100.jpg",
+    "origins": "Soja,France,Agriculture France",
+    "sortkey": 1533651617,
+    "states_hierarchy": [
+      "en:to-be-checked",
+      "en:complete",
+      "en:nutrition-facts-completed",
+      "en:ingredients-completed",
+      "en:expiration-date-completed",
+      "en:packaging-code-completed",
+      "en:characteristics-completed",
+      "en:categories-completed",
+      "en:brands-completed",
+      "en:packaging-completed",
+      "en:quantity-completed",
+      "en:product-name-completed",
+      "en:photos-validated",
+      "en:photos-uploaded"
+    ],
+    "packaging": "Brique,Carton,Bouchon,Plastique",
+    "last_image_dates_tags": [
+      "2015-03-16",
+      "2015-03",
+      "2015"
+    ],
+    "categories_prev_hierarchy": [
+      "en:plant-based-foods-and-beverages",
+      "en:beverages",
+      "en:plant-based-foods",
+      "en:legumes-and-their-products",
+      "en:plant-based-beverages",
+      "en:milk-substitute",
+      "en:plant-milks",
+      "en:legume-milks",
+      "en:soy-milks"
+    ],
+    "selected_images": {
+      "nutrition": {
+        "small": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.200.jpg"
         },
-        "nutrition_data_prepared_per": "100g",
-        "nutriments": {
-            "sugars_100g": 0.4,
-            "salt_serving": 0.2,
-            "nova-group_serving": 1,
-            "nutrition-score-fr": "-1",
-            "sugars": 0.4,
-            "sodium_100g": 0.0393700787401575,
-            "fiber_value": "0.5",
-            "fat_serving": 3.6,
-            "sugars_serving": 0.8,
-            "carbohydrates_100g": 0.8,
-            "proteins_value": "3.2",
-            "carbohydrates_value": "0.8",
-            "nova-group": 1,
-            "salt": 0.1,
-            "salt_100g": 0.1,
-            "sugars_value": "0.4",
-            "carbohydrates": 0.8,
-            "proteins_unit": "",
-            "sodium": 0.0393700787401575,
-            "proteins_100g": 3.2,
-            "saturated-fat_serving": 0.6,
-            "proteins_serving": 6.4,
-            "fat_unit": "",
-            "salt_value": "0.1",
-            "saturated-fat_value": "0.3",
-            "fiber_unit": "g",
-            "fat_value": "1.8",
-            "energy_serving": "276",
-            "fat_100g": 1.8,
-            "energy_value": "33",
-            "nutrition-score-fr_100g": "-1",
-            "sodium_serving": 0.0787,
-            "nova-group_100g": 1,
-            "fiber": 0.5,
-            "fiber_serving": "1",
-            "fiber_100g": 0.5,
-            "proteins": 3.2,
-            "nutrition-score-uk": "-1",
-            "carbohydrates_serving": 1.6,
-            "energy": "138",
-            "saturated-fat": 0.3,
-            "salt_unit": "",
-            "sugars_unit": "",
-            "energy_unit": "kcal",
-            "carbohydrates_unit": "",
-            "nutrition-score-uk_100g": "-1",
-            "energy_100g": "138",
-            "saturated-fat_unit": "",
-            "saturated-fat_100g": 0.3,
-            "fat": 1.8
+        "thumb": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.100.jpg"
         },
-        "languages_codes": {
-            "fr": 6
+        "display": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.400.jpg"
+        }
+      },
+      "ingredients": {
+        "small": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.200.jpg"
         },
-        "vitamins_tags": [],
-        "stores": "Casino",
-        "ingredients_n_tags": ["4", "1-10"],
-        "additives_prev_n": 0,
-        "image_front_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.100.jpg",
-        "emb_codes_20141016": "EMB 45273",
-        "editors_tags": ["jacob80", "tacite", "jiehong", "kiliweb"],
-        "no_nutrition_data": "",
-        "traces_from_ingredients": "",
-        "manufacturing_places_tags": ["laiterie-de-saint-denis-de-l-hotel-lsdh-10-route-de-l-aerodrome-les-grandes-beaugines-45550-saint-denis-de-l-hotel", "loiret", "centre-val-de-loire", "france"],
-        "expiration_date": "19/12/2015",
-        "minerals_tags": [],
-        "nutrient_levels_tags": ["en:fat-in-moderate-quantity", "en:saturated-fat-in-low-quantity", "en:sugars-in-low-quantity", "en:salt-in-low-quantity"],
-        "brands_debug_tags": [],
-        "max_imgid": "5",
-        "id": "3222472887966",
-        "states": "en:to-be-checked, en:complete, en:nutrition-facts-completed, en:ingredients-completed, en:expiration-date-completed, en:packaging-code-completed, en:characteristics-completed, en:categories-completed, en:brands-completed, en:packaging-completed, en:quantity-completed, en:product-name-completed, en:photos-validated, en:photos-uploaded",
-        "ingredients_hierarchy": ["fr:jus-de-soja", "fr:Ingrédient issu de l'agriculture biologique", "en:water", "fr:graine-de-soja"],
-        "completed_t": 1426522362,
-        "labels_tags": ["en:low-or-no-sugar", "en:organic", "en:eu-organic", "en:fr-bio-01", "en:no-sugar", "fr:ab-agriculture-biologique", "fr:agriculture-france", "fr:elabore-en-france", "fr:soja-origine-france"],
-        "additives_original_tags": [],
-        "last_modified_t": 1533651617,
-        "categories_debug_tags": [],
-        "cities_tags": ["saint-denis-de-l-hotel-loiret-france"],
-        "scans_n": 2,
-        "update_key": "key_1533677490",
-        "allergens_tags": ["en:soybeans"],
-        "ingredients_text_with_allergens": "Jus de <span class=\"allergen\">soja</span>* (eau, graines de <span class=\"allergen\">soja</span>* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
-        "languages_tags": ["en:french", "en:1"],
-        "lang_debug_tags": [],
-        "image_front_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.400.jpg",
-        "ingredients_text_with_allergens_fr": "Jus de <span class=\"allergen\">soja</span>* (eau, graines de <span class=\"allergen\">soja</span>* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
-        "brands_tags": ["casino"],
-        "unique_scans_n": 2,
-        "ingredients_n": "4",
-        "emb_codes": "EMB 45273",
-        "stores_tags": ["casino"],
-        "nutrition_grades_tags": ["a"],
-        "link_debug_tags": [],
-        "additives_n": 0,
-        "allergens_hierarchy": ["en:soybeans"],
-        "ingredients_from_palm_oil_tags": [],
-        "pnns_groups_1_tags": ["cereals-and-potatoes"],
-        "images": {
-            "nutrition": {
-                "normalize": null,
-                "rev": "11",
-                "sizes": {
-                    "full": {
-                        "w": 1290,
-                        "h": 1026
-                    },
-                    "200": {
-                        "h": 159,
-                        "w": 200
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 318
-                    },
-                    "100": {
-                        "h": 80,
-                        "w": 100
-                    }
-                },
-                "geometry": "1290x1026-205-310",
-                "white_magic": null,
-                "imgid": "4"
-            },
-            "5": {
-                "uploader": "jiehong",
-                "uploaded_t": 1426521444,
-                "sizes": {
-                    "full": {
-                        "h": 1482,
-                        "w": 2000
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 296
-                    },
-                    "100": {
-                        "h": 74,
-                        "w": 100
-                    }
-                }
-            },
-            "front_fr": {
-                "imgid": "1",
-                "geometry": "641x1795-400-90",
-                "white_magic": null,
-                "sizes": {
-                    "100": {
-                        "h": 100,
-                        "w": 36
-                    },
-                    "full": {
-                        "w": 641,
-                        "h": 1795
-                    },
-                    "200": {
-                        "h": 200,
-                        "w": 71
-                    },
-                    "400": {
-                        "h": 400,
-                        "w": 143
-                    }
-                },
-                "rev": "9",
-                "normalize": null
-            },
-            "nutrition_fr": {
-                "normalize": null,
-                "rev": "11",
-                "sizes": {
-                    "full": {
-                        "w": 1290,
-                        "h": 1026
-                    },
-                    "200": {
-                        "h": 159,
-                        "w": 200
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 318
-                    },
-                    "100": {
-                        "h": 80,
-                        "w": 100
-                    }
-                },
-                "geometry": "1290x1026-205-310",
-                "white_magic": null,
-                "imgid": "4"
-            },
-            "ingredients_fr": {
-                "rev": "10",
-                "normalize": null,
-                "white_magic": null,
-                "geometry": "1340x311-90-505",
-                "imgid": "2",
-                "sizes": {
-                    "200": {
-                        "h": 46,
-                        "w": 200
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 93
-                    },
-                    "full": {
-                        "h": 311,
-                        "w": 1340
-                    },
-                    "100": {
-                        "h": 23,
-                        "w": 100
-                    }
-                }
-            },
-            "front": {
-                "imgid": "1",
-                "geometry": "641x1795-400-90",
-                "white_magic": null,
-                "sizes": {
-                    "100": {
-                        "h": 100,
-                        "w": 36
-                    },
-                    "full": {
-                        "w": 641,
-                        "h": 1795
-                    },
-                    "200": {
-                        "h": 200,
-                        "w": 71
-                    },
-                    "400": {
-                        "h": 400,
-                        "w": 143
-                    }
-                },
-                "rev": "9",
-                "normalize": null
-            },
-            "4": {
-                "sizes": {
-                    "100": {
-                        "w": 100,
-                        "h": 74
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 296
-                    },
-                    "full": {
-                        "h": 1482,
-                        "w": 2000
-                    }
-                },
-                "uploaded_t": 1426521421,
-                "uploader": "jiehong"
-            },
-            "1": {
-                "sizes": {
-                    "100": {
-                        "w": 100,
-                        "h": 74
-                    },
-                    "full": {
-                        "w": 2000,
-                        "h": 1482
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 296
-                    }
-                },
-                "uploader": "jiehong",
-                "uploaded_t": 1426521381
-            },
-            "2": {
-                "uploader": "jiehong",
-                "uploaded_t": 1426521399,
-                "sizes": {
-                    "100": {
-                        "w": 100,
-                        "h": 74
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 296
-                    },
-                    "full": {
-                        "w": 2000,
-                        "h": 1482
-                    }
-                }
-            },
-            "3": {
-                "uploaded_t": 1426521407,
-                "uploader": "jiehong",
-                "sizes": {
-                    "100": {
-                        "h": 74,
-                        "w": 100
-                    },
-                    "full": {
-                        "h": 1482,
-                        "w": 2000
-                    },
-                    "400": {
-                        "h": 296,
-                        "w": 400
-                    }
-                }
-            },
-            "ingredients": {
-                "rev": "10",
-                "normalize": null,
-                "white_magic": null,
-                "geometry": "1340x311-90-505",
-                "imgid": "2",
-                "sizes": {
-                    "200": {
-                        "h": 46,
-                        "w": 200
-                    },
-                    "400": {
-                        "w": 400,
-                        "h": 93
-                    },
-                    "full": {
-                        "h": 311,
-                        "w": 1340
-                    },
-                    "100": {
-                        "h": 23,
-                        "w": 100
-                    }
-                }
-            }
+        "thumb": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.100.jpg"
         },
-        "nutrition_score_debug": " -- energy 0 + sat-fat 0 + fr-sat-fat-for-fats 2 + sugars 0 + sodium 0 - fruits 0% 0 - fiber 0 - proteins 1 -- fsa -1 -- fr -1",
-        "ingredients_from_or_that_may_be_from_palm_oil_n": 0,
-        "lang": "fr",
-        "product_name_fr": "Boisson au Soja Nature",
-        "nutrition_score_warning_no_fruits_vegetables_nuts": 1,
-        "_id": "3222472887966",
-        "ingredients_text_fr_debug_tags": [],
-        "labels_prev_tags": ["en:low-or-no-sugar", "en:organic", "en:eu-organic", "en:fr-bio-01", "en:no-sugar", "fr:ab-agriculture-biologique", "fr:agriculture-france", "fr:elabore-en-france", "fr:soja-origine-france"],
-        "nutrition_data_per": "100g",
-        "traces_debug_tags": [],
-        "interface_version_modified": "20150316.jqm2",
-        "stores_debug_tags": [],
-        "image_ingredients_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.200.jpg",
-        "origins_debug_tags": [],
-        "countries_hierarchy": ["en:france"],
-        "serving_size_debug_tags": [],
-        "labels": "Peu ou pas de sucre,Bio,Bio européen,FR-BIO-01,Sans sucre,AB Agriculture Biologique,Agriculture France,Elaboré en France,Soja origine France",
-        "additives_debug_tags": [],
-        "labels_prev_hierarchy": ["en:low-or-no-sugar", "en:organic", "en:eu-organic", "en:fr-bio-01", "en:no-sugar", "fr:ab-agriculture-biologique", "fr:Agriculture France", "fr:Elaboré en France", "fr:Soja origine France"],
-        "quantity": "1 L",
-        "manufacturing_places_debug_tags": [],
-        "traces_tags": [],
-        "nova_groups": 1,
-        "informers_tags": ["jiehong", "jacob80"],
-        "photographers_tags": ["jiehong"],
-        "amino_acids_prev_tags": [],
-        "categories_prev_tags": ["en:plant-based-foods-and-beverages", "en:beverages", "en:plant-based-foods", "en:legumes-and-their-products", "en:plant-based-beverages", "en:milk-substitute", "en:plant-milks", "en:legume-milks", "en:soy-milks"],
-        "last_editor": "kiliweb",
-        "countries": "France",
-        "brands": "Casino",
-        "unknown_ingredients_n": 1,
-        "categories_hierarchy": ["en:plant-based-foods-and-beverages", "en:beverages", "en:plant-based-foods", "en:legumes-and-their-products", "en:plant-based-beverages", "en:milk-substitute", "en:plant-milks", "en:legume-milks", "en:soy-milks"],
-        "product_name_fr_debug_tags": [],
-        "categories": "Laits de soja",
-        "generic_name": "Boisson végétale au soja issue de l'agriculture biologique stérilisée UHT",
-        "quality_tags": [],
-        "debug_param_sorted_langs": ["fr"],
-        "minerals_prev_tags": [],
-        "complete": 1,
-        "editors": ["jiehong"],
-        "code": "3222472887966",
-        "image_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.100.jpg",
-        "additives_prev_tags": [],
-        "product_quantity": 1000,
-        "last_image_t": 1426521444,
-        "allergens_from_ingredients": "soja, soja",
-        "allergens": "soja, soja",
-        "pnns_groups_1": "Cereals and potatoes",
-        "states_tags": ["en:to-be-checked", "en:complete", "en:nutrition-facts-completed", "en:ingredients-completed", "en:expiration-date-completed", "en:packaging-code-completed", "en:characteristics-completed", "en:categories-completed", "en:brands-completed", "en:packaging-completed", "en:quantity-completed", "en:product-name-completed", "en:photos-validated", "en:photos-uploaded"],
-        "emb_codes_orig": "EMB 45273",
-        "link": "http://www.casinodrive.fr/ecommerce/affichageDetailProduit/WE80205/F-47220-yaourts/P-52343--",
-        "_keywords": ["issue", "biologique", "bio", "pa", "ou", "san", "lait", "boisson", "elabore", "origine", "vegetale", "peu", "en", "agriculture", "uht", "casino", "soja", "au", "fr-bio-01", "europeen", "ab", "nature", "de", "france", "sucre", "sterilisee"],
-        "ingredients_that_may_be_from_palm_oil_n": 0,
-        "origins_tags": ["soja", "france", "agriculture-france"],
-        "nova_group": 1,
-        "image_nutrition_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.400.jpg",
-        "rev": 17,
-        "countries_tags": ["en:france"],
-        "packaging_debug_tags": [],
-        "expiration_date_debug_tags": [],
-        "lc": "fr",
-        "ingredients_text_debug": "Jus de _soja_* (eau, graines de _soja_* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
-        "emb_codes_debug_tags": [],
-        "image_ingredients_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.400.jpg",
-        "new_additives_n": 0,
-        "additives_tags": [],
-        "additives_prev_original_tags": [],
-        "image_ingredients_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.100.jpg",
-        "image_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.400.jpg",
-        "checkers_tags": [],
-        "ingredients_that_may_be_from_palm_oil_tags": [],
-        "nutrition_data_per_debug_tags": [],
-        "ingredients_ids_debug": ["jus-de-soja", "eau", "graines-de-soja-6-7", "ingredient-issu-de-l-agriculture-biologique"],
-        "nutrition_grade_fr": "a",
-        "serving_quantity": 200,
-        "created_t": 1426521381,
-        "additives": " [ jus-de-soja -> fr:jus-de-soja  ]  [ jus-de -> fr:jus-de  ]  [ jus -> fr:jus  ]  [ eau -> fr:eau  ]  [ graines-de-soja-6-7 -> fr:graines-de-soja-6-7  ]  [ graines-de-soja-6 -> fr:graines-de-soja-6  ]  [ graines-de-soja -> fr:graines-de-soja  ]  [ graines-de -> fr:graines-de  ]  [ graines -> fr:graines  ]  [ ingredient-issu-de-l-agriculture-biologique -> fr:ingredient-issu-de-l-agriculture-biologique  ]  [ ingredient-issu-de-l-agriculture -> fr:ingredient-issu-de-l-agriculture  ]  [ ingredient-issu-de-l -> fr:ingredient-issu-de-l  ]  [ ingredient-issu-de -> fr:ingredient-issu-de  ]  [ ingredient-issu -> fr:ingredient-issu  ]  [ ingredient -> fr:ingredient  ] ",
-        "pnns_groups_2": "Legumes",
-        "packaging_tags": ["brique", "carton", "bouchon", "plastique"],
-        "image_nutrition_thumb_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.100.jpg",
-        "origins": "Soja,France,Agriculture France",
-        "sortkey": 1533651617,
-        "states_hierarchy": ["en:to-be-checked", "en:complete", "en:nutrition-facts-completed", "en:ingredients-completed", "en:expiration-date-completed", "en:packaging-code-completed", "en:characteristics-completed", "en:categories-completed", "en:brands-completed", "en:packaging-completed", "en:quantity-completed", "en:product-name-completed", "en:photos-validated", "en:photos-uploaded"],
-        "packaging": "Brique,Carton,Bouchon,Plastique",
-        "last_image_dates_tags": ["2015-03-16", "2015-03", "2015"],
-        "categories_prev_hierarchy": ["en:plant-based-foods-and-beverages", "en:beverages", "en:plant-based-foods", "en:legumes-and-their-products", "en:plant-based-beverages", "en:milk-substitute", "en:plant-milks", "en:legume-milks", "en:soy-milks"],
-        "selected_images": {
-            "nutrition": {
-                "small": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.200.jpg"
-                },
-                "thumb": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.100.jpg"
-                },
-                "display": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/nutrition_fr.11.400.jpg"
-                }
-            },
-            "ingredients": {
-                "small": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.200.jpg"
-                },
-                "thumb": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.100.jpg"
-                },
-                "display": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.400.jpg"
-                }
-            },
-            "front": {
-                "display": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.400.jpg"
-                },
-                "thumb": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.100.jpg"
-                },
-                "small": {
-                    "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.200.jpg"
-                }
-            }
+        "display": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/ingredients_fr.10.400.jpg"
+        }
+      },
+      "front": {
+        "display": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.400.jpg"
         },
-        "unknown_nutrients_tags": [],
-        "traces_hierarchy": [],
-        "ingredients_tags": ["fr:jus-de-soja", "fr:ingredient-issu-de-l-agriculture-biologique", "en:water", "fr:graine-de-soja"],
-        "manufacturing_places": "Laiterie de Saint-Denis-de-l'Hôtel (LSDH) - 10 Route de l'Aérodrome - Les Grandes Beaugines - 45550 Saint-Denis-de-l'Hôtel,Loiret,Centre-Val de Loire,France",
-        "nucleotides_tags": [],
-        "languages": {
-            "en:french": 6
+        "thumb": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.100.jpg"
         },
-        "nutrition_grades": "a",
-        "generic_name_fr": "Boisson végétale au soja issue de l'agriculture biologique stérilisée UHT",
-        "purchase_places_debug_tags": [],
-        "ingredients_text_fr": "Jus de _soja_* (eau, graines de _soja_* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
-        "nova_groups_tags": ["en:1-unprocessed-or-minimally-processed-foods"],
-        "product_name_debug_tags": [],
-        "countries_debug_tags": [],
-        "quantity_debug_tags": [],
-        "ingredients_original_tags": ["fr:jus-de-soja", "fr:Ingrédient issu de l'agriculture biologique", "en:water", "fr:graine-de-soja"],
-        "additives_prev": " [ jus-de-soja -> fr:jus-de-soja  ]  [ jus-de -> fr:jus-de  ]  [ jus -> fr:jus  ]  [ eau -> fr:eau  ]  [ graines-de-soja-6-7 -> fr:graines-de-soja-6-7  ]  [ graines-de-soja-6 -> fr:graines-de-soja-6  ]  [ graines-de-soja -> fr:graines-de-soja  ]  [ graines-de -> fr:graines-de  ]  [ graines -> fr:graines  ]  [ ingredient-issu-de-l-agriculture-biologique -> fr:ingredient-issu-de-l-agriculture-biologique  ]  [ ingredient-issu-de-l-agriculture -> fr:ingredient-issu-de-l-agriculture  ]  [ ingredient-issu-de-l -> fr:ingredient-issu-de-l  ]  [ ingredient-issu-de -> fr:ingredient-issu-de  ]  [ ingredient-issu -> fr:ingredient-issu  ]  [ ingredient -> fr:ingredient  ] ",
-        "misc_tags": ["en:nutrition-no-fruits-vegetables-nuts", "en:nutrition-no-fiber-or-fruits-vegetables-nuts", "en:nutriscore-computed"],
-        "purchase_places_tags": ["antibes", "france"],
-        "generic_name_fr_debug_tags": [],
-        "categories_tags": ["en:plant-based-foods-and-beverages", "en:beverages", "en:plant-based-foods", "en:legumes-and-their-products", "en:plant-based-beverages", "en:milk-substitute", "en:plant-milks", "en:legume-milks", "en:soy-milks", "en:non-alcoholic-beverages"],
-        "fruits-vegetables-nuts_100g_estimate": 0,
-        "emb_codes_tags": ["emb-45273"],
-        "ingredients_from_palm_oil_n": 0,
-        "labels_debug_tags": [],
-        "entry_dates_tags": ["2015-03-16", "2015-03", "2015"],
-        "nova_group_debug": "",
-        "image_front_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.200.jpg",
-        "traces": ""
-    }
+        "small": {
+          "fr": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.200.jpg"
+        }
+      }
+    },
+    "unknown_nutrients_tags": [],
+    "traces_hierarchy": [],
+    "ingredients_tags": [
+      "fr:jus-de-soja",
+      "fr:ingredient-issu-de-l-agriculture-biologique",
+      "en:water",
+      "fr:graine-de-soja"
+    ],
+    "manufacturing_places": "Laiterie de Saint-Denis-de-l'Hôtel (LSDH) - 10 Route de l'Aérodrome - Les Grandes Beaugines - 45550 Saint-Denis-de-l'Hôtel,Loiret,Centre-Val de Loire,France",
+    "nucleotides_tags": [],
+    "languages": {
+      "en:french": 6
+    },
+    "nutrition_grades": "a",
+    "generic_name_fr": "Boisson végétale au soja issue de l'agriculture biologique stérilisée UHT",
+    "purchase_places_debug_tags": [],
+    "ingredients_text_fr": "Jus de _soja_* (eau, graines de _soja_* 6.7 %).\r\n*Ingrédient issu de l'agriculture biologique.\r\n",
+    "nova_groups_tags": [
+      "en:1-unprocessed-or-minimally-processed-foods"
+    ],
+    "product_name_debug_tags": [],
+    "countries_debug_tags": [],
+    "quantity_debug_tags": [],
+    "ingredients_original_tags": [
+      "fr:jus-de-soja",
+      "fr:Ingrédient issu de l'agriculture biologique",
+      "en:water",
+      "fr:graine-de-soja"
+    ],
+    "additives_prev": " [ jus-de-soja -> fr:jus-de-soja  ]  [ jus-de -> fr:jus-de  ]  [ jus -> fr:jus  ]  [ eau -> fr:eau  ]  [ graines-de-soja-6-7 -> fr:graines-de-soja-6-7  ]  [ graines-de-soja-6 -> fr:graines-de-soja-6  ]  [ graines-de-soja -> fr:graines-de-soja  ]  [ graines-de -> fr:graines-de  ]  [ graines -> fr:graines  ]  [ ingredient-issu-de-l-agriculture-biologique -> fr:ingredient-issu-de-l-agriculture-biologique  ]  [ ingredient-issu-de-l-agriculture -> fr:ingredient-issu-de-l-agriculture  ]  [ ingredient-issu-de-l -> fr:ingredient-issu-de-l  ]  [ ingredient-issu-de -> fr:ingredient-issu-de  ]  [ ingredient-issu -> fr:ingredient-issu  ]  [ ingredient -> fr:ingredient  ] ",
+    "misc_tags": [
+      "en:nutrition-no-fruits-vegetables-nuts",
+      "en:nutrition-no-fiber-or-fruits-vegetables-nuts",
+      "en:nutriscore-computed"
+    ],
+    "purchase_places_tags": [
+      "antibes",
+      "france"
+    ],
+    "generic_name_fr_debug_tags": [],
+    "categories_tags": [
+      "en:plant-based-foods-and-beverages",
+      "en:beverages",
+      "en:plant-based-foods",
+      "en:legumes-and-their-products",
+      "en:plant-based-beverages",
+      "en:milk-substitute",
+      "en:plant-milks",
+      "en:legume-milks",
+      "en:soy-milks",
+      "en:non-alcoholic-beverages"
+    ],
+    "fruits-vegetables-nuts_100g_estimate": 0,
+    "emb_codes_tags": [
+      "emb-45273"
+    ],
+    "ingredients_from_palm_oil_n": 0,
+    "labels_debug_tags": [],
+    "entry_dates_tags": [
+      "2015-03-16",
+      "2015-03",
+      "2015"
+    ],
+    "nova_group_debug": "",
+    "image_front_small_url": "https://static.openfoodfacts.org/images/products/322/247/288/7966/front_fr.9.200.jpg",
+    "traces": ""
+  }
 }

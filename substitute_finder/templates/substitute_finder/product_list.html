@@ -1,63 +1,66 @@
 {% extends 'base.html' %}
 {% load substitute_finder_extra %}
 {% block header %}
-{% include 'substitute_finder/snippets/search_result_header.html' %}
+    {% include 'substitute_finder/snippets/search_result_header.html' %}
 {% endblock %}
 {% block content %}
-<div class="container">
-    {% if messages %}
-    {% for message in messages %}
-    <div class="jumbotron">
-        <h1 class="display-4">{{message}}</h1>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="jumbotron">
+                    <h1 class="display-4">{{ message }}</h1>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
-    {% endfor %}
+    {% include "substitute_finder/snippets/search_results.html" %}
+    {% if products %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
+                    <a class="page-link" href="?page=1#relevant_products">&laquo;</a>
+                </li>
+                <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
+                    <a class="page-link"
+                       href="{% if products.has_previous %} ?page={{ products.previous_page_number }}{% endif %}#relevant_products">&lt;</a>
+                </li>
+
+
+                {% for p in products.paginator.num_pages|range_tag %}
+                    <li class="page-item  {% if products.number == p|add:1 %} disabled {% endif %}"><a
+                            class="page-link" href="?page={{ p|add:1}}#relevant_products">{{ p|add:1}}</a></li>
+                {% endfor %}
+
+
+                <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                    <a class="page-link"
+                       href="{% if products.has_next %}?page={{ products.next_page_number }}{% endif %}#relevant_products">&gt;</a>
+                </li>
+                <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                    <a class="page-link" href="?page={{ products.paginator.num_pages }}#relevant_products">&raquo;</a>
+                </li>
+
+            </ul>
+        </nav>
     {% endif %}
-</div>
-{% include "substitute_finder/snippets/search_results.html" %}
-{% if products %}
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-
-        <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
-            <a class="page-link" href="?page=1#relevant_products">&laquo;</a>
-        </li>
-        <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
-            <a class="page-link" href="{% if products.has_previous %} ?page={{ products.previous_page_number }}{% endif %}#relevant_products">&lt;</a>
-        </li>
-
-
-        {% for p in products.paginator.num_pages|range_tag %}
-        <li class="page-item  {% if products.number == p|add:1 %} disabled {% endif %}"><a class="page-link" href="?page={{p|add:1}}#relevant_products">{{p|add:1}}</a></li>
-        {% endfor %}
-
-
-        <li class="page-item {% if not products.has_next %} disabled {% endif %}">
-            <a class="page-link" href="{% if products.has_next %}?page={{ products.next_page_number }}{% endif %}#relevant_products">&gt;</a>
-        </li>
-        <li class="page-item {% if not products.has_next %} disabled {% endif %}">
-            <a class="page-link" href="?page={{ products.paginator.num_pages }}#relevant_products">&raquo;</a>
-        </li>
-
-    </ul>
-</nav>
-{% endif %}
 {% endblock %}
 
 {% block contact %}
-{% comment %} {% include "base_snippets/contact.html" %} {% endcomment %}
+    {% comment %} {% include "base_snippets/contact.html" %} {% endcomment %}
 {% endblock %}
 {% block custom_js %}
 
-<script type="application/javascript">
-    $('.add-favorite').on("click", function (ev) {
-        ev.preventDefault()
-        $.get(this.href, function (data) {
-            link = ev.target
-            console.log(link)
-            $(link).hide()
+    <script type="application/javascript">
+        $('.add-favorite').on("click", function (ev) {
+            ev.preventDefault()
+            $.get(this.href, function (data) {
+                link = ev.target
+                console.log(link)
+                $(link).hide()
+            })
         })
-    })
-</script>
+    </script>
 
 
 {% endblock %}

@@ -1,8 +1,9 @@
+"""
+substitute_finder custom command to get data from OpenFoodFacts API and insert them into database.
+"""
 import logging
 import os
-from pprint import pprint
-
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db.models import Count, Q
 
 from substitute_finder.models import Category, Product
@@ -11,9 +12,17 @@ LOGGER = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
+    """
+    Custom command to get data from OpenFoodFacts API and insert them into database
+    """
     help = 'Get initial Categories and Products data from OpenFoodFacts API and load them into database'
 
     def add_arguments(self, parser):
+        """
+        define arguments
+        :param parser:
+        :return:
+        """
 
         # Named (optional) arguments
 
@@ -62,7 +71,8 @@ class Command(BaseCommand):
             help='delete categories and product except those registered as favorites'
         )
 
-    def hard_reset(self):
+    @staticmethod
+    def hard_reset():
         """
         delete categories and product except those registered as favorites
         """
@@ -70,10 +80,11 @@ class Command(BaseCommand):
         Category.objects.filter(product__isnull=True).delete()
 
         # Count initial data
-        LOGGER.info("Nb products after hard reset: %s" % Product.objects.all().count())
-        LOGGER.info("Nb categories after hard reset: %s" % Category.objects.all().count())
+        LOGGER.info("Nb products after hard reset: %s", Product.objects.all().count())
+        LOGGER.info("Nb categories after hard reset: %s", Category.objects.all().count())
 
-    def get_categories(self, from_cache: bool=False):
+    @staticmethod
+    def get_categories(from_cache: bool = False):
         """
         method in charge of getting categories.
         :param from_cache: indicates if data should be recovered from cache or not
@@ -83,14 +94,22 @@ class Command(BaseCommand):
         data = Category.get_api_data_list(from_cache=from_cache)
         Category.insert_data(data)
 
-    def get_product(self, actual_page: int=1, from_cache: bool=False, grumpy_mode: bool=False, filters: dict={}):
+    @staticmethod
+    def get_product(actual_page: int = 1, from_cache: bool = False, grumpy_mode: bool = False, filters: dict = {}):
         """
+        get products data and insert them into Product table.
+        :param actual_page: start page.
+        :param from_cache: get data from cache or online
+        :param grumpy_mode: activate strict mode
+        :param filters: filter to apply to products data data
+        :return:
         """
         data = Product.get_api_data_list(nb_pages=1, start_page=actual_page, from_cache=from_cache)
         Product.insert_data(data, strict_required_field_mode=grumpy_mode, filters=filters)
         return bool(data)
 
-    def database_cleanup(self, grumpy_mode: bool=False):
+    @staticmethod
+    def database_cleanup(grumpy_mode: bool = False):
         """
         Clean database Product and Category tables after data recovery
         :param grumpy_mode: indicates if database should be cleaned with a strict control on important Product fields
@@ -98,20 +117,22 @@ class Command(BaseCommand):
         """
 
         if grumpy_mode:
-            Product.objects.filter(Q(generic_name=None) | Q(energy_100g=None) | Q(sugars_100g=None) | Q(sodium_100g=None) |
-                                   Q(carbohydrates_100g=None) | Q(salt_100g=None) | Q(proteins_100g=None) |
-                                   Q(fat_100g=None) | Q(fiber_100g=None) | Q(saturated_fat_100g=None) |
-                                   Q(nutrition_grade_fr=None) | Q(generic_name='') | Q(energy_100g='') | Q(sugars_100g='') |
-                                   Q(sodium_100g='') | Q(carbohydrates_100g='') | Q(salt_100g='') |
-                                   Q(proteins_100g='') | Q(fat_100g='') | Q(fiber_100g='') |
-                                   Q(saturated_fat_100g='') | Q(nutrition_grade_fr='')).delete()
+            Product.objects.filter(
+                Q(generic_name=None) | Q(energy_100g=None) | Q(sugars_100g=None) | Q(sodium_100g=None) |
+                Q(carbohydrates_100g=None) | Q(salt_100g=None) | Q(proteins_100g=None) |
+                Q(fat_100g=None) | Q(fiber_100g=None) | Q(saturated_fat_100g=None) |
+                Q(nutrition_grade_fr=None) | Q(generic_name='') | Q(energy_100g='') | Q(sugars_100g='') |
+                Q(sodium_100g='') | Q(carbohydrates_100g='') | Q(salt_100g='') |
+                Q(proteins_100g='') | Q(fat_100g='') | Q(fiber_100g='') |
+                Q(saturated_fat_100g='') | Q(nutrition_grade_fr='')).delete()
 
         Product.objects.filter(nutrition_grade_fr='').delete()
         Category.objects.annotate(product_count=Count('product')).filter(product_count__lte=1).delete()
         Category.objects.filter(product__isnull=True).delete()
         Product.objects.filter(categories_tags=None).delete()
 
-    def get_recovery_state(self):
+    @staticmethod
+    def get_recovery_state():
         """
         get recovery state from state file.
         """
@@ -121,7 +142,8 @@ class Command(BaseCommand):
                 state = int(lp_file.read())
         return state
 
-    def set_recovery_state(self, page: int=1):
+    @staticmethod
+    def set_recovery_state(page: int = 1):
         """
         Store recovery state in file.
         :param page: actual page
@@ -136,8 +158,8 @@ class Command(BaseCommand):
         """
 
         # Count initial data
-        LOGGER.info("Nb products before update: %s" % Product.objects.all().count())
-        LOGGER.info("Nb categories before update: %s" % Category.objects.all().count())
+        LOGGER.info("Nb products before update: %s", Product.objects.all().count())
+        LOGGER.info("Nb categories before update: %s", Category.objects.all().count())
 
         # Case with hard reset
         if options['hard_reset']:
@@ -148,7 +170,7 @@ class Command(BaseCommand):
 
         # Deal with Product
         # Define initial variables
-        product_filter = {key: options[key] for key in options.keys()}
+        product_filter = {key: options[key] for key in options}
         data_exists = True
         start_page = self.get_recovery_state()
 
@@ -180,5 +202,5 @@ class Command(BaseCommand):
         self.database_cleanup(grumpy_mode=options['grumpy_mode'])
 
         # Count final data
-        LOGGER.info("Nb products after update: %s" % Product.objects.all().count())
-        LOGGER.info("Nb categories after update: %s" % Category.objects.all().count())
+        LOGGER.info("Nb products after update: %s", Product.objects.all().count())
+        LOGGER.info("Nb categories after update: %s", Category.objects.all().count())

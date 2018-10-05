@@ -8,9 +8,9 @@ from django.forms.utils import ErrorList
 from .models import CustomUser
 
 
-class ParagrapheErrorList(ErrorList):
+class ParagraphErrorList(ErrorList):
     """
-    Custom error to return paragraphes instead of list.
+    Custom error to return paragraphs instead of list.
     """
 
     def __str__(self):
@@ -55,6 +55,7 @@ class AccountCreateForm(forms.ModelForm):
     """
     Account Create form.
     """
+
     class Meta:
         model = CustomUser
         fields = ['email', 'username', 'first_name', 'last_name', 'password']

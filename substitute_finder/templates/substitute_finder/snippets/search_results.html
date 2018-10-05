@@ -1,12 +1,10 @@
-
-
-<div id="relevant_products" class="container mt-3 align-content-between" >
+<div id="relevant_products" class="container mt-3 align-content-between">
     <h6>Produits de substitution correspondants à votre recherche</h6>
     <div class="d-flex justify-content-between flex-wrap">
         {% if products %}
-        {% for product in products %} {% include "substitute_finder/snippets/product_card.html" %} {% endfor %}
+            {% for product in products %} {% include "substitute_finder/snippets/product_card.html" %} {% endfor %}
         {% else %}
-        <small>Aucun résultat.</small>
+            <small>Aucun résultat.</small>
         {% endif %}
     </div>
 </div>
@@ -16,7 +14,7 @@
 
     <div class="d-flex justify-content-between flex-wrap">
         {% for product in others %}
-        {% include "substitute_finder/snippets/product_card.html" %}
+            {% include "substitute_finder/snippets/product_card.html" %}
         {% endfor %}
     </div>
 </div>

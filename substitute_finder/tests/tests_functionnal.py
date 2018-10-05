@@ -1,7 +1,4 @@
-from pprint import pprint
-
 import selenium.webdriver.support.ui as ui
-from django.conf import settings
 from django.contrib.sessions.models import Session
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver

@@ -1,48 +1,53 @@
 {% extends 'base.html' %}
 {% load substitute_finder_extra %}
 {% block header %}
-{% include 'substitute_finder/snippets/product_header.html' %}
+    {% include 'substitute_finder/snippets/product_header.html' %}
 {% endblock %}
 {% block content %}
-<div class="container">
-    {% if messages %}
-    {% for message in messages %}
-    <div class="jumbotron">
-        <h1 class="display-4">{{message}}</h1>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="jumbotron">
+                    <h1 class="display-4">{{ message }}</h1>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
-    {% endfor %}
+
+
+    {% include "substitute_finder/snippets/search_results.html" %}
+    {% if others %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item {% if not others.has_previous %} disabled {% endif %}">
+                    <a class="page-link" href="?page=1#other_products">&laquo;</a>
+                </li>
+                <li class="page-item {% if not others.has_previous %} disabled {% endif %}">
+                    <a class="page-link"
+                       href="{% if others.has_previous %} ?page={{ others.previous_page_number }}{% endif %}#other_products">&lt;</a>
+                </li>
+
+
+                {% for p in others.paginator.num_pages|range_tag %}
+                    <li class="page-item  {% if others.number == p|add:1 %} disabled {% endif %}"><a class="page-link"
+                                                                                                     href="?page=
+                                                                                                             {{ p|add:1}}#other_products">
+                        {{ p|add:1}}</a></li>
+                {% endfor %}
+
+
+                <li class="page-item {% if not others.has_next %} disabled {% endif %}">
+                    <a class="page-link"
+                       href="{% if others.has_next %}?page={{ others.next_page_number }}{% endif %}#other_products">&gt;</a>
+                </li>
+                <li class="page-item {% if not others.has_next %} disabled {% endif %}">
+                    <a class="page-link" href="?page={{ others.paginator.num_pages }}#other_products">&raquo;</a>
+                </li>
+
+            </ul>
+        </nav>
     {% endif %}
-</div>
-
-
-{% include "substitute_finder/snippets/search_results.html" %}
-{% if others %}
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-
-        <li class="page-item {% if not others.has_previous %} disabled {% endif %}">
-            <a class="page-link" href="?page=1#other_products">&laquo;</a>
-        </li>
-        <li class="page-item {% if not others.has_previous %} disabled {% endif %}">
-            <a class="page-link" href="{% if others.has_previous %} ?page={{ others.previous_page_number }}{% endif %}#other_products">&lt;</a>
-        </li>
-
-
-        {% for p in others.paginator.num_pages|range_tag %}
-        <li class="page-item  {% if others.number == p|add:1 %} disabled {% endif %}"><a class="page-link" href="?page={{p|add:1}}#other_products">{{p|add:1}}</a></li>
-        {% endfor %}
-
-
-        <li class="page-item {% if not others.has_next %} disabled {% endif %}">
-            <a class="page-link" href="{% if others.has_next %}?page={{ others.next_page_number }}{% endif %}#other_products">&gt;</a>
-        </li>
-        <li class="page-item {% if not others.has_next %} disabled {% endif %}">
-            <a class="page-link" href="?page={{ others.paginator.num_pages }}#other_products">&raquo;</a>
-        </li>
-
-    </ul>
-</nav>
-{% endif %}
 
 {% endblock %}
 
@@ -52,16 +57,16 @@
 
 {% block custom_js %}
 
-<script type="application/javascript">
-    $('.add-favorite').on("click", function (ev) {
-        ev.preventDefault()
-        $.get(this.href, function(data){
-            link = ev.target
-            console.log(link)
-            $(link).hide()
+    <script type="application/javascript">
+        $('.add-favorite').on("click", function (ev) {
+            ev.preventDefault()
+            $.get(this.href, function (data) {
+                link = ev.target
+                console.log(link)
+                $(link).hide()
+            })
         })
-    })
-</script>
+    </script>
 
 
 {% endblock %}

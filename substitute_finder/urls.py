@@ -1,11 +1,13 @@
-# pylint: skip-file
+"""
+substitute_finder app urls
+"""
 from django.contrib.auth import views as auth_views
-from django.urls import include, path, resolve
+from django.urls import path
 
-from .views import account_view, search_view, product_view, create_account_view, index_view, login_view, logout_view, add_favorite_view, favorites_view, legal_view
+from .views import account_view, search_view, product_view, create_account_view, index_view, login_view, logout_view, \
+    add_favorite_view, favorites_view, legal_view
 
 app_name = 'substitute_finder'
-
 
 urlpatterns = [
     path('', index_view, name='index'),
@@ -24,18 +26,18 @@ urlpatterns = [
         success_url='/accounts/password_reset/done/',
         email_template_name='registration/custom_password_reset_email.html'
     ),
-        name='password_reset'),
+         name='password_reset'),
     path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(
         template_name='registration/custom_password_reset_done.html',
     ),
-        name='password_reset_done'),
+         name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
         success_url='/accounts/reset/done/',
         template_name='registration/custom_password_reset_confirm.html'
     ),
-        name='password_reset_confirm'),
+         name='password_reset_confirm'),
     path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(
         template_name='registration/custom_password_reset_complete.html'
     ),
-        name='password_reset_complete'),
+         name='password_reset_complete'),
 ]

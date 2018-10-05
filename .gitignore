@@ -110,6 +110,8 @@ staticfiles/
 # vscode
 .vscode
 
+# pycharm
+.idea
 
 # coverage
 .coverage

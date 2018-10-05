@@ -1,18 +1,20 @@
-[{
+[
+  {
     "model": "substitute_finder.customuser",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$120000$j5uaB731ZJtC$NkUK5VNHMbGjfJfKcYrAB7pdpE/Pc8N7F0XUX8DsnZs=",
-        "last_login": "2018-09-20T21:24:59.791Z",
-        "is_superuser": false,
-        "username": "test",
-        "first_name": "test",
-        "last_name": "test",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2018-09-20T21:24:59.419Z",
-        "email": "test@test.fr",
-        "groups": [],
-        "user_permissions": []
+      "password": "pbkdf2_sha256$120000$j5uaB731ZJtC$NkUK5VNHMbGjfJfKcYrAB7pdpE/Pc8N7F0XUX8DsnZs=",
+      "last_login": "2018-09-20T21:24:59.791Z",
+      "is_superuser": false,
+      "username": "test",
+      "first_name": "test",
+      "last_name": "test",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2018-09-20T21:24:59.419Z",
+      "email": "test@test.fr",
+      "groups": [],
+      "user_permissions": []
     }
-}]
+  }
+]

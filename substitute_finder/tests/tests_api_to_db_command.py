@@ -1,11 +1,9 @@
-import os
 import json
-from io import StringIO
-from pprint import pprint
-
+import os
 from django.conf import settings
 from django.core.management import call_command
 from django.test import TestCase, override_settings
+from io import StringIO
 
 from substitute_finder.models import Category, Product
 

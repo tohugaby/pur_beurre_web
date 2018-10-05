@@ -18,11 +18,11 @@
             <div class="col-lg-5 mx-auto">
                 <div class="chocolate">
                     {% if messages %}
-                    {% for message in messages %}
+                        {% for message in messages %}
 
-                    {{message | safe}}
+                            {{ message | safe }}
 
-                    {% endfor %}
+                        {% endfor %}
                     {% endif %}
 
                 </div>
@@ -31,7 +31,7 @@
                 <form action="{% url 'substitute_finder:search' %}" method="post" class="form-inline">
                     {% csrf_token %}
                     <div class="form-group">
-                        {{form.product}}
+                        {{ form.product }}
                     </div>
                     <button type="submit" class="btn btn-primary">Rechercher</button>
                 </form>

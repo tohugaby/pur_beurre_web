@@ -2,11 +2,11 @@
 Helpers module for product search.
 """
 
-import collections
 from itertools import zip_longest
-from pprint import pprint
 
+import collections
 from django.db.models import Q
+from pprint import pprint
 
 from .models import Product
 
@@ -73,7 +73,8 @@ def search_product(terms: str):
         # search exact terms combination
         if terms_str not in STOP_WORDS:
             result += [(product, weigth * 2)
-                       for product in Product.objects.filter(product_name__icontains=terms).exclude(nutrition_grade_fr='')]
+                       for product in
+                       Product.objects.filter(product_name__icontains=terms).exclude(nutrition_grade_fr='')]
 
             # search unordered terms combination
             for word in terms_list:

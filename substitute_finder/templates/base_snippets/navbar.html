@@ -5,7 +5,8 @@
         <a class="navbar-brand js-scroll-trigger" href="/#page-top">
             <img alt="logo pur beurre" class="brand-logo" src="{% static 'img/logo_pur_beurre.png' %}"> Pur Beurre
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -22,49 +23,53 @@
             </ul>
 
             <form action="{% url 'substitute_finder:search' %}" method="post" class="navbar-form ml-auto">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        {{form.product}}
-                    </div>
-                    
-                </form>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.product }}
+                </div>
+
+            </form>
 
 
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:account' %}" data-toggle="tooltip" data-placement="bottom"
-                        title="Mon compte">
-                        <i class="d-none d-md-none d-lg-block fa fa-user fa-2x"></i>
-                        <span class="d-md-block d-lg-none">Mon compte</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:account' %}"
+                           data-toggle="tooltip" data-placement="bottom"
+                           title="Mon compte">
+                            <i class="d-none d-md-none d-lg-block fa fa-user fa-2x"></i>
+                            <span class="d-md-block d-lg-none">Mon compte</span>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:favorites' %}" data-toggle="tooltip" data-placement="bottom"
-                    title="Mes aliments">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:favorites' %}"
+                           data-toggle="tooltip" data-placement="bottom"
+                           title="Mes aliments">
                         <span class="d-none d-md-none d-lg-block">
                             <img class="header-logo" src="{% static 'img/noun_Carrot_29691.svg' %}" alt="Mes aliments">
-                        </span> 
-                        <span class="d-md-block d-lg-none">Mes aliments</span>
+                        </span>
+                            <span class="d-md-block d-lg-none">Mes aliments</span>
 
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:logout' %}" data-toggle="tooltip" data-placement="bottom"
-                    title="Me déconnecter">
-                        <i class="d-none d-md-none d-lg-block fa fa-sign-out fa-2x"></i>
-                        <span class="d-md-block d-lg-none">Déconnexion</span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:logout' %}"
+                           data-toggle="tooltip" data-placement="bottom"
+                           title="Me déconnecter">
+                            <i class="d-none d-md-none d-lg-block fa fa-sign-out fa-2x"></i>
+                            <span class="d-md-block d-lg-none">Déconnexion</span>
+                        </a>
+                    </li>
                 {% else %}
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:login' %}" data-toggle="tooltip" data-placement="bottom"
-                        title="M'identifier">
-                        <i class="d-none d-md-none d-lg-block fa fa-sign-in fa-2x"></i>
-                        <span class="d-md-block d-lg-none">M'identifier</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'substitute_finder:login' %}"
+                           data-toggle="tooltip" data-placement="bottom"
+                           title="M'identifier">
+                            <i class="d-none d-md-none d-lg-block fa fa-sign-in fa-2x"></i>
+                            <span class="d-md-block d-lg-none">M'identifier</span>
+                        </a>
+                    </li>
                 {% endif %}
 
             </ul>

@@ -66,7 +66,7 @@ class FromApiUpdateMixin:
     strict_required_field = []
 
     @classmethod
-    def get_list_api_url(cls, page: int=1):
+    def get_list_api_url(cls, page: int = 1):
         """
         Allow to generate url for list of data recovery according to pagination class attribute and page parameter.
             :param page: number of page to read from api
@@ -80,18 +80,19 @@ class FromApiUpdateMixin:
         return cls.list_url_template
 
     @classmethod
-    def get_element_api_url(cls, id: str):
+    def get_element_api_url(cls, element_id: str):
         """
         Allow to generate url for an element recovery according to its id.
-            :param id: id of element to read from api
-            :type id: str
+            :param element_id: id of element to read from api
+            :type element_id: str
         """
 
         if cls.element_url_template:
-            return cls.element_url_template.format(id=id)
+            return cls.element_url_template.format(id=element_id)
+        return None
 
     @classmethod
-    def get_api_data_list(cls, nb_pages: int=None, start_page: int=1, from_cache: bool=False):
+    def get_api_data_list(cls, nb_pages: int = None, start_page: int = 1, from_cache: bool = False):
         """
         Get data list from web api for model according to number of pages and start page constraints.
         Allow to get data from cache when it's possible.
@@ -114,17 +115,18 @@ class FromApiUpdateMixin:
             while go_next_page:
                 cleaned_data = []
                 suffix = '_list_%s.json' % page
-                file_path = os.path.join(settings.JSON_DIR_PATH, "%s%s" % (cls._meta.model_name, suffix))
+                file_path = os.path.join(settings.JSON_DIR_PATH, "%s%s", cls._meta.model_name, suffix)
 
                 # Work with cached data when available
                 if from_cache and os.path.exists(file_path):
-                    LOGGER.info("GETTING data for %s from cache for page %s " % (cls._meta.model_name, page))
+                    LOGGER.info("GETTING data for %s from cache for page %s ", cls._meta.model_name, page)
                     with open(file_path, 'r') as file:
                         cleaned_data = json.loads(file.read())
 
                 # Work with web api
                 else:
-                    LOGGER.info("GETTING data for %s from %s" % (cls._meta.model_name, cls.get_list_api_url(page=page)))
+                    LOGGER.info(
+                        "GETTING data for %s from %s", cls._meta.model_name, cls.get_list_api_url(page=page))
                     page_data = requests.get(cls.get_list_api_url(page=page))
                     temp_data = page_data.json()
                     cleaned_data = temp_data[cls.list_data_key]
@@ -153,14 +155,14 @@ class FromApiUpdateMixin:
 
             # Work with cached data when available
             if from_cache and os.path.exists(file_path):
-                LOGGER.info("GETTING data for %s from cache" % cls._meta.model_name)
+                LOGGER.info("GETTING data for %s from cache", cls._meta.model_name)
                 with open(file_path, 'r') as file:
                     cleaned_data = json.loads(file.read())
 
             # Work with web api
             else:
-                LOGGER.info("GETTING data for %s from %s" % (
-                    cls._meta.model_name, cls.get_list_api_url()))
+                LOGGER.info("GETTING data for %s from %s",
+                            cls._meta.model_name, cls.get_list_api_url())
                 page_data = requests.get(cls.get_list_api_url())
                 temp_data = page_data.json()
                 cleaned_data = temp_data[cls.list_data_key]
@@ -174,23 +176,24 @@ class FromApiUpdateMixin:
         return data
 
     @classmethod
-    def get_api_data_element(cls, id: str):
+    def get_api_data_element(cls, element_id: str):
         """
         Get data from api for an element according to its id.
-            :param id: element id
-            :type id: str
+            :param element_id: element id
+            :type element_id: str
         """
 
         # Check if api url exists for element
-        if cls.get_element_api_url(id):
-            LOGGER.info("GETTING data for %s from %s" % (cls._meta.model_name, cls.get_element_api_url(id)))
-            data = requests.get(cls.get_element_api_url(id))
+        if cls.get_element_api_url(element_id):
+            LOGGER.info("GETTING data for %s from %s", cls._meta.model_name, cls.get_element_api_url(element_id))
+            data = requests.get(cls.get_element_api_url(element_id))
             temp_data = data.json()
             cleaned_data = temp_data
             return cleaned_data[cls.element_data_key]
+        return None
 
     @classmethod
-    def write_api_data(cls, data: list or dict, custom_suffix: str=''):
+    def write_api_data(cls, data: list or dict, custom_suffix: str = ''):
         """
         Write provided data into a file named according to type of provided data and custom suffix.
             :param data: data collection to write in file
@@ -225,25 +228,25 @@ class FromApiUpdateMixin:
         return file_path
 
     @classmethod
-    def insert_data(cls, data: list or dict, strict_required_field_mode: bool=False, filters: dict={}):
+    def insert_data(cls, data: list or dict, strict_required_field_mode: bool = False, filters: dict = {}):
         """
         Create as many model instances as needed according to data provided
             :param data: data collection to insert in database
             :type data: list or dict
             :param strict_required_field_mode: if True, a missing required field leads to cancel element insert
             :type strict_required_field_mode: bool
-            :param filters: a dict of filters to define which elements should be inserted 
+            :param filters: a dict of filters to define which elements should be inserted
             :type filters: dict
         """
 
-        LOGGER.info("CREATE/UPDATE data for %s " % cls._meta.model_name)
+        LOGGER.info("CREATE/UPDATE data for %s ", cls._meta.model_name)
 
         # Define model field names
         field_names = [f.name for f in cls._meta.get_fields()]
 
         # clean filters
 
-        for key in cls.field_correspondances.keys():
+        for key in cls.field_correspondances:
             field_names.append(key)
             field_names.remove(cls.field_correspondances[key])
 
@@ -255,7 +258,6 @@ class FromApiUpdateMixin:
         # Define many to many field names
         many_to_many_field_names = [f.name for f in cls._meta.many_to_many]
 
-        cleaned_data = []
         data_list = []
 
         # Insert data dict into a list
@@ -265,10 +267,10 @@ class FromApiUpdateMixin:
             data_list = data
 
         # Deal with data list
-        for d in data_list:
+        for data_element in data_list:
             value_dict = {}
             for field in field_names:
-                result = [result for result in find_dict_value_for_nested_key(field, d)]
+                result = [result for result in find_dict_value_for_nested_key(field, data_element)]
                 if result:
                     if field in cls.field_correspondances.keys():
                         new_key = cls.field_correspondances[field]
@@ -286,21 +288,21 @@ class FromApiUpdateMixin:
                         ignore_element = True
 
             if ignore_element:
-                LOGGER.warning("STRICT MODE is activated data for %s : %s will be ignored" %
-                               (cls._meta.model_name, value_dict))
+                LOGGER.warning("STRICT MODE is activated data for %s : %s will be ignored", cls._meta.model_name,
+                               value_dict)
                 continue
             # List keys from element in list which are not used by model
             # unused_keys = [
-            #     key for key in d.keys() if key not in field_names]
+            #     key for key in data_element.keys() if key not in field_names]
 
             # Find value of primary key
-            pk_value = d[primary_key_field_name]
+            pk_value = data_element[primary_key_field_name]
 
             many_to_many_data = []
 
             # Remove unused keys from element
             # for key in unused_keys:
-            #     del d[key]
+            #     del data_element[key]
 
             # Store keys and values from many to many fields
             for key in many_to_many_field_names:
@@ -308,11 +310,11 @@ class FromApiUpdateMixin:
                     many_to_many_data.append({key: value_dict.pop(key)})
 
             # check data with filters
-            for key in value_dict.keys():
+            for key in value_dict:
                 if key in filters.keys():
                     if value_dict[key] not in filters[key]:
-                        LOGGER.warning("FILTER %s on %s is not satisfied for %s : %s will be ignored" %
-                                       (filters[key], key, cls._meta.model_name, value_dict))
+                        LOGGER.warning("FILTER %s on %s is not satisfied for %s : %s will be ignored", filters[key],
+                                       key, cls._meta.model_name, value_dict)
                         continue
 
             # check many to many data with filters
@@ -326,8 +328,8 @@ class FromApiUpdateMixin:
                                 break
 
             if ignore_element:
-                LOGGER.warning("FILTERS %s on many to many fields are not satisfied for %s : %s will be ignored" %
-                               (filters, cls._meta.model_name, value_dict))
+                LOGGER.warning("FILTERS %s on many to many fields are not satisfied for %s : %s will be ignored",
+                               filters, cls._meta.model_name, value_dict)
                 continue
 
                 # if value_dict[key] not in filters[key]:
@@ -343,13 +345,12 @@ class FromApiUpdateMixin:
                     for value in values:
                         try:
                             field.add(value)
-                        except IntegrityError as integrity_error:
-                            LOGGER.error(
-                                "Error during add of %s in field %s of %s. %s will be ignored." % (
-                                    value, field, new_element, value)
-                            )
+                        except IntegrityError:
+                            LOGGER.error("Error during add of %s in field %s of %s. %s will be ignored.", value, field,
+                                         new_element, value
+                                         )
 
-            LOGGER.info("JUST %s %s in %s " % ("CREATE" if created else "UPDATE", new_element, cls._meta.model_name))
+            LOGGER.info("JUST %s %s in %s ", "CREATE" if created else "UPDATE", new_element, cls._meta.model_name)
 
 
 class Product(FromApiUpdateMixin, models.Model):
@@ -366,7 +367,8 @@ class Product(FromApiUpdateMixin, models.Model):
         'saturated-fat_unit': 'saturated_fat_unit'
     }
     strict_required_field = [
-        'generic_name', 'energy_100g', 'sugars_100g', 'sodium_100g', 'carbohydrates_100g', 'salt_100g', 'proteins_100g',
+        'generic_name', 'energy_100g', 'sugars_100g', 'sodium_100g', 'carbohydrates_100g', 'salt_100g',
+        'proteins_100g',
         'fat_100g', 'fiber_100g', 'saturated_fat_100g', 'nutrition_grade_fr', 'energy_100g', 'sugars_100g',
         'sodium_100g', 'carbohydrates_100g', 'salt_100g', 'proteins_100g', 'fat_100g', 'fiber_100g',
         'saturated_fat_100g', 'nutrition_grade_fr'

@@ -1,21 +1,21 @@
-import logging
-from itertools import chain, zip_longest
-from pprint import pprint
+"""
+substitute_finder app views module
+"""
+from itertools import chain
 
+import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
-from django.db.models import Q, QuerySet
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
-from .forms import (AccountCreateForm, CustomLoginForm, ParagrapheErrorList,
+from .forms import (AccountCreateForm, CustomLoginForm, ParagraphErrorList,
                     ProductsSearchForm)
 from .helpers import search_product
-from .models import CustomUser, Product
+from .models import Product
 
 # Create your views here.
 LOGGER = logging.getLogger(__name__)
@@ -35,13 +35,12 @@ def create_account_view(request):
     """
     context = {}
     if request.method == 'POST':
-        form = AccountCreateForm(request.POST, error_class=ParagrapheErrorList)
+        form = AccountCreateForm(request.POST, error_class=ParagraphErrorList)
         if form.is_valid():
             new_user = form.save()
             login(request, new_user)
             return redirect('substitute_finder:index')
-        else:
-            context['errors'] = form.errors.items()
+        context['errors'] = form.errors.items()
     else:
         form = AccountCreateForm()
 
@@ -56,7 +55,7 @@ def login_view(request):
     """
     context = {}
     if request.method == 'POST':
-        form = CustomLoginForm(request.POST, error_class=ParagrapheErrorList)
+        form = CustomLoginForm(request.POST, error_class=ParagraphErrorList)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -101,7 +100,7 @@ def search_view(request, *args, **kwargs):
         "form": ProductsSearchForm()
     }
     if request.method == 'POST':
-        form = ProductsSearchForm(request.POST, error_class=ParagrapheErrorList)
+        form = ProductsSearchForm(request.POST, error_class=ParagraphErrorList)
 
         if form.is_valid():
             search = form.cleaned_data['product']
@@ -123,23 +122,21 @@ def search_view(request, *args, **kwargs):
                 messages.info(request, "Aucun produit de notre base de données ne correspond à votre recherche.")
 
             return render(request, 'substitute_finder/product_list.html', context)
-        else:
-            for key, value in form.errors.items():
 
-                messages.error(request, value)
+        for value in form.errors.values():
+            messages.error(request, value)
 
         return redirect("/")
 
-    else:
-        if 'last_products' and 'last_search' in request.session:
-            products = Product.objects.filter(pk__in=request.session['last_products'])
-            paginator = Paginator(products, settings.MAX_RESULT_PER_PAGE)
-            page = request.GET.get('page')
-            context['products'] = paginator.get_page(page)
-            context['search'] = request.session['last_search']
-            return render(request, 'substitute_finder/product_list.html', context)
-        else:
-            return redirect("/")
+    if 'last_products' and 'last_search' in request.session:
+        products = Product.objects.filter(pk__in=request.session['last_products'])
+        paginator = Paginator(products, settings.MAX_RESULT_PER_PAGE)
+        page = request.GET.get('page')
+        context['products'] = paginator.get_page(page)
+        context['search'] = request.session['last_search']
+        return render(request, 'substitute_finder/product_list.html', context)
+
+    return redirect("/")
 
 
 def product_view(request, *args, **kwargs):
@@ -148,19 +145,19 @@ def product_view(request, *args, **kwargs):
     """
     product = Product.objects.get(pk=kwargs['pk'])
     categories = product.categories_tags.all()
-
+    last_products = []
+    if 'last_products' in request.session:
+        last_products = request.session['last_products']
     products_query_list = []
     for category in categories:
-        products_query_list.append(category.product_set.filter(
-            nutrition_grade_fr__lt=product.nutrition_grade_fr, pk__in=request.session['last_products']).exclude(nutrition_grade_fr=''))
-    # products = Product.objects.filter(
-    #     nutrition_grade_fr__lt=product.nutrition_grade_fr, pk__in=request.session['last_products']).exclude(nutrition_grade_fr='').order_by('nutrition_grade_fr')
+        products_query_list.append(category.product_set.filter(nutrition_grade_fr__lt=product.nutrition_grade_fr,
+                                                               pk__in=last_products).exclude(nutrition_grade_fr=''))
     products = sorted(list(set(chain(*products_query_list))), key=lambda x: x.nutrition_grade_fr)
 
     queryset_list = []
     for category in categories:
-        queryset_list.append(category.product_set.filter(
-            nutrition_grade_fr__lt=product.nutrition_grade_fr).exclude(pk__in=request.session['last_products']).exclude(nutrition_grade_fr=''))
+        queryset_list.append(category.product_set.filter(nutrition_grade_fr__lt=product.nutrition_grade_fr).exclude(
+            pk__in=last_products).exclude(nutrition_grade_fr=''))
     others = sorted(list(set(chain(*queryset_list))), key=lambda x: x.nutrition_grade_fr)
 
     paginator = Paginator(others, settings.MAX_RESULT_PER_PAGE)

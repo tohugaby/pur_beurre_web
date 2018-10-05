@@ -1,10 +1,8 @@
 import os
-
-import requests
 import requests_mock
 from django.test import TestCase
 
-from substitute_finder.helpers import create_corpus,get_unigrams,get_ngrams
+from substitute_finder.helpers import create_corpus, get_unigrams, get_ngrams
 from substitute_finder.models import Category, Product
 
 
@@ -43,5 +41,3 @@ class AutoCompletionTestCase(TestCase):
         self.assertIsInstance(corpus, list)
         get_unigrams(corpus)
         get_ngrams(corpus, 3)
-        
-

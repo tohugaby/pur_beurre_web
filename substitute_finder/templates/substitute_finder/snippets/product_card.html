@@ -1,23 +1,24 @@
-<div id="{{product.pk}}" class="card product-card  mb-2">
+<div id="{{ product.pk }}" class="card product-card  mb-2">
     <div class="card-header bg-white text-right border-bottom-0 px-1 pt-1">
-        <span class="badge badge-light badge-pill chocolate nutrition-grade">{{product.nutrition_grade_fr | upper}}</span>
+        <span class="badge badge-light badge-pill chocolate nutrition-grade">{{ product.nutrition_grade_fr | upper }}</span>
     </div>
 
     <a href="{% url 'substitute_finder:product' product.pk %}" class="card-body text-center">
         <span style="display:block;height:120px;">
-            <img class="border rounded" src="{{product.image_front_small_url}}" alt="Card image cap" style="max-height:100%;max-width:100%;margin:auto;">
+            <img class="border rounded" src="{{ product.image_front_small_url }}" alt="Card image cap"
+                 style="max-height:100%;max-width:100%;margin:auto;">
         </span>
         <br>
-        <span class="card-text mussels-chips">{{product.product_name}}</span>
+        <span class="card-text mussels-chips">{{ product.product_name }}</span>
     </a>
     <div class="card-footer bg-white">
 
         {% if user.is_authenticated %}
-        {% if user not in product.users.all %}
-        <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
-            <i class="fa fa-floppy-o"></i>
-        </a>
-        {% endif %}
+            {% if user not in product.users.all %}
+                <a href="{% url 'substitute_finder:add_favorite' product.pk %}" class="chocolate add-favorite">
+                    <i class="fa fa-floppy-o"></i>
+                </a>
+            {% endif %}
         {% endif %}
 
 
