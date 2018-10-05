@@ -1,4 +1,6 @@
-import json
+"""
+Tests for data getter tools.
+"""
 import json
 import os
 import requests_mock
@@ -15,25 +17,44 @@ from substitute_finder.models import (Category, Product,
 
 
 class UrlGetterTestCase(TestCase):
+    """
+    Test url getters for elements and lists of data.
+    """
 
     def setUp(self):
         self.category_id = 'en:plant-based-foods-and-beverages'
         self.product_id = '3222472887966'
 
     def test_get_url_for_category_list(self):
+        """
+        Test url getters for category list.
+        :return:
+        """
         url = Category.get_list_api_url()
         self.assertIsNotNone(url)
 
     def test_get_url_for_category_element(self):
+        """
+        Test url getters for category element.
+        :return:
+        """
         url = Category.get_element_api_url(element_id=self.category_id)
         self.assertIsNone(url)
 
     def test_get_url_for_product_list(self):
+        """
+        Test url getters for product list.
+        :return:
+        """
         url = Product.get_list_api_url(9)
         self.assertIsNotNone(url)
         self.assertIn('9', url)
 
     def test_get_url_for_product_element(self):
+        """
+        Test url getters for product element.
+        :return:
+        """
         url = Product.get_element_api_url(element_id=self.product_id)
         self.assertIsNotNone(url)
 
@@ -43,47 +64,66 @@ class UrlGetterTestCase(TestCase):
 #   - for an element
 
 class DataGetterTestCase(TestCase):
+    """
+    Test data getters for elements and lists of data.
+    """
 
     def setUp(self):
         self.category_id = 'en:plant-based-foods-and-beverages'
         self.product_id = '3222472887966'
-        self.FAKE_DATA_PATH = os.path.join(
+        self.fake_data_path = os.path.join(
             os.path.dirname(__file__), 'fake_data')
 
     def test_get_data_for_category_list(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+        """
+        Test data getters for category list.
+        :return:
+        """
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Category.get_list_api_url(), text=fake_data_categories)
+        with requests_mock.Mocker() as mock:
+            mock.get(Category.get_list_api_url(), text=fake_data_categories)
             data = Category.get_api_data_list()
             self.assertIsInstance(data, list)
 
     def test_get_data_for_category_element(self):
+        """
+        Test data getters for category element.
+        :return:
+        """
         data = Category.get_api_data_element(self.category_id)
         self.assertIsNone(data)
 
     def test_get_data_for_product_list(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products1.json'), 'r') as file:
+        """
+        Test data getters for product list.
+        :return:
+        """
+        with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
             fake_data_products_1 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products2.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
             fake_data_products_2 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products3.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
             fake_data_products_3 = file.read()
 
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_list_api_url(1), text=fake_data_products_1)
-            m.get(Product.get_list_api_url(2), text=fake_data_products_2)
-            m.get(Product.get_list_api_url(3), text=fake_data_products_3)
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_list_api_url(1), text=fake_data_products_1)
+            mock.get(Product.get_list_api_url(2), text=fake_data_products_2)
+            mock.get(Product.get_list_api_url(3), text=fake_data_products_3)
             data = Product.get_api_data_list(nb_pages=2)
             self.assertEqual(len(data), 40)
             data = Product.get_api_data_list()
             self.assertEqual(len(data), 60)
 
     def test_get_data_for_product_element(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, '3222472887966.json'), 'r') as file:
+        """
+        Test data getters for product element.
+        :return:
+        """
+        with open(os.path.join(self.fake_data_path, '3222472887966.json'), 'r') as file:
             fake_data_product = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_element_api_url(
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_element_api_url(
                 self.product_id), text=fake_data_product)
             data = Product.get_api_data_element(self.product_id)
             self.assertIsInstance(data, dict)
@@ -95,56 +135,68 @@ class DataGetterTestCase(TestCase):
 
 
 class DataWritterTestCase(TestCase):
+    """
+    Test data writter for elements and lists of data.
+    """
+
     def setUp(self):
-        self.FAKE_DATA_PATH = os.path.join(
+        self.fake_data_path = os.path.join(
             os.path.dirname(__file__), 'fake_data')
         self.product_id = '3222472887966'
 
     def tearDown(self):
-        # TODO: need to remove only test files
         file_list = os.listdir(settings.JSON_DIR_PATH)
-        for f in file_list:
-            os.remove(os.path.join(settings.JSON_DIR_PATH, f))
+        for file in file_list:
+            os.remove(os.path.join(settings.JSON_DIR_PATH, file))
 
     def test_write_file_for_category_list(self):
-        file_path = os.path.join(
-            settings.JSON_DIR_PATH, "%s_list.json" % Category._meta.model_name)
+        """
+        Test data writer for category list.
+        :return:
+        """
+        # file_path = os.path.join(settings.JSON_DIR_PATH, "%s_list.json" % Category._meta.model_name)
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Category.get_list_api_url(), text=fake_data_categories)
+        with requests_mock.Mocker() as mock:
+            mock.get(Category.get_list_api_url(), text=fake_data_categories)
             data = Category.get_api_data_list()
             file = Category.write_api_data(data)
             self.assertTrue(os.path.exists(file))
 
     def test_write_file_for_product_list(self):
-        file_path = os.path.join(
-            settings.JSON_DIR_PATH, "%s_list.json" % Product._meta.model_name)
+        """
+        Test data writer for product list.
+        :return:
+        """
+        # file_path = os.path.join(settings.JSON_DIR_PATH, "%s_list.json" % Product._meta.model_name)
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products1.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
             fake_data_products_1 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products2.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
             fake_data_products_2 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products3.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
             fake_data_products_3 = file.read()
 
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_list_api_url(1), text=fake_data_products_1)
-            m.get(Product.get_list_api_url(2), text=fake_data_products_2)
-            m.get(Product.get_list_api_url(3), text=fake_data_products_3)
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_list_api_url(1), text=fake_data_products_1)
+            mock.get(Product.get_list_api_url(2), text=fake_data_products_2)
+            mock.get(Product.get_list_api_url(3), text=fake_data_products_3)
             data = Product.get_api_data_list()
             file = Product.write_api_data(data)
             self.assertTrue(os.path.exists(file))
 
     def test_get_data_for_product_element(self):
-        file_path = os.path.join(
-            settings.JSON_DIR_PATH, "%s.json" % Product._meta.model_name)
+        """
+        Test data writer for product element.
+        :return:
+        """
+        # file_path = os.path.join(settings.JSON_DIR_PATH, "%s.json" % Product._meta.model_name)
 
-        with open(os.path.join(self.FAKE_DATA_PATH, '3222472887966.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, '3222472887966.json'), 'r') as file:
             fake_data_product = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_element_api_url(
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_element_api_url(
                 self.product_id), text=fake_data_product)
             data = Product.get_api_data_element(self.product_id)
             file = Product.write_api_data(data)
@@ -156,32 +208,42 @@ class DataWritterTestCase(TestCase):
 #   - from an element
 
 class DataInsertTestCase(TestCase):
+    """
+    Test data insert.
+    """
 
     def setUp(self):
-        self.FAKE_DATA_PATH = os.path.join(
+        self.fake_data_path = os.path.join(
             os.path.dirname(__file__), 'fake_data')
         self.product_id = '3222472887966'
 
     def test_find_dict_key(self):
+        """
+        Test key finder.
+        :return:
+        """
         searched_key = "energy_100g"
-        with open(os.path.join(self.FAKE_DATA_PATH, self.product_id + '.json')) as file:
+        with open(os.path.join(self.fake_data_path, self.product_id + '.json')) as file:
             fake_data_product = json.loads(file.read())
 
         expected_result = fake_data_product['product']['nutriments'][searched_key]
 
         found_value = []
-        # print(find_dict_value_for_nested_key(searched_key, fake_data_product))
         for value in find_dict_value_for_nested_key(searched_key, fake_data_product):
             found_value.append(value)
         self.assertEqual(expected_result, found_value[0][1])
 
     def test_insert_category_list(self):
+        """
+        Test insert category list.
+        :return:
+        """
         nb_elements_before = Category.objects.count()
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Category.get_list_api_url(), text=fake_data_categories)
+        with requests_mock.Mocker() as mock:
+            mock.get(Category.get_list_api_url(), text=fake_data_categories)
             data = Category.get_api_data_list()
 
         Category.insert_data(data)
@@ -189,27 +251,31 @@ class DataInsertTestCase(TestCase):
         self.assertGreater(nb_elements_after, nb_elements_before)
 
     def test_insert_product_list(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+        """
+        Test insert product list.
+        :return:
+        """
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Category.get_list_api_url(), text=fake_data_categories)
+        with requests_mock.Mocker() as mock:
+            mock.get(Category.get_list_api_url(), text=fake_data_categories)
             data = Category.get_api_data_list()
 
         Category.insert_data(data)
 
         nb_elements_before = Product.objects.count()
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products1.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
             fake_data_products_1 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products2.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
             fake_data_products_2 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products3.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
             fake_data_products_3 = file.read()
 
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_list_api_url(1), text=fake_data_products_1)
-            m.get(Product.get_list_api_url(2), text=fake_data_products_2)
-            m.get(Product.get_list_api_url(3), text=fake_data_products_3)
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_list_api_url(1), text=fake_data_products_1)
+            mock.get(Product.get_list_api_url(2), text=fake_data_products_2)
+            mock.get(Product.get_list_api_url(3), text=fake_data_products_3)
             data = Product.get_api_data_list()
 
         # test create
@@ -223,27 +289,31 @@ class DataInsertTestCase(TestCase):
         self.assertEqual(new_nb_elements_after, nb_elements_after)
 
     def test_insert_product_list_with_strict_mode(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+        """
+        Test insert products list with strict mode.
+        :return:
+        """
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Category.get_list_api_url(), text=fake_data_categories)
+        with requests_mock.Mocker() as mock:
+            mock.get(Category.get_list_api_url(), text=fake_data_categories)
             data = Category.get_api_data_list()
 
         Category.insert_data(data)
 
         nb_elements_before = Product.objects.count()
 
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products1.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
             fake_data_products_1 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products2.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
             fake_data_products_2 = file.read()
-        with open(os.path.join(self.FAKE_DATA_PATH, 'products3.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
             fake_data_products_3 = file.read()
 
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_list_api_url(1), text=fake_data_products_1)
-            m.get(Product.get_list_api_url(2), text=fake_data_products_2)
-            m.get(Product.get_list_api_url(3), text=fake_data_products_3)
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_list_api_url(1), text=fake_data_products_1)
+            mock.get(Product.get_list_api_url(2), text=fake_data_products_2)
+            mock.get(Product.get_list_api_url(3), text=fake_data_products_3)
             data = Product.get_api_data_list()
 
         # test create
@@ -257,20 +327,24 @@ class DataInsertTestCase(TestCase):
         self.assertGreater(new_nb_elements_after, nb_elements_after)
 
     def test_insert_product_element(self):
-        with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'r') as file:
+        """
+        Test insert products element.
+        :return:
+        """
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
             fake_data_categories = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Category.get_list_api_url(), text=fake_data_categories)
+        with requests_mock.Mocker() as mock:
+            mock.get(Category.get_list_api_url(), text=fake_data_categories)
             data = Category.get_api_data_list()
 
         Category.insert_data(data)
 
         nb_elements_before = Product.objects.count()
 
-        with open(os.path.join(self.FAKE_DATA_PATH, '3222472887966.json'), 'r') as file:
+        with open(os.path.join(self.fake_data_path, '3222472887966.json'), 'r') as file:
             fake_data_product = file.read()
-        with requests_mock.Mocker() as m:
-            m.get(Product.get_element_api_url(
+        with requests_mock.Mocker() as mock:
+            mock.get(Product.get_element_api_url(
                 self.product_id), text=fake_data_product)
             data = Product.get_api_data_element(self.product_id)
 
@@ -287,11 +361,11 @@ class DataInsertTestCase(TestCase):
     # def test_short_cat(self):
     #     cat_ids = []
 
-    #     with open(os.path.join(self.FAKE_DATA_PATH, 'products1.json'), 'r') as file:
+    #     with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
     #         fake_data_products_1 = json.loads(file.read())
-    #     with open(os.path.join(self.FAKE_DATA_PATH, 'products2.json'), 'r') as file:
+    #     with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
     #         fake_data_products_2 = json.loads(file.read())
-    #     with open(os.path.join(self.FAKE_DATA_PATH, 'products3.json'), 'r') as file:
+    #     with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
     #         fake_data_products_3 = json.loads(file.read())
 
     #     for fd in [fake_data_products_1,fake_data_products_2, fake_data_products_3]:
@@ -299,7 +373,7 @@ class DataInsertTestCase(TestCase):
     #             for cat in prod['categories_tags']:
     #                 cat_ids.append(cat)
 
-    #     with open(os.path.join(self.FAKE_DATA_PATH, '3222472887966.json'), 'r') as file:
+    #     with open(os.path.join(self.fake_data_path, '3222472887966.json'), 'r') as file:
     #         fake_data_product = json.loads(file.read())
 
     #     for cat in fake_data_product['product']['categories_tags']:
@@ -307,7 +381,7 @@ class DataInsertTestCase(TestCase):
 
     #     cat_ids = set(cat_ids)
 
-    #     with open(os.path.join(self.FAKE_DATA_PATH, 'categories.json'), 'r') as file:
+    #     with open(os.path.join(self.fake_data_path, 'categories.json'), 'r') as file:
     #         fake_data_categories = json.loads(file.read())
 
     #     new_cat_data = copy.deepcopy(fake_data_categories)
@@ -316,5 +390,5 @@ class DataInsertTestCase(TestCase):
     #         if cat['id'] not in cat_ids:
     #             new_cat_data['tags'].remove(cat)
 
-    #     with open(os.path.join(self.FAKE_DATA_PATH, 'categories_short.json'), 'w') as file:
+    #     with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'w') as file:
     #         file.write(json.dumps(new_cat_data))

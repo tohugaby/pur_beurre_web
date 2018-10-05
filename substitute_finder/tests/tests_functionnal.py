@@ -1,13 +1,19 @@
-import selenium.webdriver.support.ui as ui
+"""
+Fonctionnal tests.
+"""
 from django.contrib.sessions.models import Session
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import ui
 
 from substitute_finder.models import CustomUser
 
 
 class UserInterfaceTestCase(StaticLiveServerTestCase):
+    """
+    Live tests for userinterface.
+    """
     fixtures = ['test_data_custom_user.json', 'selenium.json']
 
     @classmethod
@@ -117,8 +123,6 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
         email_field = self.get_element("#id_email")
         username_field = self.get_element("#id_username")
-        firstname_field = self.get_element("#id_first_name")
-        lastname_field = self.get_element("#id_last_name")
         password_field = self.get_element("#id_password")
         submit_button = self.get_element("form button")
 
@@ -141,8 +145,6 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
         email_field = self.get_element("#id_email")
         username_field = self.get_element("#id_username")
-        firstname_field = self.get_element("#id_first_name")
-        lastname_field = self.get_element("#id_last_name")
         password_field = self.get_element("#id_password")
         submit_button = self.get_element("form button")
 
@@ -162,8 +164,6 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
         self.wait.until(lambda driver: self.get_element("#id_email").is_displayed())
         email_field = self.get_element("#id_email")
         username_field = self.get_element("#id_username")
-        firstname_field = self.get_element("#id_first_name")
-        lastname_field = self.get_element("#id_last_name")
         password_field = self.get_element("#id_password")
         submit_button = self.get_element("form button")
         email_field.send_keys("test@test.fr")
@@ -193,6 +193,7 @@ class UserInterfaceTestCase(StaticLiveServerTestCase):
 
         session = Session.objects.get(pk=session_id)
         user = CustomUser.objects.get(email='test@test.fr')
+        self.assertEqual(user.id, int(session.get_decoded()['_auth_user_id']))
 
         logout_link = self.get_element('.navbar-nav li:nth-child(3) a')
 

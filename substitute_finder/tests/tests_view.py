@@ -298,7 +298,7 @@ class AddFavoritesViewTestCase(TestCase):
         product = Product.objects.last()
         nb_user_loving_product_before = product.users.count()
         self.client.login(username='test@test.fr', password='test')
-        response = self.client.get(reverse('substitute_finder:add_favorite', kwargs={'pk': product.pk}))
+        self.client.get(reverse('substitute_finder:add_favorite', kwargs={'pk': product.pk}))
         nb_user_loving_product_after = product.users.count()
         self.assertGreater(nb_user_loving_product_after, nb_user_loving_product_before)
 
@@ -309,7 +309,7 @@ class AddFavoritesViewTestCase(TestCase):
         product = Product.objects.last()
         nb_user_loving_product_before = product.users.count()
 
-        response = self.client.get(reverse('substitute_finder:add_favorite', kwargs={'pk': product.pk}))
+        self.client.get(reverse('substitute_finder:add_favorite', kwargs={'pk': product.pk}))
         nb_user_loving_product_after = product.users.count()
         self.assertEqual(nb_user_loving_product_after, nb_user_loving_product_before)
 

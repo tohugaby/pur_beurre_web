@@ -95,7 +95,7 @@ class Command(BaseCommand):
         Category.insert_data(data)
 
     @staticmethod
-    def get_product(actual_page: int = 1, from_cache: bool = False, grumpy_mode: bool = False, filters: dict = {}):
+    def get_product(actual_page: int = 1, from_cache: bool = False, grumpy_mode: bool = False, filters: dict = None):
         """
         get products data and insert them into Product table.
         :param actual_page: start page.

@@ -228,7 +228,7 @@ class FromApiUpdateMixin:
         return file_path
 
     @classmethod
-    def insert_data(cls, data: list or dict, strict_required_field_mode: bool = False, filters: dict = {}):
+    def insert_data(cls, data: list or dict, strict_required_field_mode: bool = False, filters: dict = None):
         """
         Create as many model instances as needed according to data provided
             :param data: data collection to insert in database

@@ -1,23 +1,30 @@
+"""
+api_to_db command tests.
+"""
 import json
 import os
+from io import StringIO
 from django.conf import settings
 from django.core.management import call_command
 from django.test import TestCase, override_settings
-from io import StringIO
+
 
 from substitute_finder.models import Category, Product
 
 TEST_JSON_CACHE_DATA_PATH = os.path.join(os.path.dirname(__file__), settings.JSON_DIR_NAME)
 
 
-@override_settings(JSON_DIR_PATH=TEST_JSON_CACHE_DATA_PATH)
-class ApiToDbTestCase(TestCase):
-    MAX_NB_PAGES = 3
+class TestDataJSONCleaner:
+    """
+    An helper class to get test data and make them smaller.
+    """
 
-    def setUp(self):
-        self.clean_json_files()
+    def __init__(self, files_path, max_nb_pages=3):
+        self.max_nb_pages = max_nb_pages
+        self.files_path = files_path
 
-    def get_category_json_test_file(self):
+    @staticmethod
+    def get_category_json_test_file():
         """
         Recover category json test file from OpenfoodFacts
         """
@@ -27,7 +34,7 @@ class ApiToDbTestCase(TestCase):
         """
         Recover category json test file from OpenfoodFacts
         """
-        Product.get_api_data_list(nb_pages=self.MAX_NB_PAGES, start_page=1, from_cache=False)
+        Product.get_api_data_list(nb_pages=self.max_nb_pages, start_page=1, from_cache=False)
 
     def clean_json_files(self):
         """
@@ -37,8 +44,8 @@ class ApiToDbTestCase(TestCase):
             to_keep_categories = []
 
             # Open product files to list categories to keep
-            for nb in range(1, self.MAX_NB_PAGES + 1):
-                file_path = os.path.join(TEST_JSON_CACHE_DATA_PATH, 'product_list_%s.json' % str(nb))
+            for page_number in range(1, self.max_nb_pages + 1):
+                file_path = os.path.join(self.files_path, 'product_list_%s.json' % str(page_number))
                 with open(file_path, 'r') as product_file:
                     data = json.loads(product_file.read())
                     for product in data:
@@ -49,14 +56,14 @@ class ApiToDbTestCase(TestCase):
 
             # Read actual category list and clean it.
             categories = []
-            with open(os.path.join(TEST_JSON_CACHE_DATA_PATH, 'category_list.json'), 'r') as category_file:
+            with open(os.path.join(self.files_path, 'category_list.json'), 'r') as category_file:
                 categories = json.loads(category_file.read())
             new_categories = list(filter(lambda cat: cat['id'] in to_keep_categories, categories))
-            with open(os.path.join(TEST_JSON_CACHE_DATA_PATH, 'category_list.json'), 'w') as new_category_file:
+            with open(os.path.join(self.files_path, 'category_list.json'), 'w') as new_category_file:
                 new_category_file.write(json.dumps(new_categories))
 
         # recover test file if missing or if empty
-        except (FileNotFoundError, json.decoder.JSONDecodeError) as file_or_json_exc:
+        except (FileNotFoundError, json.decoder.JSONDecodeError):
 
             self.get_category_json_test_file()
             self.get_product_json_test_files()
@@ -65,7 +72,18 @@ class ApiToDbTestCase(TestCase):
         except (KeyError, Exception) as other_exc:
             raise other_exc
 
+
+@override_settings(JSON_DIR_PATH=TEST_JSON_CACHE_DATA_PATH)
+class ApiToDbTestCase(TestCase):
+    """
+    Test api_to_db command.
+    """
+
     def test_api_to_db_with_nb_pages(self):
+        """
+        Test api_to_db command with number of pages.
+        :return:
+        """
         self.assertEqual(Category.objects.count(), 0)
         self.assertEqual(Product.objects.count(), 0)
         out = StringIO()
@@ -80,6 +98,10 @@ class ApiToDbTestCase(TestCase):
         self.assertNotEqual(Product.objects.count(), 0)
 
     def test_api_to_db_with_grumpy_mode(self):
+        """
+        Test api_to_db command with grumpy (strict) mode.
+        :return:
+        """
         before_nb_cat = Category.objects.count()
         before_nb_prod = Product.objects.count()
         self.assertEqual(before_nb_cat, 0)

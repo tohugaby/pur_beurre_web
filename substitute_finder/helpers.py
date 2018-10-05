@@ -1,5 +1,5 @@
 """
-Helpers module for product search.
+Helpers module for product search, auto completion
 """
 
 from itertools import zip_longest
