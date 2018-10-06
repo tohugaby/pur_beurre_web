@@ -2,11 +2,11 @@
 Auto completion tests.
 """
 import os
-import requests_mock
 from django.test import TestCase
 
 from substitute_finder.helpers import create_corpus, get_unigrams, get_ngrams
 from substitute_finder.models import Category, Product
+from substitute_finder.tests.test_helpers import get_categories_data_with_mock, get_products_data_with_mock
 
 
 class AutoCompletionTestCase(TestCase):
@@ -19,26 +19,11 @@ class AutoCompletionTestCase(TestCase):
     def setUp(self):
         self.fake_data_path = os.path.join(
             os.path.dirname(__file__), 'fake_data')
-        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'r') as file:
-            fake_data_categories = file.read()
-        with requests_mock.Mocker() as mock:
-            mock.get(Category.get_list_api_url(), text=fake_data_categories)
-            data = Category.get_api_data_list()
+        data = get_categories_data_with_mock(self.fake_data_path, 'categories_short')
 
         Category.insert_data(data)
 
-        with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
-            fake_data_products_1 = file.read()
-        with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
-            fake_data_products_2 = file.read()
-        with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
-            fake_data_products_3 = file.read()
-
-        with requests_mock.Mocker() as mock:
-            mock.get(Product.get_list_api_url(1), text=fake_data_products_1)
-            mock.get(Product.get_list_api_url(2), text=fake_data_products_2)
-            mock.get(Product.get_list_api_url(3), text=fake_data_products_3)
-            data = Product.get_api_data_list()
+        data = get_products_data_with_mock(self.fake_data_path, 'products', nb_files=3)
 
         Product.insert_data(data)
 
