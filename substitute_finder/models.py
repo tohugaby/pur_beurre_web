@@ -115,7 +115,7 @@ class FromApiUpdateMixin:
             while go_next_page:
                 cleaned_data = []
                 suffix = '_list_%s.json' % page
-                file_path = os.path.join(settings.JSON_DIR_PATH, "%s%s"% (cls._meta.model_name, suffix))
+                file_path = os.path.join(settings.JSON_DIR_PATH, "%s%s" % (cls._meta.model_name, suffix))
 
                 # Work with cached data when available
                 if from_cache and os.path.exists(file_path):
