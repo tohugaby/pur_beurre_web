@@ -5,4 +5,5 @@ docker-compose down
 echo "Remove purbeurre image"
 docker rmi pur_beurre_web_purbeurre:latest
 echo "Build and launch containers"
+pwd
 docker-compose up -d
