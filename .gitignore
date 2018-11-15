@@ -131,3 +131,12 @@ docker_purbeurre.env
 
 # dumps
 substitute_finder/dumps
+
+# deployment keys
+deploy_key
+deploy_key.pub
+
+
+# generated docs
+docs/projet8.html
+docs/projet_8.pdf
