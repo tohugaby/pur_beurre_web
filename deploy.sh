@@ -1,7 +1,7 @@
 #!/bin/bash
-
+pwd
 # Change permissions to something that SSH accepts
-chmod 600 deploy/deploy_key;
+chmod 600 ./deploy/deploy_key;
 # Send the commit hash env variable over ssh to know which commit to checkout to
 export LC_COMMIT_HASH="$TRAVIS_COMMIT"
 # Pipe the update script over SSH to the production server
