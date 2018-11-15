@@ -1,0 +1,37 @@
+version: '3'
+services:
+  purbeurre:
+    restart: always
+    build: .
+    env_file:
+      - ./docker_purbeurre.env
+    volumes:
+      - /var/www/purbeurre/static:/var/www/static
+
+    networks:
+      purbeurre-ntk:
+        ipv4_address: 172.30.0.2
+
+    depends_on:
+      - db
+  db:
+    restart: always
+    image: postgres:latest
+    env_file:
+      - ./docker_purbeurre.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      purbeurre-ntk:
+        ipv4_address: 172.30.0.3
+
+networks:
+  purbeurre-ntk:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+
+
+volumes:
+  pgdata:
