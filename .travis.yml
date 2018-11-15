@@ -29,6 +29,7 @@ jobs:
     - stage: deploy
       language: minimal
       before_script:
-        - openssl aes-256-cbc -K $encrypted_cf020907aa56_key -iv $encrypted_cf020907aa56_iv -in deploy/deploy_key.enc -out deploy_key -d
+        - openssl aes-256-cbc -K $encrypted_cf020907aa56_key -iv $encrypted_cf020907aa56_iv -in ./deploy/deploy_key.enc -out deploy_key -d
+        - ls -hal ./deploy
         - chmod +x ./deploy.sh
       script: ./deploy.sh
