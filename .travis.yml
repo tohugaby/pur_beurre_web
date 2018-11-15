@@ -29,5 +29,5 @@ jobs:
     - stage: deploy
       language: minimal
       before_script:
-        - chown +x ./deploy.sh
+        - chmod +x ./deploy.sh
       script: ./deploy.sh
