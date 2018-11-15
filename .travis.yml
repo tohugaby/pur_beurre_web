@@ -1,25 +1,30 @@
-language: python
-python:
-  - "3.6"
-env:
-  - DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.travis' MOZ_HEADLESS=1
-addons:
-  postgresql: "9.4"
-  firefox: latest
-services:
-  - postgresql
-before_install:
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.22.0-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
-  - geckodriver --version
-  - export MOZ_HEADLESS=1
-install:
-  - pip install pipenv
-  - pipenv install
-before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-script:
-  - python manage.py migrate
-  - python manage.py test
+jobs:
+  include:
+    - stage: test
+      language: python
+      python:
+        - "3.6"
+      env:
+        - DJANGO_SETTINGS_MODULE='pur_beurre_web.settings.travis' MOZ_HEADLESS=1
+      addons:
+        postgresql: "9.4"
+        firefox: latest
+      services:
+        - postgresql
+      before_install:
+        - wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz
+        - mkdir geckodriver
+        - tar -xzf geckodriver-v0.22.0-linux64.tar.gz -C geckodriver
+        - export PATH=$PATH:$PWD/geckodriver
+        - geckodriver --version
+        - export MOZ_HEADLESS=1
+      install:
+        - pip install pipenv
+        - pipenv install
+      before_script:
+        - psql -c 'create database travis_ci_test;' -U postgres
+      script:
+        - python manage.py migrate
+        - python manage.py test
+    - stage: deploy
+      script: ./deploy.sh
