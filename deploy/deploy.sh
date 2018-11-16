@@ -1,6 +1,4 @@
 #!/bin/bash
-pwd
-ls -hal
 # Change permissions to something that SSH accepts
 chmod 600 deploy/deploy_key;
 # Send the commit hash env variable over ssh to know which commit to checkout to
