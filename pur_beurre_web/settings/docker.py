@@ -1,4 +1,17 @@
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+import pur_beurre_web
 from . import *
+
+sentry_sdk.init(
+    dsn=os.getenv('SENTRY_DSN'),
+    integrations=[DjangoIntegration()],
+    send_default_pii=True,
+    release=pur_beurre_web.__version__
+)
+
+
 
 ALLOWED_HOSTS = ['127.0.0.1', os.getenv('DOMAIN_NAME')]
 
