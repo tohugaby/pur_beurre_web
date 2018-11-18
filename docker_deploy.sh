@@ -3,7 +3,7 @@
 echo "Remove previous containers"
 docker-compose down
 echo "Remove purbeurre image"
-docker rmi pur_beurre_web_purbeurre:latest
+docker rmi purbeurreweb_purbeurre:latest
 echo "Build and launch containers"
 pwd
 docker-compose up -d
