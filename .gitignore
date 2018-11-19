@@ -140,3 +140,7 @@ deploy_key.pub
 # generated docs
 docs/projet8.html
 docs/projet_8.pdf
+
+
+# temp crontab file
+purbeurre_cron

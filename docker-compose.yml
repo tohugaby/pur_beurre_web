@@ -3,6 +3,7 @@ services:
   purbeurre:
     restart: always
     build: .
+    image: purbeurre:latest
     env_file:
       - ./docker_purbeurre.env
     volumes:
@@ -12,6 +13,18 @@ services:
       purbeurre-ntk:
         ipv4_address: 172.30.0.2
 
+    depends_on:
+      - db
+
+  purbeurre_update:
+    build: .
+    image: purbeurre_update:latest
+    env_file:
+      - ./docker_purbeurre.env
+    networks:
+      purbeurre-ntk:
+        ipv4_address: 172.30.0.5
+    command: python manage.py api_to_db --grumpy_mode --hard_reset
     depends_on:
       - db
   db:
