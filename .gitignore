@@ -141,6 +141,9 @@ deploy_key.pub
 docs/projet8.html
 docs/projet_8.pdf
 
+# New Relic config file
+newrelic.ini
+
 
 # temp crontab file
 purbeurre_cron

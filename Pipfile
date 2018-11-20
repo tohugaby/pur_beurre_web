@@ -19,6 +19,7 @@ gunicorn = "*"
 selenium = "*"
 pylint-django = "*"
 sentry-sdk = "*"
+newrelic = "*"
 
 [dev-packages]
 pylint = "*"
