@@ -126,7 +126,6 @@ last_page.txt
 
 # secret_key
 secret_key.txt
-docker_purbeurre.env
 !docker_purbeurre_env_file_sample/*
 
 # dumps

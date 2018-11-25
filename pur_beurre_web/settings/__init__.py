@@ -176,6 +176,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 JSON_DIR_NAME = 'cached_json_files'
 JSON_DIR_PATH = os.path.join(BASE_DIR, JSON_DIR_NAME)
 
+LAST_PAGE_HISTORY_PATH = os.path.join(BASE_DIR, 'update_history')
+if os.getenv('LAST_PAGE_HISTORY_PATH'):
+    LAST_PAGE_HISTORY_PATH = os.getenv('LAST_PAGE_HISTORY_PATH')
+
 # SEARCH SETTINGS
 MAX_RESULT_PER_PAGE = 15
 

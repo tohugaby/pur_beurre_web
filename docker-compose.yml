@@ -5,7 +5,7 @@ services:
     build: .
     image: purbeurre:latest
     env_file:
-      - ./docker_purbeurre.env
+      - ./.env
     volumes:
       - /var/www/purbeurre/static:/var/www/static
 
@@ -20,18 +20,20 @@ services:
     build: .
     image: purbeurre_update:latest
     env_file:
-      - ./docker_purbeurre.env
+      - ./.env
+    volumes:
+      - update_history:$LAST_PAGE_HISTORY_PATH
     networks:
       purbeurre-ntk:
         ipv4_address: 172.30.0.5
-    command: python manage.py api_to_db --grumpy_mode --hard_reset
+    command: python manage.py api_to_db --grumpy_mode
     depends_on:
       - db
   db:
     restart: always
     image: postgres:latest
     env_file:
-      - ./docker_purbeurre.env
+      - ./.env
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -48,3 +50,4 @@ networks:
 
 volumes:
   pgdata:
+  update_history:
