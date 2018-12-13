@@ -4,6 +4,7 @@ substitute_finder admin
 
 from django.contrib import admin
 
+from substitute_finder.models import Comment
 from .models import Category, CustomUser, Product
 
 
@@ -61,3 +62,12 @@ class FavoriteAdmin(admin.ModelAdmin):
     Favorite admin config.
     """
     list_display = ['product', 'customuser']
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    """
+    Comment admin config
+    """
+    list_display = ['user', 'product']
+    search_fields = ['user__username', 'product__product_name']

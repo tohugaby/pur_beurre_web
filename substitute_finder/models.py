@@ -10,6 +10,7 @@ import requests
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import CASCADE
 from django.db.utils import IntegrityError
 
 __author__ = 'Tom Gabrièle'
@@ -448,3 +449,14 @@ class Category(FromApiUpdateMixin, models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    comment_text = models.TextField(max_length=2000)
+    created = models.DateTimeField(verbose_name='Date de création', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Date de mise à jour', auto_now=True)
+    product = models.ForeignKey('Product', on_delete=CASCADE)
+    user = models.ForeignKey('CustomUser', on_delete=CASCADE)
+
+    def __str__(self):
+        return f'{self.product} : {self.user}'
