@@ -3,13 +3,12 @@ api_to_db command tests.
 """
 import json
 import os
-from io import StringIO
 from django.conf import settings
 from django.core.management import call_command
 from django.test import TestCase, override_settings
+from io import StringIO
 
-
-from substitute_finder.models import Category, Product
+from substitute_finder.models import Category, Product, Comment, CustomUser
 
 TEST_JSON_CACHE_DATA_PATH = os.path.join(os.path.dirname(__file__), settings.JSON_DIR_NAME)
 
@@ -78,6 +77,7 @@ class ApiToDbTestCase(TestCase):
     """
     Test api_to_db command.
     """
+    fixtures = ['test_data_custom_user.json', ]
 
     def test_api_to_db_with_nb_pages(self):
         """
@@ -130,3 +130,45 @@ class ApiToDbTestCase(TestCase):
 
         self.assertTrue(no_grumpy_mode_nb_cat >= grumpy_mode_nb_cat >= before_nb_cat)
         self.assertTrue(no_grumpy_mode_nb_prod >= grumpy_mode_nb_prod >= before_nb_prod)
+
+    def test_api_to_db_with_hard_reset(self):
+        """
+        Test api_to_db command with grumpy (strict) mode.
+        :return:
+        """
+        before_nb_prod = Product.objects.count()
+        self.assertEqual(before_nb_prod, 0)
+
+        out = StringIO()
+        options = {
+            'start_page': 1,
+            'nb_pages': 1,
+            'from_cache': True,
+            'grumpy_mode': True,
+            'hard_reset': True
+        }
+        call_command('api_to_db', stdout=out, **options)
+        nb_prod = Product.objects.count()
+        self.assertNotEqual(nb_prod, 0)
+
+        cat = Category.objects.first()
+        first_prod = Product.objects.first()
+        first_prod.categories_tags.add(cat)
+        last_prod = Product.objects.last()
+        last_prod.categories_tags.add(cat)
+
+        user = CustomUser.objects.first()
+        last_prod.users.add(user)
+        last_prod.save()
+        Comment.objects.create(product=first_prod, user=user, comment_text="texte du commentaire")
+
+        options = {
+            'start_page': 1,
+            'nb_pages': 0,
+            'from_cache': True,
+            'grumpy_mode': True,
+            'hard_reset': True
+        }
+        call_command('api_to_db', stdout=out, **options)
+        nb_prod = Product.objects.count()
+        self.assertEqual(nb_prod, 2)

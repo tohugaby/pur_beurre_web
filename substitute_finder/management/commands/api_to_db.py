@@ -77,7 +77,7 @@ class Command(BaseCommand):
         """
         delete categories and product except those registered as favorites
         """
-        Product.objects.filter(users=None).delete()
+        Product.objects.filter(users=None, comment__isnull=True).delete()
         Category.objects.filter(product__isnull=True).delete()
 
         # Count initial data
@@ -184,21 +184,22 @@ class Command(BaseCommand):
         actual_page = start_page
 
         # Loop on data recovery and integration for Product
-        while data_exists:
-            data_exists = self.get_product(actual_page=actual_page,
-                                           from_cache=options['from_cache'],
-                                           grumpy_mode=options['grumpy_mode'],
-                                           filters=product_filter)
+        if options['nb_pages'] > 0 or options['nb_pages'] is None:
+            while data_exists:
+                data_exists = self.get_product(actual_page=actual_page,
+                                               from_cache=options['from_cache'],
+                                               grumpy_mode=options['grumpy_mode'],
+                                               filters=product_filter)
 
-            # Check if loop should continue according to page constraints
-            if data_exists and options['nb_pages'] and actual_page >= start_page + options['nb_pages']:
-                data_exists = False
+                # Check if loop should continue according to page constraints
+                if data_exists and options['nb_pages'] and actual_page >= start_page + options['nb_pages']:
+                    data_exists = False
 
-            # Prepare next page number
-            actual_page += 1
+                # Prepare next page number
+                actual_page += 1
 
-            # Save last recoverd page number
-            self.set_recovery_state(page=actual_page - 1)
+                # Save last recoverd page number
+                self.set_recovery_state(page=actual_page - 1)
 
         # Reset page counter save
         self.set_recovery_state()
