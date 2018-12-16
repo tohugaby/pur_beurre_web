@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.forms.utils import ErrorList
 
+from substitute_finder.models import Comment
 from .models import CustomUser
 
 
@@ -81,3 +82,17 @@ class ProductsSearchForm(forms.Form):
     """
     product = forms.CharField(label="Recherche", widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Votre recherche'}), required=True)
+
+
+class CreateCommentForm(forms.ModelForm):
+    """
+    Form to create a comment.
+    """
+    class Meta:
+        model = Comment
+        fields = ['comment_text', ]
+        widgets = {
+            'comment_text': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': "3", 'placeholder': 'Saisissez votre '
+                                                                            'commentaire ici'}),
+        }

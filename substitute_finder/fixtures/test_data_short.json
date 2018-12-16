@@ -1,0 +1,57 @@
+[{
+    "model": "substitute_finder.customuser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$120000$MhemV5RSGfmg$CbOxzkCd0A27KvC4Vebx2AzM1uXXCBfif56kMflDOdY=",
+        "last_login": "2018-09-12T20:39:35.051Z",
+        "is_superuser": true,
+        "username": "Tom",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-08-14T09:25:33.630Z",
+        "email": "tom.gabriele@free.fr",
+        "groups": [],
+        "user_permissions": []
+    }
+}, {
+    "model": "substitute_finder.product",
+    "pk": "0000000274722",
+    "fields": {
+        "product_name": "Blanquette de Volaille et son Riz",
+        "generic_name": "Blanquette de Volaille et son Riz",
+        "url": "https://fr.openfoodfacts.org/produit/0000000274722/blanquette-de-volaille-et-son-riz-comme-j-aime",
+        "stores": "Comme J'aime",
+        "nutrition_grade_fr": "b",
+        "image_front_small_url": "https://static.openfoodfacts.org/images/products/000/000/027/4722/front_fr.4.200.jpg",
+        "image_url": "https://static.openfoodfacts.org/images/products/000/000/027/4722/front_fr.4.400.jpg",
+        "energy_100g": "450",
+        "sugars_100g": "0.5",
+        "sodium_100g": "0.275590551181102",
+        "carbohydrates_100g": "15.3",
+        "salt_100g": "0.7",
+        "proteins_100g": "6.8",
+        "fat_100g": "2.2",
+        "fiber_100g": "0.5",
+        "saturated_fat_100g": "0.9",
+        "energy_unit": "kJ",
+        "sugars_unit": "g",
+        "carbohydrates_unit": "g",
+        "salt_unit": "g",
+        "proteins_unit": "g",
+        "fat_unit": "g",
+        "fiber_unit": "g",
+        "saturated_fat_unit": "g",
+        "last_updated": "2018-09-06T10:02:40.060Z",
+        "categories_tags": ["en:meals"],
+        "users": []
+    }
+}, {
+    "model": "substitute_finder.category",
+    "pk": "en:meals",
+    "fields": {
+        "name": "Plats pr\u00e9par\u00e9s",
+        "url": "https://fr.openfoodfacts.org/categorie/plats-prepares"
+    }
+} ]
