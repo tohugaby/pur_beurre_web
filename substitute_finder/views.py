@@ -12,6 +12,8 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
+from substitute_finder.forms import CreateOrUpdateCommentForm
+from substitute_finder.models import Comment
 from .forms import (AccountCreateForm, CustomLoginForm, ParagraphErrorList,
                     ProductsSearchForm)
 from .helpers import search_product
@@ -118,7 +120,7 @@ def search_view(request, *args, **kwargs):
                 context['product'] = [product[0] for product in result][0]
                 context['products'] = []
                 return render(request, 'substitute_finder/product.html', context)
-            if len(result) == 0:
+            if not result:
                 messages.info(request, "Aucun produit de notre base de données ne correspond à votre recherche.")
 
             return render(request, 'substitute_finder/product_list.html', context)
@@ -171,7 +173,7 @@ def product_view(request, *args, **kwargs):
         'others': paginator.get_page(page),
         'categories': categories,
         'grades': grades,
-        "form": ProductsSearchForm()
+        "form": ProductsSearchForm(),
     }
     return render(request, 'substitute_finder/product.html', context)
 
@@ -206,3 +208,77 @@ def legal_view(request):
     View that displays legal stuff.
     """
     return render(request, 'substitute_finder/legal_stuff.html')
+
+
+def comment_list_view(request, *args, **kwargs):
+    """
+    View that list user's comments about a product and allow to create one
+    """
+    form = CreateOrUpdateCommentForm()
+    product = Product.objects.get(pk=kwargs['pk'])
+
+    for value in form.errors.values():
+        messages.error(request, value)
+
+    context = {
+        'product': product,
+        'form': form,
+    }
+    return render(request, 'substitute_finder/product_comments.html', context)
+
+
+@login_required
+def comment_create_view(request, *args, **kwargs):
+    """
+    View that create comment
+    """
+
+    product = Product.objects.get(pk=kwargs['pk'])
+    if request.method == 'POST':
+        form = CreateOrUpdateCommentForm(request.POST, error_class=ParagraphErrorList)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.product = product
+            comment.save()
+            form = CreateOrUpdateCommentForm()
+
+        for value in form.errors.values():
+            messages.error(request, value)
+
+    return redirect('substitute_finder:comments', pk=product.pk)
+
+
+@login_required
+def comment_update_view(request, *args, **kwargs):
+    """
+    View that update comment
+    """
+    comment = Comment.objects.get(pk=kwargs['pk'])
+    product = comment.product
+
+    if request.method == 'POST':
+        form = CreateOrUpdateCommentForm(request.POST, instance=comment, error_class=ParagraphErrorList)
+        if form.is_valid():
+            if request.user == comment.user:
+                comment.save()
+                form = CreateOrUpdateCommentForm()
+
+        for value in form.errors.values():
+            messages.error(request, value)
+
+    return redirect('substitute_finder:comments', pk=product.pk)
+
+
+@login_required
+def comment_delete_view(request, *args, **kwargs):
+    """
+    View that create product
+    """
+    comment = Comment.objects.get(pk=kwargs['pk'])
+    product_pk = comment.product_id
+
+    if request.user == comment.user:
+        comment.delete()
+
+    return redirect('substitute_finder:comments', pk=product_pk)

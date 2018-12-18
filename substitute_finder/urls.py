@@ -4,6 +4,7 @@ substitute_finder app urls
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
+from substitute_finder.views import comment_list_view, comment_create_view, comment_delete_view, comment_update_view
 from .views import account_view, search_view, product_view, create_account_view, index_view, login_view, logout_view, \
     add_favorite_view, favorites_view, legal_view
 
@@ -13,6 +14,10 @@ urlpatterns = [
     path('', index_view, name='index'),
     path('search', search_view, name='search'),
     path('product/<pk>', product_view, name='product'),
+    path('product/<pk>/comments', comment_list_view, name='comments'),
+    path('product/<pk>/comments/create', comment_create_view, name='comment_create'),
+    path('comment/<pk>/update', comment_update_view, name='comment_update'),
+    path('comment/<pk>/delete', comment_delete_view, name='comment_delete'),
     path('add-favorite/<pk>', add_favorite_view, name='add_favorite'),
     path('favorites', favorites_view, name='favorites'),
     path('legal', legal_view, name='legal'),

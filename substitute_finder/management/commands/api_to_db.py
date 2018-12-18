@@ -137,10 +137,10 @@ class Command(BaseCommand):
         """
         get recovery state from state file.
         """
-        LAST_PAGE_PATH = os.path.join(settings.LAST_PAGE_HISTORY_PATH, 'last_page.txt')
+        last_page_path = os.path.join(settings.LAST_PAGE_HISTORY_PATH, 'last_page.txt')
         state = 1
-        if os.path.exists(LAST_PAGE_PATH):
-            with open(LAST_PAGE_PATH, 'r') as lp_file:
+        if os.path.exists(last_page_path):
+            with open(last_page_path, 'r') as lp_file:
                 state = int(lp_file.read())
         return state
 
@@ -151,10 +151,11 @@ class Command(BaseCommand):
         :param page: actual page
         :type page: int
         """
-        os.makedirs(settings.LAST_PAGE_HISTORY_PATH) if not os.path.exists(settings.LAST_PAGE_HISTORY_PATH) else None
-        LAST_PAGE_PATH = os.path.join(settings.LAST_PAGE_HISTORY_PATH, 'last_page.txt')
+        if not os.path.exists(settings.LAST_PAGE_HISTORY_PATH):
+            os.makedirs(settings.LAST_PAGE_HISTORY_PATH)
+        last_page_path = os.path.join(settings.LAST_PAGE_HISTORY_PATH, 'last_page.txt')
 
-        with open(LAST_PAGE_PATH, 'w') as lp_file:
+        with open(last_page_path, 'w') as lp_file:
             lp_file.write(str(page))
 
     def handle(self, *args, **options):

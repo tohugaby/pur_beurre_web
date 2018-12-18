@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load substitute_finder_extra %}
+{% load static %}
+{% block header %}
+    <header class="masthead very-shorthead text-center text-white d-flex"
+            style="background-image:url({{ product.image_url }})">
+        <div class="container mt-5 my-auto p-1 white-bg">
+            <div class="row ">
+                <div class="col mx-auto" id="{{ product.pk }}">
+                    <h5 class="text-uppercase mussels-chips">
+                        {{ product.product_name }}
+                        {% if  user.is_authenticated %}
+                            {% if user not in product.users.all %}
+                                <a href="{% url 'substitute_finder:add_favorite' product.pk %}"
+                                   class="chocolate add-favorite">
+                                    <i class="fa fa-floppy-o"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </h5>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="jumbotron">
+                    <h1 class="display-4">{{ message }}</h1>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'substitute_finder:comment_create' product.pk %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.comment_text.id_for_label }}">Votre commentaire:</label>
+                    {{ form.comment_text }}
+                </div>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+        {% endif %}
+        {% for comment in product.comment_set.all %}
+            <div class="card my-3">
+                <div class="card-header mussels-chips d-flex justify-content-end">
+                    {% if user == comment.user %}
+                        <div class="text-center mx-3">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                        <div class="text-center mx-3">
+                            <a href="{% url 'substitute_finder:comment_delete' comment.pk %}">
+                                <i class="fa fa-remove"></i>
+                            </a>
+
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p class="soft-caramel small">{{ comment.comment_text }}</p>
+                        <footer class="blockquote-footer text-muted">
+                            <span class="">créé le {{ comment.created }}</span> /
+                            <span class="">modifié le {{ comment.updated }}</span>
+                            par
+                            <cite title="author" class="mussels-chips">{{ comment.user }}</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block contact %}{% endblock %}
+{% block custom_js %}{% endblock %}
+

@@ -84,7 +84,7 @@ class ProductsSearchForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'Votre recherche'}), required=True)
 
 
-class CreateCommentForm(forms.ModelForm):
+class CreateOrUpdateCommentForm(forms.ModelForm):
     """
     Form to create a comment.
     """

@@ -452,11 +452,18 @@ class Category(FromApiUpdateMixin, models.Model):
 
 
 class Comment(models.Model):
+    """
+    Define a comment written by a user about a product.
+    """
     comment_text = models.TextField(max_length=2000)
     created = models.DateTimeField(verbose_name='Date de création', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Date de mise à jour', auto_now=True)
     product = models.ForeignKey('Product', on_delete=CASCADE)
     user = models.ForeignKey('CustomUser', on_delete=CASCADE)
+
+    class Meta:
+        verbose_name = 'commentaire'
+        verbose_name_plural = 'commentaires'
 
     def __str__(self):
         return f'{self.product} : {self.user}'

@@ -188,6 +188,13 @@ header.shorthead {
     min-height: 400px !important;
 }
 
+
+header.very-shorthead {
+  height: 250px !important;
+  max-height: 250px !important;
+  min-height: 250px !important;
+}
+
 .nutrition-grade {
     font-size: 1.2em;
 }

@@ -106,6 +106,8 @@ venv.bak/
 # django generated static files
 sass_static/
 staticfiles/
+static/css/theme.css
+static/css/theme.css.map
 
 # vscode
 .vscode

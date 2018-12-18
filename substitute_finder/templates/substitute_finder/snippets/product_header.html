@@ -16,11 +16,19 @@
                         {% endif %}
                     {% endif %}
                 </h5>
+                <a class="small" href="{% url 'substitute_finder:comments' product.pk %}">
+                    {% if product.comment_set.all.count > 1 %}
+                        {{ product.comment_set.all.count }} commentaires
+                    {% elif product.comment_set.all.count == 1 %}
+                        {{ product.comment_set.all.count }} commentaire
+                    {% else %}
+                        Ecrire le premier commentaire
+                    {% endif %}
+                </a>
                 <hr/>
                 <div class="container product-description soft-caramel">
                     <div class="row mb-3">
-                        <div class="mussels-chips text-left col-md-2 col-sm-12"
-                        ">Description
+                        <div class="mussels-chips text-left col-md-2 col-sm-12">Description
                     </div>
                     <div class="
                             col-md-10 col-sm-12">{{ product.generic_name }}</div>
@@ -90,17 +98,20 @@
                             <tr>
                                 <th>Fibres alimentaires</th>
                                 <td>
-                                    {{ product.fiber_100g|default_if_none:"?" }}{{ product.fiber_unit|default_if_none:"" }}</td>
+                                    {{ product.fiber_100g|default_if_none:"?" }}{{ product.fiber_unit|default_if_none:"" }}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Protéines</th>
                                 <td>
-                                    {{ product.proteins_100g|default_if_none:"?" }}{{ product.proteins_unit|default_if_none:"" }}</td>
+                                    {{ product.proteins_100g|default_if_none:"?" }}{{ product.proteins_unit|default_if_none:"" }}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Sel</th>
                                 <td>
-                                    {{ product.salt_100g|default_if_none:"?" }}{{ product.salt_unit|default_if_none:"" }}</td>
+                                    {{ product.salt_100g|default_if_none:"?" }}{{ product.salt_unit|default_if_none:"" }}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Sodium</th>
@@ -126,6 +137,5 @@
             <hr>
             <a href="{% url 'substitute_finder:index' %}">Nouvelle recherche</a>
         </div>
-    </div>
     </div>
 </header>
