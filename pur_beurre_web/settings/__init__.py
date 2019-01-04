@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'sass_processor',
+    'rest_framework',
     'substitute_finder.apps.SubstituteFinderConfig',
 ]
 
@@ -185,3 +186,11 @@ MAX_RESULT_PER_PAGE = 15
 
 # LOGIN
 LOGIN_URL = reverse_lazy('substitute_finder:login')
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

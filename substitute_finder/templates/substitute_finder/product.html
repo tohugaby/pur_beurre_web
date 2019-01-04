@@ -59,8 +59,7 @@
         $('.add-favorite').on("click", function (ev) {
             ev.preventDefault()
             $.get(this.href, function (data) {
-                link = ev.target
-                console.log(link)
+                var link = ev.target;
                 $(link).hide()
             })
         })

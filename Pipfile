@@ -20,6 +20,9 @@ selenium = "*"
 pylint-django = "*"
 sentry-sdk = "*"
 newrelic = "*"
+djangorestframework = "*"
+django-filter = "*"
+markdown = "*"
 
 [dev-packages]
 pylint = "*"

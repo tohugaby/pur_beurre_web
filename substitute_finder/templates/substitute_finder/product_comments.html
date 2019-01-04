@@ -33,46 +33,95 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {% if user.is_authenticated %}
-            <form action="{% url 'substitute_finder:comment_create' product.pk %}" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="{{ form.comment_text.id_for_label }}">Votre commentaire:</label>
-                    {{ form.comment_text }}
-                </div>
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-            </form>
-        {% endif %}
-        {% for comment in product.comment_set.all %}
-            <div class="card my-3">
-                <div class="card-header mussels-chips d-flex justify-content-end">
-                    {% if user == comment.user %}
-                        <div class="text-center mx-3">
-                            <i class="fa fa-pencil"></i>
-                        </div>
-                        <div class="text-center mx-3">
-                            <a href="{% url 'substitute_finder:comment_delete' comment.pk %}">
-                                <i class="fa fa-remove"></i>
-                            </a>
 
-                        </div>
-                    {% endif %}
+        {% verbatim %}
+            <div id="app">
+            <div class="jumbotron" v-if="error">
+                <h1 class="display-4">{{ error }}</h1>
+            </div>
+        {% endverbatim %}
+        {% if user.is_authenticated %}
+            {% verbatim %}
+                <h2>Saisir un nouveau commentaire</h2>
+                <form action="" v-on:submit.prevent="createComment(newComment)">
+                    <div class="form-group">
+                        <textarea class="form-control"
+                                  name="comment_text"
+                                  id="id_comment_text"
+                                  cols="40"
+                                  rows="3"
+                                  placeholder="Saisissez votre commentaire ici"
+                                  v-model="newComment"
+                                  required></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">enregistrer</button>
+                    </div>
+                </form>
+            {% endverbatim %}
+        {% endif %}
+        {% verbatim %}
+            <div class="card my-3 comment" v-for="comment in comments" id="comment.pk">
+                <div class="card-header mussels-chips d-flex justify-content-end">
+                    <div class="text-center mx-3" v-if="canUpdate(comment)">
+                        <a href="#" class="comment-update" v-on:click.prevent="displayUpdateForm(comment)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </div>
+                    <div class="text-center mx-3" v-if="canDelete(comment)">
+                        <a href="#"
+                           class="comment-delete"
+                           v-on:click.prevent="deleteComment(comment.pk)">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </div>
+
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                        <p class="soft-caramel small">{{ comment.comment_text }}</p>
+                        <form action=""
+                              v-if="comment===actualComment"
+                              v-on:submit.prevent="updateComment(comment)">
+                            <div class="form-group">
+                                    <textarea class="form-control"
+                                              name="comment_text"
+                                              id="id_comment_text"
+                                              cols="40"
+                                              rows="3"
+                                              placeholder="Saisissez votre commentaire ici"
+                                              v-model="actualComment.comment_text"
+                                              required></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">enregistrer</button>
+                            </div>
+                        </form>
+
+                        <p class="soft-caramel small comment-text">{{ comment.comment_text }}</p>
                         <footer class="blockquote-footer text-muted">
-                            <span class="">créé le {{ comment.created }}</span> /
-                            <span class="">modifié le {{ comment.updated }}</span>
+                            <span class="">créé le {{ comment.created | frenchDate }}</span> /
+                            <span class="">modifié le {{ comment.updated | frenchDate }}</span>
                             par
-                            <cite title="author" class="mussels-chips">{{ comment.user }}</cite>
+                            <cite title="author" class="mussels-chips">{{ comment.username }}</cite>
                         </footer>
                     </blockquote>
                 </div>
             </div>
-        {% endfor %}
+            </div>
+        {% endverbatim %}
     </div>
 {% endblock %}
 {% block contact %}{% endblock %}
-{% block custom_js %}{% endblock %}
+{% block custom_js %}
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment-with-locales.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    -->
+    <script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}
 

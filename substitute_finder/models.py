@@ -464,6 +464,11 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'commentaire'
         verbose_name_plural = 'commentaires'
+        ordering = ['product', '-created', ]
+        permissions = (
+            ('can_change_all_commments', 'Can modify all the comments'),
+            ('can_delete_all_comments', 'Can delete all the comments')
+        )
 
     def __str__(self):
         return f'{self.product} : {self.user}'

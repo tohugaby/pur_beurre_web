@@ -12,8 +12,6 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
-from substitute_finder.forms import CreateOrUpdateCommentForm
-from substitute_finder.models import Comment
 from .forms import (AccountCreateForm, CustomLoginForm, ParagraphErrorList,
                     ProductsSearchForm)
 from .helpers import search_product
@@ -93,7 +91,7 @@ def index_view(request):
     return render(request, 'substitute_finder/index.html', context)
 
 
-def search_view(request, *args, **kwargs):
+def search_view(request):
     """
     Search result view.
     """
@@ -141,7 +139,7 @@ def search_view(request, *args, **kwargs):
     return redirect("/")
 
 
-def product_view(request, *args, **kwargs):
+def product_view(request, **kwargs):
     """
     Product page view.
     """
@@ -179,7 +177,7 @@ def product_view(request, *args, **kwargs):
 
 
 @login_required
-def add_favorite_view(request, *args, **kwargs):
+def add_favorite_view(request, **kwargs):
     """
     View that associate product to current user
     """
@@ -210,75 +208,15 @@ def legal_view(request):
     return render(request, 'substitute_finder/legal_stuff.html')
 
 
-def comment_list_view(request, *args, **kwargs):
+def comment_list_view(request, **kwargs):
     """
     View that list user's comments about a product and allow to create one
     """
-    form = CreateOrUpdateCommentForm()
-    product = Product.objects.get(pk=kwargs['pk'])
 
-    for value in form.errors.values():
-        messages.error(request, value)
+    product = Product.objects.get(pk=kwargs['pk'])
 
     context = {
         'product': product,
-        'form': form,
+
     }
     return render(request, 'substitute_finder/product_comments.html', context)
-
-
-@login_required
-def comment_create_view(request, *args, **kwargs):
-    """
-    View that create comment
-    """
-
-    product = Product.objects.get(pk=kwargs['pk'])
-    if request.method == 'POST':
-        form = CreateOrUpdateCommentForm(request.POST, error_class=ParagraphErrorList)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.product = product
-            comment.save()
-            form = CreateOrUpdateCommentForm()
-
-        for value in form.errors.values():
-            messages.error(request, value)
-
-    return redirect('substitute_finder:comments', pk=product.pk)
-
-
-@login_required
-def comment_update_view(request, *args, **kwargs):
-    """
-    View that update comment
-    """
-    comment = Comment.objects.get(pk=kwargs['pk'])
-    product = comment.product
-
-    if request.method == 'POST':
-        form = CreateOrUpdateCommentForm(request.POST, instance=comment, error_class=ParagraphErrorList)
-        if form.is_valid():
-            if request.user == comment.user:
-                comment.save()
-                form = CreateOrUpdateCommentForm()
-
-        for value in form.errors.values():
-            messages.error(request, value)
-
-    return redirect('substitute_finder:comments', pk=product.pk)
-
-
-@login_required
-def comment_delete_view(request, *args, **kwargs):
-    """
-    View that create product
-    """
-    comment = Comment.objects.get(pk=kwargs['pk'])
-    product_pk = comment.product_id
-
-    if request.user == comment.user:
-        comment.delete()
-
-    return redirect('substitute_finder:comments', pk=product_pk)
