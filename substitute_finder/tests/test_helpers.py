@@ -3,6 +3,9 @@ helpers for tests
 """
 import os
 import requests_mock
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.support import ui
 
 from substitute_finder.models import Product, Category
 
@@ -47,3 +50,37 @@ def get_categories_data_with_mock(fake_data_path: str, file_name: str):
         data = Category.get_api_data_list()
 
     return data
+
+
+class CustomStaticLiveServerTestCase(StaticLiveServerTestCase):
+    """
+    Custom generic live TestCase class
+    """
+    @classmethod
+    def setUpClass(cls):
+        super(CustomStaticLiveServerTestCase, cls).setUpClass()
+        cls.browser = webdriver.Firefox()
+        cls.wait = ui.WebDriverWait(cls.browser, 1000)
+        cls.check_live_server()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+        super(CustomStaticLiveServerTestCase, cls).tearDownClass()
+
+    @classmethod
+    def get_element(cls, css_selector: str):
+        """
+        A shortcut to get an html element by css selector.
+        :param css_selector: searched css selector
+        :type css_selector: str
+        """
+        return cls.browser.find_element_by_css_selector(css_selector)
+
+    @classmethod
+    def check_live_server(cls):
+        """
+        Check if server is ok.
+        """
+        cls.browser.get(cls.live_server_url)
+        assert "Pur Beurre" in cls.browser.title

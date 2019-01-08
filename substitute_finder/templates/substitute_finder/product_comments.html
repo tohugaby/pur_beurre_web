@@ -43,7 +43,7 @@
         {% if user.is_authenticated %}
             {% verbatim %}
                 <h2>Saisir un nouveau commentaire</h2>
-                <form action="" v-on:submit.prevent="createComment(newComment)">
+                <form action="" id='add-form' v-on:submit.prevent="createComment(newComment)">
                     <div class="form-group">
                         <textarea class="form-control"
                                   name="comment_text"
@@ -61,7 +61,7 @@
             {% endverbatim %}
         {% endif %}
         {% verbatim %}
-            <div class="card my-3 comment" v-for="comment in comments" id="comment.pk">
+            <div class="card my-3 comment" v-for="comment in comments" :id="'comment_'+comment.pk">
                 <div class="card-header mussels-chips d-flex justify-content-end">
                     <div class="text-center mx-3" v-if="canUpdate(comment)">
                         <a href="#" class="comment-update" v-on:click.prevent="displayUpdateForm(comment)">

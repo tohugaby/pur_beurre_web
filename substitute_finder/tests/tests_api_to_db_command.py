@@ -77,7 +77,7 @@ class ApiToDbTestCase(TestCase):
     """
     Test api_to_db command.
     """
-    fixtures = ['test_data_custom_user.json', ]
+    fixtures = ['test_users.json', ]
 
     def test_api_to_db_with_nb_pages(self):
         """

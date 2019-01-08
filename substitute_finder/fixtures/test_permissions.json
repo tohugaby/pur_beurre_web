@@ -1,0 +1,25 @@
+[  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can modify all the comments",
+      "content_type": [
+        "substitute_finder",
+        "comment"
+      ],
+      "codename": "can_change_all_commments"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can delete all the comments",
+      "content_type": [
+        "substitute_finder",
+        "comment"
+      ],
+      "codename": "can_delete_all_comments"
+    }
+  }
+]

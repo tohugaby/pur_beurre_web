@@ -53,11 +53,22 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ['url', 'comment_text', 'created', 'updated', 'product', 'user', 'pk', 'permissions', 'username']
 
     def get_username(self, obj):
+        """
+        return object user username instead of user id
+        """
         return obj.user.username
 
     def get_permissions(self, obj):
+        """
+        return request user permissions.
+        """
         request = self.context.get('request')
-        permissions = [code[0] for code in Permission.objects.filter(user=request.user).values_list('codename')]
+        permissions = []
+        try:
+            permissions = [code[0] for code in Permission.objects.filter(user=request.user).values_list('codename')]
+        except TypeError:
+            pass
+
         permission_codenames = [perm[0] for perm in obj._meta.permissions]
         if request and hasattr(request, 'user'):
             if request.user == obj.user or request.user.is_superuser:

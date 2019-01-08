@@ -1,0 +1,82 @@
+[
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:beverages",
+    "fields": {
+      "name": "Boissons",
+      "url": "https://fr.openfoodfacts.org/categorie/boissons"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:carbonated-drinks",
+    "fields": {
+      "name": "Boissons gazeuses",
+      "url": "https://fr.openfoodfacts.org/categorie/boissons-gazeuses"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:sugared-beverages",
+    "fields": {
+      "name": "Boissons sucr\u00e9es",
+      "url": "https://fr.openfoodfacts.org/categorie/boissons-sucrees"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:artificially-sweetened-beverages",
+    "fields": {
+      "name": "Boissons \u00e9dulcor\u00e9es",
+      "url": "https://fr.openfoodfacts.org/categorie/boissons-edulcorees"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:diet-sodas",
+    "fields": {
+      "name": "Sodas light",
+      "url": "https://fr.openfoodfacts.org/categorie/sodas-light"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:diet-beverages",
+    "fields": {
+      "name": "Boissons light",
+      "url": "https://fr.openfoodfacts.org/categorie/boissons-light"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:colas",
+    "fields": {
+      "name": "Sodas au cola",
+      "url": "https://fr.openfoodfacts.org/categorie/sodas-au-cola"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:diet-cola-soft-drink",
+    "fields": {
+      "name": "Sodas au cola light",
+      "url": "https://fr.openfoodfacts.org/categorie/sodas-au-cola-light"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:sodas",
+    "fields": {
+      "name": "Sodas",
+      "url": "https://fr.openfoodfacts.org/categorie/sodas"
+    }
+  },
+  {
+    "model": "substitute_finder.category",
+    "pk": "en:meals",
+    "fields": {
+      "name": "Plats pr\u00e9par\u00e9s",
+      "url": "https://fr.openfoodfacts.org/categorie/plats-prepares"
+    }
+  }
+]

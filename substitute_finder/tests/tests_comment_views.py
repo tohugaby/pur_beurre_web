@@ -12,7 +12,7 @@ class CommentViewTestCase(TestCase):
     """
     Test all views relative to comments
     """
-    fixtures = ['test_data_short', ]
+    fixtures = ['test_permissions.json', 'test_users.json', 'test_categories.json', 'test_products.json']
 
     def setUp(self):
         self.comment_change_permission = Permission.objects.get(codename='can_change_all_commments')
@@ -20,15 +20,15 @@ class CommentViewTestCase(TestCase):
 
         self.user_password = 'test'
 
-        self.admin = CustomUser.objects.get(email='admin@free.fr')
+        self.admin = CustomUser.objects.get(email='admin@test.fr')
         self.admin.set_password(self.user_password)
         self.admin.save()
 
-        self.user = CustomUser.objects.get(email='fake@free.fr')
+        self.user = CustomUser.objects.get(email='user@test.fr')
         self.user.set_password(self.user_password)
         self.user.save()
 
-        self.second_user = CustomUser.objects.get(email='another_user@free.fr')
+        self.second_user = CustomUser.objects.get(email='another_user@test.fr')
         self.second_user.set_password(self.user_password)
         self.second_user.save()
 

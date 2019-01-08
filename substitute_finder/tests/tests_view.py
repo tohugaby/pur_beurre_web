@@ -37,15 +37,15 @@ class AccountViewTestCase(TestCase):
     """
     Test account_view.
     """
-    fixtures = ['substitute_finder.json']
+    fixtures = ['test_users.json']
 
     def test_account_page_when_authenticated(self):
         """
         Test access to account page when authenticate.
         """
         self.client.login(
-            username='titi@hotmail.com',
-            password='tom0123456789')
+            username='user@test.fr',
+            password='test')
         response = self.client.get(reverse('substitute_finder:account'), {})
         self.assertEqual(response.status_code, 200)
 
@@ -82,10 +82,10 @@ class AccountCreateViewTestCase(TestCase):
         nb_users_before = CustomUser.objects.count()
 
         form_data = {
-            'email': 'toto@titi.fr',
-            'username': 'toto',
-            'first_name': 'toto',
-            'last_name': 'titi',
+            'email': 'user@test.fr',
+            'username': 'user',
+            'first_name': 'user',
+            'last_name': 'user',
             'password': 'test'
         }
         response = self.client.post(
@@ -103,10 +103,10 @@ class AccountCreateViewTestCase(TestCase):
         nb_users_before = CustomUser.objects.count()
 
         form_data = {
-            'email': 'toto@titi',
-            'username': 'toto',
-            'first_name': 'toto',
-            'last_name': 'titi',
+            'email': 'user@test',
+            'username': 'user',
+            'first_name': 'user',
+            'last_name': 'user',
             'password': 'test'
         }
         response = self.client.post(
@@ -126,7 +126,7 @@ class LoginViewTestCase(TestCase):
     """
     Test login_view.
     """
-    fixtures = fixtures = ['substitute_finder.json']
+    fixtures = ['test_users.json']
 
     def test_login_page_with_success(self):
         """
@@ -135,7 +135,7 @@ class LoginViewTestCase(TestCase):
 
         nb_sessions_before = Session.objects.count()
 
-        form_data = {'email': 'titi@hotmail.com', 'password': 'tom0123456789'}
+        form_data = {'email': 'user@test.fr', 'password': 'test'}
         response = self.client.post(
             reverse('substitute_finder:login'), form_data)
 
@@ -151,7 +151,7 @@ class LoginViewTestCase(TestCase):
 
         nb_sessions_before = Session.objects.count()
 
-        form_data = {'email': 'titi@hotmail.com', 'password': 'tom'}
+        form_data = {'email': 'user@test.fr', 'password': 'wrong_password'}
         response = self.client.post(
             reverse('substitute_finder:login'), form_data)
 
@@ -168,13 +168,13 @@ class LogoutViewTestCase(TestCase):
     """
     Test logout_view.
     """
-    fixtures = fixtures = ['substitute_finder.json']
+    fixtures = ['test_users.json']
 
     def test_logout(self):
         """
         Test logout success.
         """
-        self.client.login(username='titi@hotmail.com', password='tom0123456789')
+        self.client.login(username='user@test.fr', password='test')
         nb_sessions_before = Session.objects.count()
 
         response = self.client.get(reverse('substitute_finder:logout'))
@@ -197,7 +197,7 @@ class SearchViewTestCase(TestCase):
     Test search_view.
     """
 
-    fixtures = ['test_data_custom_user.json', 'selenium.json']
+    fixtures = ['test_categories.json', 'test_products.json']
 
     def test_post_with_results(self):
         """
@@ -263,7 +263,7 @@ class ProductViewTestCase(TestCase):
     """
     Test product_view.
     """
-    fixtures = ['test_data_custom_user.json', 'selenium.json']
+    fixtures = ['test_categories.json', 'test_products.json']
 
     def test_substitute_have_better_nutrition_grade(self):
         """
@@ -289,7 +289,7 @@ class AddFavoritesViewTestCase(TestCase):
     """
     Test add_favorite_view.
     """
-    fixtures = ['test_data_custom_user.json', 'selenium.json']
+    fixtures = ['test_users.json', 'test_categories.json', 'test_products.json']
 
     def test_add_favorites_to_database(self):
         """
@@ -297,7 +297,7 @@ class AddFavoritesViewTestCase(TestCase):
         """
         product = Product.objects.last()
         nb_user_loving_product_before = product.users.count()
-        self.client.login(username='test@test.fr', password='test')
+        self.client.login(username='user@test.fr', password='test')
         self.client.get(reverse('substitute_finder:add_favorite', kwargs={'pk': product.pk}))
         nb_user_loving_product_after = product.users.count()
         self.assertGreater(nb_user_loving_product_after, nb_user_loving_product_before)
