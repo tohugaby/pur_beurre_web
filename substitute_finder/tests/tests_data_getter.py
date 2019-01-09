@@ -290,37 +290,42 @@ class DataInsertTestCase(TestCase):
         new_nb_elements_after = Product.objects.count()
         self.assertEqual(new_nb_elements_after, nb_elements_after)
 
-    # def test_short_cat(self):
-    #     cat_ids = []
+    def test_short_cat(self):
+        cat_ids = []
 
-    #     with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
-    #         fake_data_products_1 = json.loads(file.read())
-    #     with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
-    #         fake_data_products_2 = json.loads(file.read())
-    #     with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
-    #         fake_data_products_3 = json.loads(file.read())
+        with open(os.path.join(self.fake_data_path, 'products1.json'), 'r') as file:
+            fake_data_products_1 = json.loads(file.read())
+        with open(os.path.join(self.fake_data_path, 'products2.json'), 'r') as file:
+            fake_data_products_2 = json.loads(file.read())
+        with open(os.path.join(self.fake_data_path, 'products3.json'), 'r') as file:
+            fake_data_products_3 = json.loads(file.read())
 
-    #     for fd in [fake_data_products_1,fake_data_products_2, fake_data_products_3]:
-    #         for prod in fd['products']:
-    #             for cat in prod['categories_tags']:
-    #                 cat_ids.append(cat)
+        for fd in [fake_data_products_1,fake_data_products_2, fake_data_products_3]:
+            for prod in fd['products']:
+                for cat in prod['categories_tags']:
+                    cat_ids.append(cat)
 
-    #     with open(os.path.join(self.fake_data_path, '3222472887966.json'), 'r') as file:
-    #         fake_data_product = json.loads(file.read())
+        with open(os.path.join(self.fake_data_path, '3222472887966.json'), 'r') as file:
+            fake_data_product = json.loads(file.read())
 
-    #     for cat in fake_data_product['product']['categories_tags']:
-    #         cat_ids.append(cat)
+        for cat in fake_data_product['product']['categories_tags']:
+            cat_ids.append(cat)
 
-    #     cat_ids = set(cat_ids)
+        cat_ids = set(cat_ids)
 
-    #     with open(os.path.join(self.fake_data_path, 'categories.json'), 'r') as file:
-    #         fake_data_categories = json.loads(file.read())
+        with open(os.path.join(self.fake_data_path, 'categories.json'), 'r') as file:
+            fake_data_categories = json.loads(file.read())
 
-    #     new_cat_data = copy.deepcopy(fake_data_categories)
+        new_cat_data = copy.copy(fake_data_categories)
 
-    #     for cat in fake_data_categories['tags']:
-    #         if cat['id'] not in cat_ids:
-    #             new_cat_data['tags'].remove(cat)
+        for cat in fake_data_categories['tags']:
+            if cat['id'] not in cat_ids:
+                new_cat_data['tags'].remove(cat)
 
-    #     with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'w') as file:
-    #         file.write(json.dumps(new_cat_data))
+        with open(os.path.join(self.fake_data_path, 'categories_short.json'), 'w') as file:
+            file.write(json.dumps(new_cat_data))
+        self.assertEqual(fake_data_categories.len(), new_cat_data.len())
+        i = 0
+        while i < fake_data_categories.len():
+          self.assertEqual(fake_data_categories[i], new_cat_data[i + 1]) 
+          i = i + 1
