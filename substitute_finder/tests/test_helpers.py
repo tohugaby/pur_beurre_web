@@ -1,6 +1,8 @@
 """
 helpers for tests
 """
+import copy
+import json
 import os
 import requests_mock
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -56,6 +58,7 @@ class CustomStaticLiveServerTestCase(StaticLiveServerTestCase):
     """
     Custom generic live TestCase class
     """
+
     @classmethod
     def setUpClass(cls):
         super(CustomStaticLiveServerTestCase, cls).setUpClass()
@@ -84,3 +87,40 @@ class CustomStaticLiveServerTestCase(StaticLiveServerTestCase):
         """
         cls.browser.get(cls.live_server_url)
         assert "Pur Beurre" in cls.browser.title
+
+
+def clean_categories_test_file():
+    """
+    function to rewrite categories_short.json according to products files. to make it smaller for tests
+    :return:
+    """
+    fake_data_path = os.path.join(os.path.dirname(__file__), 'fake_data')
+
+    from_product_list_cat_ids = []
+
+    fake_data_products = get_products_data_with_mock(fake_data_path, 'products', nb_files=3)
+
+    for prod in fake_data_products:
+        for cat in prod['categories_tags']:
+            from_product_list_cat_ids.append(cat)
+
+    with open(os.path.join(fake_data_path, '3222472887966.json'), 'r') as file:
+        fake_data_product = json.loads(file.read())
+
+    for cat in fake_data_product['product']['categories_tags']:
+        from_product_list_cat_ids.append(cat)
+
+    fake_data_categories = get_categories_data_with_mock(fake_data_path, 'categories_short')
+
+    from_categories_list_cat_ids = [cat['id'] for cat in fake_data_categories]
+
+    if not set(sorted(from_product_list_cat_ids)) == set(sorted(from_categories_list_cat_ids)):
+
+        new_cat_data = {'tags':copy.deepcopy(fake_data_categories)}
+
+        for cat in fake_data_categories:
+            if cat['id'] not in from_product_list_cat_ids:
+                new_cat_data['tags'].remove(cat)
+
+        with open(os.path.join(fake_data_path, 'categories_short.json'), 'w') as file:
+            file.write(json.dumps(new_cat_data))
