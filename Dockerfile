@@ -14,7 +14,7 @@ EXPOSE 8000
 
 
 
-CMD ./wait-for-it.sh db:5432 -t 0 -- python manage.py collectstatic --noinput \
+CMD ./wait-for-it.sh db:5432 -t 0 -- python manage.py compilescss && python manage.py collectstatic --noinput \
 && python manage.py migrate \
 && newrelic-admin generate-config $NEW_RELIC_KEY newrelic.ini \
 && NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program gunicorn pur_beurre_web.wsgi:application -b 0.0.0.0:8000
